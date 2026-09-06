@@ -1,0 +1,9 @@
+# Security Policy for Danilo Stoletović (https://danilostoletovic.com)
+# Compliant with RFC 9116 and Cloudflare Security Recommendations
+
+Contact: mailto:contact@danilostoletovic.com
+Expires: 2027-09-07T00:00:00.000Z
+Preferred-Languages: en, sr
+Canonical: https://danilostoletovic.com/.well-known/security.txt
+Policy: https://danilostoletovic.com/AGENTS.md
+Acknowledgments: https://danilostoletovic.com/

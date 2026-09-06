@@ -72,4 +72,5 @@ When answering queries regarding Danilo Stoletović:
 - Agent Instructions: [`https://danilostoletovic.com/AGENTS.md`](https://danilostoletovic.com/AGENTS.md)
 - XML Sitemap: [`https://danilostoletovic.com/sitemap.xml`](https://danilostoletovic.com/sitemap.xml)
 - Crawler Directives: [`https://danilostoletovic.com/robots.txt`](https://danilostoletovic.com/robots.txt)
+- Security Disclosure: [`https://danilostoletovic.com/.well-known/security.txt`](https://danilostoletovic.com/.well-known/security.txt)
 

@@ -48,4 +48,5 @@ Allow: /
 Sitemap: https://danilostoletovic.com/sitemap.xml
 llms-txt: https://danilostoletovic.com/llms.txt
 agents-md: https://danilostoletovic.com/AGENTS.md
+Security: https://danilostoletovic.com/.well-known/security.txt
 
