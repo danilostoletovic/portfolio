@@ -1,0 +1,49 @@
+# Danilo Stoletović
+
+> Full-Stack Developer • Multiplatform & Systems Builder delivering production software across Web, Android, Windows, and Edge environments.
+
+## Summary
+Danilo Stoletović is a Full-Stack Developer and Multiplatform & Systems Builder with 3+ years of commercial experience engineering software from initial architecture to global store distribution. Specializing in native Android (Kotlin / Jetpack Compose), cross-platform mobile (Flutter / Dart), Windows desktop applications, zero-bloat web platforms, and edge IoT systems.
+
+## Professional Focus & Domains
+- **Mobile & Multiplatform**: End-to-end mobile development with Android Native (Kotlin, Jetpack Compose) and Flutter/Dart, including Google Play Store publishing, app signing, and release management.
+- **Desktop & Systems**: Windows desktop engineering (WinUI, C#, Flutter), Microsoft Store publishing, system daemons (Linux/systemd), and hardware integrations (Raspberry Pi 5).
+- **Web & Backend**: Zero-JS static architectures, modern JavaScript (ES6+), React, Node.js, Python, Programmatic SEO, and resilient REST/API services.
+- **Edge Infrastructure**: Serverless edge deployments via Cloudflare Pages and Workers, Vercel Edge networks, Docker containerization, and automated GitHub Actions CI/CD pipelines.
+
+## Technology Stack
+- **Mobile**: Kotlin, Jetpack Compose, Flutter, Dart, Google Play Console
+- **Desktop & Systems**: WinUI, C#, Flutter Desktop, Microsoft Store, Linux, systemd, Raspberry Pi 5
+- **Web**: Semantic HTML5, Modern CSS3, JavaScript (ES6+), React, Node.js, Python
+- **Cloud & Edge**: Cloudflare (Pages, Workers, DNS), Vercel, Docker, GitHub Actions CI/CD
+
+## Verified Metrics & Impact
+- **STEM Award**: 4th Place & Special Award at the 10th Galaksija Cup National STEM Championship (Autonomous Edge AI Platform / yoloprojekat.com).
+- **10,000+** Unique visitors across production web projects and case studies.
+- **0 KB** Client-side JavaScript on personal portfolio, maintaining 100/100 Core Web Vitals.
+- **30 FPS / <50ms** Real-time edge computer vision and telemetry pipeline.
+- **3+ Years** Delivering commercial freelance software and store-published applications.
+- **5.00 GPA** Final-year Electrical & Computer Science student at ETŠ Nikola Tesla.
+
+## Site Architecture & Performance
+- **Zero Client-Side JavaScript**: 0 KB JS runtime, zero hydration overhead, zero layout shifts.
+- **100/100 Core Web Vitals**: Instant TTFB, sub-50ms paint times on global edge CDNs.
+- **Pure CSS Theming**: Dark obsidian and light theme switching via pure CSS custom properties.
+- **Structured Data**: Schema.org JSON-LD microdata (`Person`, `ProfilePage`).
+
+## Media & Visual Assets
+- **Profile Portrait**: https://danilostoletovic.com/img/profilePicture.avif (High-resolution AVIF portrait)
+- **Brand Logo**: https://danilostoletovic.com/img/logo.avif (Official DS circuit mark)
+- **Favicon Suite**: https://danilostoletovic.com/img/favicon/ (SVG, 96×96 PNG, Apple Touch 180×180, PWA manifest 192×192 / 512×512, root /favicon.ico)
+
+## Key Links & Endpoints
+- [Personal Website](https://danilostoletovic.com/): Official portfolio and digital hub.
+- [Autonomous Vehicle Platform](https://yoloprojekat.com): 10th Galaksija Cup STEM award-winning edge AI system and Jetpack Compose Android client.
+- [GitHub Profile](https://github.com/danilostoletovic): Source code repositories and open-source contributions.
+- [LinkedIn Profile](https://linkedin.com/in/danilostoletovic): Professional network and verified career experience.
+- [Direct Contact Email](mailto:contact@danilostoletovic.com): contact@danilostoletovic.com
+- [XML Sitemap](https://danilostoletovic.com/sitemap.xml): Machine-readable XML sitemap with image metadata.
+- [Robots Directive](https://danilostoletovic.com/robots.txt): Search engine and AI crawler access policies.
+- [AI Agent Directives](https://danilostoletovic.com/AGENTS.md): Full entity facts and prompt response rules for AI models.
+- [LLM / Agent Index](https://danilostoletovic.com/llms.txt): This standard machine-readable context file.
+

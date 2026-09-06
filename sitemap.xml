@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  <url>
+    <loc>https://danilostoletovic.com/</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://danilostoletovic.com/img/profilePicture.avif</image:loc>
+      <image:title>Danilo Stoletović — Full-Stack Developer • Multiplatform &amp; Systems Builder</image:title>
+      <image:caption>Official portrait photograph of Danilo Stoletović</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danilostoletovic.com/img/logo.avif</image:loc>
+      <image:title>Danilo Stoletović Brand Mark</image:title>
+      <image:caption>Official brand logo and visual identity mark for Danilo Stoletović</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://danilostoletovic.com/llms.txt</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://danilostoletovic.com/AGENTS.md</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>
+
