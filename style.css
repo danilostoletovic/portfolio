@@ -334,8 +334,10 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  min-height: 48px;
   border-radius: var(--radius-md);
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
@@ -345,6 +347,7 @@ body {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   transition: transform var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .theme-toggle-label:hover {
@@ -521,6 +524,7 @@ body {
 .avatar-wrapper {
   width: 140px;
   height: 140px;
+  aspect-ratio: 1 / 1;
   flex-shrink: 0;
   border-radius: 32px;
   padding: 4px;
@@ -539,6 +543,7 @@ body {
 .avatar-img {
   width: 100%;
   height: 100%;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   border-radius: 28px;
   display: block;
@@ -583,6 +588,7 @@ body {
 .hero-logo-badge {
   width: 42px;
   height: 42px;
+  aspect-ratio: 1 / 1;
   border-radius: 12px;
   overflow: hidden;
   display: inline-flex;
@@ -604,6 +610,7 @@ body {
 .hero-logo-img {
   width: 100%;
   height: 100%;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   display: block;
 }
@@ -1162,7 +1169,7 @@ html:has(#theme-toggle-check:checked) .skill-category:has(.dot-infra) .chip:hove
 
 .metric-tag {
   font-family: var(--font-display);
-  font-size: 0.7rem;
+  font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -1214,7 +1221,7 @@ html:has(#theme-toggle-check:checked) .skill-category:has(.dot-infra) .chip:hove
 
 .principle-index {
   font-family: var(--font-display);
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   font-weight: 800;
   color: var(--accent-emerald);
   padding: 0.15rem 0.45rem;
@@ -1257,12 +1264,12 @@ html:has(#theme-toggle-check:checked) .skill-category:has(.dot-infra) .chip:hove
 .milestone-badge {
   display: inline-flex;
   align-items: center;
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--accent-emerald);
-  padding: 0.2rem 0.6rem;
+  padding: 0.22rem 0.65rem;
   border-radius: var(--radius-full);
   background: rgba(16, 185, 129, 0.08);
   border: 1px solid rgba(16, 185, 129, 0.2);
@@ -1366,6 +1373,7 @@ html:has(#theme-toggle-check:checked) .skill-category:has(.dot-infra) .chip:hove
   text-decoration: none;
   transition: transform var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
   position: relative;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .connect-link:hover {
@@ -1373,6 +1381,16 @@ html:has(#theme-toggle-check:checked) .skill-category:has(.dot-infra) .chip:hove
   border-color: var(--accent-emerald);
   background: var(--bg-card-hover);
   box-shadow: var(--shadow-sm);
+}
+
+.connect-link-featured {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.06) 0%, rgba(6, 182, 212, 0.05) 100%), var(--bg-elevated);
+  border-color: rgba(16, 185, 129, 0.28);
+}
+
+.connect-link-featured:hover {
+  border-color: var(--accent-emerald);
+  box-shadow: 0 0 24px -2px rgba(16, 185, 129, 0.28);
 }
 
 .connect-icon-box {
@@ -1397,17 +1415,36 @@ html:has(#theme-toggle-check:checked) .skill-category:has(.dot-infra) .chip:hove
 .connect-info {
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
+  gap: 0.2rem;
   flex: 1;
   min-width: 0;
 }
 
+.connect-channel-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .connect-channel {
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--text-muted);
+}
+
+.connect-pill-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.12rem 0.45rem;
+  border-radius: var(--radius-full);
+  background: rgba(16, 185, 129, 0.14);
+  color: var(--accent-emerald);
+  border: 1px solid rgba(16, 185, 129, 0.28);
+  line-height: 1.2;
 }
 
 .connect-label {
@@ -1469,13 +1506,14 @@ html:has(#theme-toggle-check:checked) .skill-category:has(.dot-infra) .chip:hove
 .footer-left {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.85rem;
   flex-wrap: wrap;
 }
 
 .footer-logo-frame {
   width: 26px;
   height: 26px;
+  aspect-ratio: 1 / 1;
   border-radius: 7px;
   overflow: hidden;
   display: inline-flex;
@@ -1490,8 +1528,15 @@ html:has(#theme-toggle-check:checked) .skill-category:has(.dot-infra) .chip:hove
 .footer-logo-img {
   width: 100%;
   height: 100%;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   display: block;
+}
+
+.footer-meta-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .footer-copy {
@@ -1501,38 +1546,40 @@ html:has(#theme-toggle-check:checked) .skill-category:has(.dot-infra) .chip:hove
   margin: 0;
 }
 
-.footer-right {
+.footer-meta-nav {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  flex-shrink: 0;
 }
 
-.footer-security-link {
+.footer-security-sublink {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  padding: 0.35rem 0.85rem;
-  border-radius: var(--radius-full);
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  font-weight: 600;
   font-size: 0.8rem;
+  font-weight: 600;
   color: var(--text-muted);
   text-decoration: none;
-  box-shadow: var(--shadow-sm);
-  transition: border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+  padding: 0.15rem 0;
+  border-bottom: 1px dashed transparent;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
 }
 
-.footer-security-link:hover {
-  border-color: var(--accent-cyan);
-  color: var(--text-primary);
-  box-shadow: 0 0 14px -2px rgba(6, 182, 212, 0.3);
-  transform: translateY(-1px);
+.footer-security-sublink:hover {
+  color: var(--accent-cyan);
+  border-color: rgba(6, 182, 212, 0.5);
 }
 
 .footer-security-icon {
   color: var(--accent-cyan);
+  flex-shrink: 0;
+}
+
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   flex-shrink: 0;
 }
 
@@ -1642,11 +1689,9 @@ html:has(#theme-toggle-check:checked) .skill-category:has(.dot-infra) .chip:hove
     transform: translateY(-1px);
   }
 
-  .footer-security-link:hover {
-    border-color: var(--accent-cyan);
-    color: var(--text-primary);
-    box-shadow: 0 0 14px -2px rgba(6, 182, 212, 0.3);
-    transform: translateY(-1px);
+  .footer-security-sublink:hover {
+    color: var(--accent-cyan);
+    border-color: rgba(6, 182, 212, 0.5);
   }
 }
 
@@ -1656,7 +1701,7 @@ html:has(#theme-toggle-check:checked) .skill-category:has(.dot-infra) .chip:hove
 .connect-link:active,
 .chip:active,
 .footer-vitals-badge:active,
-.footer-security-link:active {
+.footer-security-sublink:active {
   transform: scale(0.97);
   transition: transform 0.08s ease;
 }
@@ -1705,8 +1750,8 @@ html:has(#theme-toggle-check:checked) .skill-category:has(.dot-infra) .chip:hove
   }
 
   .theme-toggle-label {
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
   }
 
   /* Hero Section */
@@ -1870,7 +1915,7 @@ html:has(#theme-toggle-check:checked) .skill-category:has(.dot-infra) .chip:hove
   }
 
   .metric-tag {
-    font-size: 0.68rem;
+    font-size: 0.78rem;
   }
 
   .metric-num {
@@ -1879,7 +1924,7 @@ html:has(#theme-toggle-check:checked) .skill-category:has(.dot-infra) .chip:hove
   }
 
   .metric-lbl {
-    font-size: 0.76rem;
+    font-size: 0.78rem;
     line-height: 1.4;
   }
 
@@ -1899,7 +1944,7 @@ html:has(#theme-toggle-check:checked) .skill-category:has(.dot-infra) .chip:hove
   }
 
   .principle-index {
-    font-size: 0.72rem;
+    font-size: 0.78rem;
     padding: 0.12rem 0.4rem;
   }
 
@@ -1915,15 +1960,17 @@ html:has(#theme-toggle-check:checked) .skill-category:has(.dot-infra) .chip:hove
   }
 
   .milestone-badge {
-    font-size: 0.68rem;
-    padding: 0.18rem 0.5rem;
+    font-size: 0.8rem;
+    padding: 0.2rem 0.55rem;
     margin-bottom: 0.3rem;
   }
 
   .inline-link {
     display: inline-flex;
     align-items: center;
-    padding: 0.15rem 0;
+    padding: 0.25rem 0.45rem;
+    margin: -0.25rem -0.45rem;
+    border-radius: 4px;
   }
 
   /* Connect Section */
@@ -1932,24 +1979,25 @@ html:has(#theme-toggle-check:checked) .skill-category:has(.dot-infra) .chip:hove
   }
 
   .connect-card {
-    padding: 1.4rem 1.15rem;
+    padding: 1.5rem 1.25rem;
     border-radius: 16px;
-    gap: 1.4rem;
+    gap: 1.35rem;
   }
 
   .connect-title {
-    font-size: clamp(1.45rem, 5vw, 1.85rem);
-    margin-bottom: 0.5rem;
+    font-size: clamp(1.4rem, 5.2vw, 1.85rem);
+    margin-bottom: 0.45rem;
+    line-height: 1.2;
   }
 
   .connect-subtitle {
-    font-size: 0.92rem;
+    font-size: 0.95rem;
     line-height: 1.55;
   }
 
   .connect-links {
     grid-template-columns: 1fr;
-    gap: 0.75rem;
+    gap: 0.85rem;
   }
 
   #mail-link {
@@ -1958,23 +2006,34 @@ html:has(#theme-toggle-check:checked) .skill-category:has(.dot-infra) .chip:hove
 
   .connect-link {
     width: 100%;
-    padding: 0.85rem 1rem;
-    min-height: 56px;
-    border-radius: 12px;
-    gap: 0.85rem;
+    padding: 0.95rem 1.1rem;
+    min-height: 60px;
+    border-radius: 14px;
+    gap: 0.95rem;
+  }
+
+  .connect-link-featured {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.09) 0%, rgba(6, 182, 212, 0.07) 100%), var(--bg-elevated);
+    border-color: rgba(16, 185, 129, 0.38);
+    box-shadow: 0 4px 18px -4px rgba(16, 185, 129, 0.18);
   }
 
   .connect-icon-box {
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
   }
 
   .connect-channel {
-    font-size: 0.68rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
   }
 
   .connect-label {
-    font-size: clamp(0.82rem, 3.4vw, 0.92rem);
+    font-size: clamp(0.84rem, 3.5vw, 0.95rem);
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    white-space: normal;
+    line-height: 1.35;
   }
 
   /* Footer */
@@ -1988,20 +2047,46 @@ html:has(#theme-toggle-check:checked) .skill-category:has(.dot-infra) .chip:hove
     gap: 1.25rem;
   }
 
-  .footer-right {
-    flex-wrap: wrap;
-    gap: 0.65rem;
+  .footer-left {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 0.85rem;
+  }
+
+  .footer-meta-block {
+    gap: 0.35rem;
   }
 
   .footer-copy {
-    font-size: 0.82rem;
+    font-size: 0.84rem;
     line-height: 1.45;
   }
 
-  .footer-vitals-badge,
-  .footer-security-link {
-    font-size: 0.76rem;
-    padding: 0.35rem 0.75rem;
+  .footer-meta-nav {
+    display: flex;
+    align-items: center;
+  }
+
+  .footer-security-sublink {
+    font-size: 0.82rem;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.5rem;
+    margin-left: -0.5rem;
+    border-radius: 6px;
+  }
+
+  .footer-right {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .footer-vitals-badge {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.85rem;
+    min-height: 38px;
   }
 
   .toast {
@@ -2040,7 +2125,7 @@ html:has(#theme-toggle-check:checked) .skill-category:has(.dot-infra) .chip:hove
 
   .bento-card,
   .connect-card {
-    padding: 1.15rem 0.85rem;
+    padding: 1.25rem 0.95rem;
     border-radius: 14px;
   }
 
@@ -2055,8 +2140,14 @@ html:has(#theme-toggle-check:checked) .skill-category:has(.dot-infra) .chip:hove
   }
 
   .connect-link {
-    padding: 0.75rem 0.85rem;
-    gap: 0.65rem;
+    padding: 0.85rem 0.95rem;
+    gap: 0.75rem;
+    min-height: 58px;
+  }
+
+  .connect-label {
+    font-size: 0.82rem;
+    word-break: break-all;
   }
 
   .connect-arrow {

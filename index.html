@@ -57,6 +57,7 @@
   <!-- Performance Optimization: Resource Hints -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="image" type="image/avif" href="img/profilePicture.avif" fetchpriority="high">
 
   <!-- Modern Web Typography with preconnect for zero JS reliance & zero CLS -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
@@ -191,7 +192,7 @@
         <!-- Avatar & Name -->
         <div class="profile-display">
           <div class="avatar-wrapper">
-            <img src="img/profilePicture.avif" alt="Danilo Stoletović - Full-Stack Developer and Systems Builder" class="avatar-img" width="140" height="140" loading="eager" decoding="async">
+            <img src="img/profilePicture.avif" alt="Danilo Stoletović - Full-Stack Developer and Systems Builder" class="avatar-img" width="140" height="140" loading="eager" fetchpriority="high" decoding="async">
           </div>
           <div class="profile-titles">
             <div class="profile-name-lockup">
@@ -421,7 +422,7 @@
         </div>
 
         <div class="connect-links" aria-label="Professional and social channels">
-          <a href="mailto:contact@danilostoletovic.com" class="connect-link" id="mail-link" aria-label="Send email to Danilo Stoletović">
+          <a href="mailto:contact@danilostoletovic.com" class="connect-link connect-link-featured" id="mail-link" aria-label="Send email to Danilo Stoletović">
             <div class="connect-icon-box" aria-hidden="true">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="2" y="4" width="20" height="16" rx="2"></rect>
@@ -429,7 +430,10 @@
               </svg>
             </div>
             <div class="connect-info">
-              <span class="connect-channel">Direct Email</span>
+              <div class="connect-channel-row">
+                <span class="connect-channel">Direct Email</span>
+                <span class="connect-pill-badge">Primary</span>
+              </div>
               <span class="connect-label">contact@danilostoletovic.com</span>
             </div>
             <span class="connect-arrow" aria-hidden="true">&nearr;</span>
@@ -492,15 +496,19 @@
         <div class="footer-logo-frame" aria-hidden="true">
           <img src="img/logo.avif" alt="Danilo Stoletović Logo" class="footer-logo-img" width="26" height="26" loading="lazy" decoding="async">
         </div>
-        <p class="footer-copy">&copy; <span id="current-year">2026</span> Danilo Stoletović &bull; Pure semantic HTML5 &amp; CSS</p>
+        <div class="footer-meta-block">
+          <p class="footer-copy">&copy; <span id="current-year">2026</span> Danilo Stoletović &bull; Pure semantic HTML5 &amp; CSS</p>
+          <div class="footer-meta-nav">
+            <a href=".well-known/security.txt" class="footer-security-sublink" title="Security Disclosure Policy (RFC 9116)" aria-label="Security Disclosure Policy (RFC 9116)">
+              <svg class="footer-security-icon" aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+              <span>Security Disclosure (RFC 9116)</span>
+            </a>
+          </div>
+        </div>
       </div>
       <div class="footer-right">
-        <a href=".well-known/security.txt" class="footer-security-link" title="Security Disclosure Policy (RFC 9116)">
-          <svg class="footer-security-icon" aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-          </svg>
-          <span>security.txt</span>
-        </a>
         <div class="footer-vitals-badge" title="Optimized for 100% Core Web Vitals and zero JavaScript runtime">
           <span class="vitals-dot" aria-hidden="true"></span>
           <span>100% Core Web Vitals &bull; 0 KB JS</span>
