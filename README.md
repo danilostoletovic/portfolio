@@ -44,6 +44,12 @@ This repository houses the source code for [danilostoletovic.com](https://danilo
 - **Accessible & Semantic HTML5**: Full ARIA Landmark roles, screen-reader optimized heading hierarchy, and vector SVG inline assets.
 - **Zero Third-Party Trackers**: Complete privacy compliance with no tracking scripts, cookies, or external surveillance widgets.
 
+### PageSpeed Insights Audit (100/100)
+
+| Mobile Audit (100/100) | Desktop Audit (100/100) |
+|:---:|:---:|
+| [![PageSpeed Insights Mobile Score](img/mobile.png)](img/mobile.png) | [![PageSpeed Insights Desktop Score](img/desktop.png)](img/desktop.png) |
+
 ---
 
 ## Design System & Theming
@@ -79,7 +85,8 @@ danilostoletovic/
 ├── index.html          # Main semantic HTML5 portfolio document
 ├── style.css           # Complete vanilla CSS design system & tokens
 ├── img/                # Optimized media and branding assets
-│   ├── profilePicture.jpg  # High-res square profile photograph (650x650)
+│   ├── desktop.png         # PageSpeed Insights 100/100 Desktop audit report
+│   ├── mobile.png          # PageSpeed Insights 100/100 Mobile audit report
 │   ├── profilePicture.avif # High-efficiency AVIF portrait
 │   ├── logo.avif           # Vector-derived DS circuit brand mark
 │   └── favicon/            # Multiplatform favicons & webmanifest
