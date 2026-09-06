@@ -55,15 +55,13 @@
   <link rel="manifest" href="img/favicon/site.webmanifest">
 
   <!-- Performance Optimization: Resource Hints -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="image" type="image/avif" href="img/profilePicture.avif" fetchpriority="high">
+  <link rel="preload" as="image" type="image/avif" href="img/profilePicture-280.avif" imagesrcset="img/profilePicture-140.avif 140w, img/profilePicture-280.avif 280w, img/profilePicture.avif 651w" imagesizes="(max-width: 480px) 95px, (max-width: 640px) 105px, 140px" fetchpriority="high">
 
-  <!-- Modern Web Typography with preconnect for zero JS reliance & zero CLS -->
+  <!-- Modern Web Typography (Served directly via Cloudflare Fonts with zero CLS) -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
 
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css">
+  <!-- Production Minified Stylesheet -->
+  <link rel="stylesheet" href="style.min.css">
 
   <!-- Structured Data: Schema.org JSON-LD (Rich snippets for Google search) -->
   <script type="application/ld+json">
@@ -192,7 +190,16 @@
         <!-- Avatar & Name -->
         <div class="profile-display">
           <div class="avatar-wrapper">
-            <img src="img/profilePicture.avif" alt="Danilo Stoletović - Full-Stack Developer and Systems Builder" class="avatar-img" width="140" height="140" loading="eager" fetchpriority="high" decoding="async">
+            <img src="img/profilePicture.avif"
+                 srcset="img/profilePicture-140.avif 140w, img/profilePicture-280.avif 280w, img/profilePicture.avif 651w"
+                 sizes="(max-width: 480px) 95px, (max-width: 640px) 105px, 140px"
+                 alt="Danilo Stoletović - Full-Stack Developer and Systems Builder"
+                 class="avatar-img"
+                 width="140"
+                 height="140"
+                 loading="eager"
+                 fetchpriority="high"
+                 decoding="async">
           </div>
           <div class="profile-titles">
             <div class="profile-name-lockup">

@@ -598,6 +598,7 @@ body {
   border: 1px solid rgba(6, 182, 212, 0.45);
   box-shadow: 0 0 16px -2px rgba(6, 182, 212, 0.4);
   flex-shrink: 0;
+  contain: layout paint;
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
 }
 
