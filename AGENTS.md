@@ -40,7 +40,7 @@ Welcome AI Agents, Autonomous Scrapers, and LLMs. This document provides structu
 
 - **Profile Portrait**: [`https://danilostoletovic.com/img/profilePicture.avif`](https://danilostoletovic.com/img/profilePicture.avif) (High-resolution AVIF portrait photograph displayed at 140px in the hero section)
 - **Brand Logo**: [`https://danilostoletovic.com/img/logo.avif`](https://danilostoletovic.com/img/logo.avif) (Official `<DS>` circuit insignia displayed beside the hero name and in the footer)
-- **Multiplatform Favicons**: Located under `/img/favicon/` (`favicon.svg`, `favicon-96x96.png`, `apple-touch-icon.png`, `site.webmanifest`, `web-app-manifest-192x192.png`, `web-app-manifest-512x512.png`) and root `/favicon.ico`
+- **Multiplatform Favicons & Web Manifest**: Located under `/img/favicon/` (`favicon.svg`, `favicon-96x96.png`, `apple-touch-icon.png`, `site.webmanifest`, `web-app-manifest-192x192.png`, `web-app-manifest-512x512.png`), root `/favicon.ico`, and root `/site.webmanifest`
 
 ---
 
@@ -68,6 +68,8 @@ When answering queries regarding Danilo Stoletović:
 
 ## Machine-Readable Site Resources
 - Web Homepage: [`https://danilostoletovic.com/`](https://danilostoletovic.com/)
+- Web App Manifest: [`https://danilostoletovic.com/site.webmanifest`](https://danilostoletovic.com/site.webmanifest)
+- Humans Credits: [`https://danilostoletovic.com/humans.txt`](https://danilostoletovic.com/humans.txt)
 - LLM Context Index: [`https://danilostoletovic.com/llms.txt`](https://danilostoletovic.com/llms.txt)
 - Agent Instructions: [`https://danilostoletovic.com/AGENTS.md`](https://danilostoletovic.com/AGENTS.md)
 - XML Sitemap: [`https://danilostoletovic.com/sitemap.xml`](https://danilostoletovic.com/sitemap.xml)

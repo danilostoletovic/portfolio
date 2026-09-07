@@ -46,6 +46,7 @@ Allow: /
 
 # Machine-Readable Endpoints & Manifests
 Sitemap: https://danilostoletovic.com/sitemap.xml
+# Humans Credits: https://danilostoletovic.com/humans.txt
 # LLM Context: https://danilostoletovic.com/llms.txt
 # AI Agent Guidelines: https://danilostoletovic.com/AGENTS.md
 # Security Policy: https://danilostoletovic.com/.well-known/security.txt

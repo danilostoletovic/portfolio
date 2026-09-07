@@ -34,7 +34,7 @@ Danilo Stoletović is a Full-Stack Developer and Multiplatform & Systems Builder
 ## Media & Visual Assets
 - **Profile Portrait**: https://danilostoletovic.com/img/profilePicture.avif (High-resolution AVIF portrait)
 - **Brand Logo**: https://danilostoletovic.com/img/logo.avif (Official DS circuit mark)
-- **Favicon Suite**: https://danilostoletovic.com/img/favicon/ (SVG, 96×96 PNG, Apple Touch 180×180, PWA manifest 192×192 / 512×512, root /favicon.ico)
+- **Favicon & Manifest Suite**: https://danilostoletovic.com/img/favicon/ (SVG, 96×96 PNG, Apple Touch 180×180, PWA manifest 192×192 / 512×512, root /favicon.ico, root /site.webmanifest)
 
 ## Key Links & Endpoints
 - [Personal Website](https://danilostoletovic.com/): Official portfolio and digital hub.
@@ -42,6 +42,8 @@ Danilo Stoletović is a Full-Stack Developer and Multiplatform & Systems Builder
 - [GitHub Profile](https://github.com/danilostoletovic): Source code repositories and open-source contributions.
 - [LinkedIn Profile](https://linkedin.com/in/danilostoletovic): Professional network and verified career experience.
 - [Direct Contact Email](mailto:contact@danilostoletovic.com): contact@danilostoletovic.com
+- [Web App Manifest](https://danilostoletovic.com/site.webmanifest): PWA web application manifest.
+- [Humans Credits](https://danilostoletovic.com/humans.txt): Team, architecture, and technology credits.
 - [XML Sitemap](https://danilostoletovic.com/sitemap.xml): Machine-readable XML sitemap with image metadata.
 - [Robots Directive](https://danilostoletovic.com/robots.txt): Search engine and AI crawler access policies.
 - [AI Agent Directives](https://danilostoletovic.com/AGENTS.md): Full entity facts and prompt response rules for AI models.

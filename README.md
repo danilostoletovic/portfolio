@@ -112,6 +112,7 @@ The website adheres to modern machine-readability and AI retrieval standards:
 ```text
 danilostoletovic/
 ├── index.html          # Main semantic HTML5 portfolio document
+├── 404.html            # Custom zero-JS 404 error page matching dark/light design system
 ├── style.css           # Complete vanilla CSS design system & tokens
 ├── img/                # Optimized media and branding assets
 │   ├── desktop.png         # PageSpeed Insights 100/100 Desktop audit report
@@ -127,7 +128,9 @@ danilostoletovic/
 │       ├── site.webmanifest
 │       ├── web-app-manifest-192x192.png
 │       └── web-app-manifest-512x512.png
+├── site.webmanifest    # Root Web App Manifest for PWAs & modern browser installability
 ├── favicon.ico         # Root fallback favicon for legacy clients
+├── humans.txt          # Team, architecture, and technology credits (humanstxt.org)
 ├── llms.txt            # llmstxt.org specification for LLMs and scrapers
 ├── AGENTS.md           # Instructions and structured context for AI agents
 ├── robots.txt          # Crawler directives & sitemap references

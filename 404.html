@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <!-- Primary SEO Meta Tags: Noindex 404 to protect search crawl budgets -->
+  <title>404: Page Not Found | Danilo Stoletović</title>
+  <meta name="title" content="404: Page Not Found | Danilo Stoletović">
+  <meta name="description" content="The requested page could not be found. Explore verified engineering projects, case studies, and systems architecture at danilostoletovic.com.">
+  <meta name="robots" content="noindex, follow">
+  <link rel="author" href="/humans.txt">
+  <link rel="help" href="/AGENTS.md" title="AI Agent Guidelines">
+
+  <!-- Browser & Platform Theming -->
+  <meta name="theme-color" content="#070a12" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
+  <meta name="color-scheme" content="dark light">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Danilo S.">
+
+  <!-- Multiplatform Favicons & Touch Icons -->
+  <link rel="icon" type="image/png" href="/img/favicon/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/svg+xml" href="/img/favicon/favicon.svg">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <!-- Modern Web Typography (Served directly via Cloudflare Fonts) -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+
+  <!-- Production Minified Stylesheet -->
+  <link rel="stylesheet" href="/style.min.css?v=1.1.0">
+
+  <!-- Scoped Error Page Layout Styles -->
+  <style>
+    .error-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 220px);
+      padding: 1.5rem 0;
+    }
+    .error-card {
+      max-width: 680px;
+      width: 100%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+      padding: 3rem 2.25rem;
+    }
+    .error-badge {
+      margin-bottom: 0.25rem;
+    }
+    .error-code {
+      font-family: var(--font-display);
+      font-size: clamp(4.5rem, 14vw, 7.5rem);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      background: var(--gradient-accent);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 0;
+      filter: drop-shadow(0 4px 24px rgba(16, 185, 129, 0.28));
+    }
+    .error-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 3.5vw, 1.85rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--text-primary);
+      margin: 0;
+    }
+    .error-desc {
+      color: var(--text-secondary);
+      font-size: clamp(0.95rem, 2vw, 1.05rem);
+      line-height: 1.65;
+      max-width: 520px;
+      margin: 0;
+    }
+    .error-cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 0.5rem;
+      width: 100%;
+    }
+    .error-quicklinks {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 1rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-subtle);
+      width: 100%;
+    }
+    .quicklinks-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+    .quicklinks-chips {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    @media (max-width: 580px) {
+      .error-card {
+        padding: 2rem 1.25rem;
+        gap: 1rem;
+      }
+      .error-cta-group {
+        flex-direction: column;
+        width: 100%;
+      }
+      .error-cta-group .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Accessible Skip Navigation Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Ambient Decorative Lighting Elements -->
+  <div class="ambient-glow glow-top" aria-hidden="true"></div>
+  <div class="ambient-glow glow-bottom" aria-hidden="true"></div>
+  <div class="ambient-grid" aria-hidden="true"></div>
+
+  <!-- Top Utilities Bar with Pure CSS Theme Toggle -->
+  <header class="top-bar">
+    <div class="top-bar-inner">
+      <div class="top-actions">
+        <div class="theme-toggle-wrapper">
+          <input type="checkbox" id="theme-toggle-check" class="theme-toggle-checkbox" aria-label="Toggle light or dark theme">
+          <label for="theme-toggle-check" class="theme-toggle-label" title="Switch color theme">
+            <!-- Sun Icon for switching to light -->
+            <svg class="theme-icon icon-sun" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <!-- Moon Icon for switching to dark -->
+            <svg class="theme-icon icon-moon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </label>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Landmark -->
+  <main id="main-content" class="page-container error-container">
+    <div class="bento-card error-card">
+      <div class="status-badge error-badge">
+        <span class="status-pulse" aria-hidden="true"></span>
+        <span>Error 404 • Resource Not Found</span>
+      </div>
+
+      <h1 class="error-code">404</h1>
+
+      <h2 class="error-title">Page Not Found</h2>
+
+      <p class="error-desc">
+        The requested URL was not found on this edge server. It might have been moved, renamed, or is temporarily unavailable. Return to the homepage to explore case studies, system architecture, and contact channels.
+      </p>
+
+      <div class="error-cta-group">
+        <a href="/" class="btn btn-primary">
+          <svg class="btn-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          <span>Return to Homepage</span>
+        </a>
+        <a href="mailto:contact@danilostoletovic.com" class="btn btn-secondary">
+          <svg class="btn-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+          </svg>
+          <span>Contact Danilo</span>
+        </a>
+      </div>
+
+      <div class="error-quicklinks">
+        <span class="quicklinks-label">Quick Navigation</span>
+        <div class="quicklinks-chips">
+          <a href="/#skills" class="chip">Core Stack</a>
+          <a href="/#metrics" class="chip">Verified Milestones</a>
+          <a href="/#contact" class="chip">Direct Channels</a>
+          <a href="https://github.com/danilostoletovic" target="_blank" rel="noopener noreferrer" class="chip">GitHub &nearr;</a>
+          <a href="https://linkedin.com/in/danilostoletovic" target="_blank" rel="noopener noreferrer" class="chip">LinkedIn &nearr;</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Clean Minimalist Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <div class="footer-logo-frame" aria-hidden="true">
+          <img src="/img/logo.avif" alt="Danilo Stoletović Logo" class="footer-logo-img" width="26" height="26" loading="lazy" decoding="async">
+        </div>
+        <div class="footer-meta-block">
+          <p class="footer-copy">&copy; 2026 Danilo Stoletović &bull; Pure semantic HTML5 &amp; CSS</p>
+        </div>
+      </div>
+      <div class="footer-right">
+        <div class="audit-badges" aria-label="Performance and Security Audits">
+          <a href="https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fdanilostoletovic.com" target="_blank" rel="noopener noreferrer" class="audit-pill" title="Google PageSpeed Insights: 100/100 Core Web Vitals">
+            <span class="audit-dot" aria-hidden="true"></span>
+            <span>100/100 Web Vitals</span>
+          </a>
+          <a href="https://securityheaders.com/?q=https%3A%2F%2Fdanilostoletovic.com&amp;followRedirects=on" target="_blank" rel="noopener noreferrer" class="audit-pill" title="SecurityHeaders.com: Grade A Security">
+            <span class="audit-dot" aria-hidden="true"></span>
+            <span>Grade A Security</span>
+          </a>
+          <a href="https://hstspreload.org/?domain=danilostoletovic.com" target="_blank" rel="noopener noreferrer" class="audit-pill" title="HSTS Preload Verification: Preloaded">
+            <span class="audit-dot" aria-hidden="true"></span>
+            <span>HSTS Preloaded</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
