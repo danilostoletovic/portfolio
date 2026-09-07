@@ -2,6 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-emerald.svg)](LICENSE)
 [![Core Web Vitals](https://img.shields.io/badge/Core%20Web%20Vitals-100%2F100-brightgreen.svg)](https://pagespeed.web.dev/)
+[![Security Headers](https://img.shields.io/badge/Security%20Headers-Grade%20A-brightgreen.svg)](https://securityheaders.com/?q=https%3A%2F%2Fdanilostoletovic.com&followRedirects=on)
 [![JavaScript Bloat](https://img.shields.io/badge/Client--Side%20JS-0%20KB-blue.svg)](index.html)
 [![HTML5](https://img.shields.io/badge/HTML5-Semantic-orange.svg)](index.html)
 [![CSS3](https://img.shields.io/badge/CSS3-Vanilla-blueviolet.svg)](style.css)
@@ -15,6 +16,7 @@
 ## Table of Contents
 
 - [Overview](#overview)
+- [⚡ Performance & Security Audits](#-performance--security-audits)
 - [Architecture & Performance Highlights](#architecture--performance-highlights)
 - [Design System & Theming](#design-system--theming)
 - [AI Agent & Machine Readability](#ai-agent--machine-readability)
@@ -33,6 +35,33 @@ This repository houses the source code for [danilostoletovic.com](https://danilo
 - **Desktop & Systems**: Windows Desktop (`WinUI` / `C#` / `Flutter`), Microsoft Store publishing, Linux (`systemd`), Raspberry Pi & edge devices.
 - **Modern Web & Backend**: Zero-JS static architectures, modern `JavaScript` (ES6+), `React`, `Node.js`, `Python`, Programmatic SEO.
 - **Edge Infrastructure**: `Cloudflare` Pages, Workers & DNS, `Vercel` Edge networks, `Docker`, and GitHub Actions CI/CD.
+
+---
+
+## ⚡ Performance & Security Audits
+
+[![Lighthouse: 100/100](https://img.shields.io/badge/Lighthouse-100%2F100-brightgreen?logo=lighthouse&logoColor=white)](https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fdanilostoletovic.com)
+[![Security Headers: Grade A](https://img.shields.io/badge/Security%20Headers-Grade%20A-brightgreen)](https://securityheaders.com/?q=https%3A%2F%2Fdanilostoletovic.com&followRedirects=on)
+[![HSTS: Preload Ready](https://img.shields.io/badge/HSTS-Preload%20Ready-brightgreen)](https://hstspreload.org/?domain=danilostoletovic.com)
+
+The website is continuously validated against strict industry-standard web performance benchmarks, accessibility audits, and defensive HTTP security standards.
+
+| Audit Category | Score / Grade | Verification Source | Standards & Directives |
+|:---|:---:|:---|:---|
+| **Performance** | `100/100` | [Google PageSpeed Insights](https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fdanilostoletovic.com) | Sub-50ms TTFB, 0 KB client-side JS runtime |
+| **Accessibility** | `100/100` | [Google Lighthouse](https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fdanilostoletovic.com) | Semantic HTML5, full ARIA roles, WCAG AAA contrast |
+| **Best Practices** | `100/100` | [Google Lighthouse](https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fdanilostoletovic.com) | Modern AVIF formats, HTTPS enforcement, zero deprecated APIs |
+| **SEO** | `100/100` | [Google Lighthouse](https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fdanilostoletovic.com) | Machine-readable metadata, Schema.org JSON-LD, XML sitemap |
+| **Security Headers** | `Grade A` | [Security Headers](https://securityheaders.com/?q=https%3A%2F%2Fdanilostoletovic.com&followRedirects=on) | Strict CSP, HSTS, X-Content-Type-Options, Permissions-Policy |
+| **HSTS Status** | `Preloaded` | [HSTS Preload](https://hstspreload.org/?domain=danilostoletovic.com) | Strict-Transport-Security preload directive active across all browsers |
+
+### Security Headers Verification Report
+
+<p align="center">
+  <img src="img/securityHeaders.png" alt="SecurityHeaders.com Grade A Audit Report for danilostoletovic.com" width="750" style="max-width: 100%; height: auto; border-radius: 8px;" />
+  <br>
+  <em>SecurityHeaders.com Grade A verification report for danilostoletovic.com</em>
+</p>
 
 ---
 
@@ -58,7 +87,7 @@ This repository houses the source code for [danilostoletovic.com](https://danilo
 - **Hero & Identity Lockup**: Crisp 140px portrait photograph (`img/profilePicture.avif`), `<DS>` circuit logo badge paired directly with the title, active status indicator, and quick CTA actions.
 - **Design Tokens**: Structured CSS Custom Properties (`--bg-primary`, `--accent-emerald`, `--card-rim-light`, etc.) for seamless maintainability and consistent visual hierarchy.
 - **CSS-Driven Dark / Light Theming**: High-contrast, accessibility-tested dark obsidian aesthetic with pure CSS theme toggle support, extending across all bento cards and footer elements.
-- **Balanced Minimalist Footer**: Two-column responsive lockup featuring the official brand mark, copyright statement, and a live Core Web Vitals / 0 KB JS status badge.
+- **Balanced Minimalist Footer**: Two-column responsive lockup featuring the official brand mark, copyright statement, and a live developer-tooling audit status pill bar (100/100 Web Vitals, Grade A Security, HSTS Preloaded).
 - **Fluid Typography**: Responsive typography leveraging Google Fonts (`Outfit` & `Plus Jakarta Sans`) via optimized preconnect resource hints with zero cumulative layout shift.
 - **Multiplatform Favicon Suite**: Vector SVG, high-DPI 96×96 PNG, Apple Touch 180×180, PWA web manifests (192×192 & 512×512), and legacy root `favicon.ico`.
 
@@ -87,6 +116,7 @@ danilostoletovic/
 ├── img/                # Optimized media and branding assets
 │   ├── desktop.png         # PageSpeed Insights 100/100 Desktop audit report
 │   ├── mobile.png          # PageSpeed Insights 100/100 Mobile audit report
+│   ├── securityHeaders.png # SecurityHeaders.com Grade A audit report
 │   ├── profilePicture.avif # High-efficiency AVIF portrait
 │   ├── logo.avif           # Vector-derived DS circuit brand mark
 │   └── favicon/            # Multiplatform favicons & webmanifest

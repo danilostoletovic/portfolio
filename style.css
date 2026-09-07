@@ -1614,6 +1614,73 @@ html:has(#theme-toggle-check:checked) .skill-category:has(.dot-infra) .chip:hove
   flex-shrink: 0;
 }
 
+/* Audit Badges Pill Bar in Footer */
+.audit-badges {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.audit-badges a,
+.audit-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+  background: var(--bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  line-height: 1.2;
+  white-space: nowrap;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.audit-badges a:hover,
+.audit-pill:hover {
+  border-color: rgba(34, 197, 94, 0.5);
+  color: var(--text-primary);
+  background: var(--bg-card-hover);
+  box-shadow: 0 4px 14px -2px rgba(0, 0, 0, 0.3), 0 0 12px -2px rgba(34, 197, 94, 0.25);
+  transform: translateY(-1px);
+}
+
+.audit-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #22c55e;
+  box-shadow: 0 0 6px rgba(34, 197, 94, 0.8), 0 0 10px rgba(34, 197, 94, 0.4);
+  flex-shrink: 0;
+}
+
+@media (prefers-color-scheme: light) {
+  .audit-badges a,
+  .audit-pill {
+    border-color: rgba(15, 23, 42, 0.12);
+  }
+}
+
+html:has(#theme-toggle-check:checked) .audit-badges a,
+html:has(#theme-toggle-check:checked) .audit-pill {
+  border-color: rgba(15, 23, 42, 0.12);
+}
+
+@media (prefers-color-scheme: light) {
+  html:has(#theme-toggle-check:checked) .audit-badges a,
+  html:has(#theme-toggle-check:checked) .audit-pill {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
 
 
 /* --------------------------------------------------------------------------
@@ -1690,6 +1757,15 @@ html:has(#theme-toggle-check:checked) .skill-category:has(.dot-infra) .chip:hove
     transform: translateY(-1px);
   }
 
+  .audit-badges a:hover,
+  .audit-pill:hover {
+    border-color: rgba(34, 197, 94, 0.5);
+    color: var(--text-primary);
+    background: var(--bg-card-hover);
+    box-shadow: 0 4px 14px -2px rgba(0, 0, 0, 0.3), 0 0 12px -2px rgba(34, 197, 94, 0.25);
+    transform: translateY(-1px);
+  }
+
   .footer-security-sublink:hover {
     color: var(--accent-cyan);
     border-color: rgba(6, 182, 212, 0.5);
@@ -1701,6 +1777,8 @@ html:has(#theme-toggle-check:checked) .skill-category:has(.dot-infra) .chip:hove
 .theme-toggle-label:active,
 .connect-link:active,
 .chip:active,
+.audit-badges a:active,
+.audit-pill:active,
 .footer-vitals-badge:active,
 .footer-security-sublink:active {
   transform: scale(0.97);
@@ -2084,6 +2162,12 @@ html:has(#theme-toggle-check:checked) .skill-category:has(.dot-infra) .chip:hove
     justify-content: flex-start;
   }
 
+  .audit-badges {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 0.45rem;
+  }
+
   .footer-vitals-badge {
     font-size: 0.8rem;
     padding: 0.4rem 0.85rem;
@@ -2157,6 +2241,12 @@ html:has(#theme-toggle-check:checked) .skill-category:has(.dot-infra) .chip:hove
 
   .site-footer {
     padding: 1.5rem 0.75rem calc(1.5rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .audit-badges a,
+  .audit-pill {
+    font-size: 0.76rem;
+    padding: 0.3rem 0.65rem;
   }
 }
 
