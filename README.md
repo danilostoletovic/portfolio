@@ -83,16 +83,15 @@ The website is continuously validated against strict industry-standard web perfo
 
 ## Design System & Theming
 
-- **Modern Bento Grid Layout**: Responsive multi-card dashboard highlighting core engineering competencies, verified impact metrics, architectural philosophy, and store-published deliverables.
-- **Hero & Identity Lockup**: Crisp 140px portrait photograph (`img/profilePicture.avif`), `<DS>` circuit logo badge paired directly with the title, active status indicator, and quick CTA actions.
-- **Design Tokens**: Structured CSS Custom Properties (`--bg-primary`, `--accent-emerald`, `--card-rim-light`, etc.) for seamless maintainability and consistent visual hierarchy.
-- **CSS-Driven Dark / Light Theming**: High-contrast, accessibility-tested dark obsidian aesthetic with pure CSS theme toggle support, extending across all bento cards and footer elements.
-- **Balanced Minimalist Footer**: Two-column responsive lockup featuring the official brand mark, copyright statement, and a live developer-tooling audit status pill bar (100/100 Web Vitals, Grade A Security, HSTS Preloaded).
-- **Fluid Typography**: Responsive typography leveraging Google Fonts (`Outfit` & `Plus Jakarta Sans`) via optimized preconnect resource hints with zero cumulative layout shift.
-- **Multiplatform Favicon Suite**: Vector SVG, high-DPI 96×96 PNG, Apple Touch 180×180, PWA web manifests (192×192 & 512×512), and legacy root `favicon.ico`.
+- **Personal workshop layout**: Warm paper, ink borders, orange accents, editorial typography, and an original inline SVG vehicle sketch.
+- **Project-first content**: YOLO Smart Vehicle, Class Timetable, PromptUI, and the portfolio itself, with direct project and source links.
+- **System typography**: Georgia, Arial, and Courier New; no external font requests.
+- **CSS-only light / dark themes**: Follows the system preference; the keyboard-accessible checkbox reverses it for the current page.
+- **Responsive and accessible**: Single-column mobile layout, skip navigation, visible focus, reduced-motion support, and semantic landmarks.
+- **Shared 404 styling**: The error page uses the same stylesheet and navigation destinations.
+- **CSS delivery**: Edit `style.css`, then regenerate `style.min.css` by stripping comments and collapsing whitespace. Both pages reference the same versioned stylesheet.
 
 ---
-
 ## AI Agent & Machine Readability
 
 The website adheres to modern machine-readability and AI retrieval standards:
