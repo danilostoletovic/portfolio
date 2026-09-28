@@ -98,6 +98,7 @@ The website adheres to modern machine-readability and AI retrieval standards:
 
 | File | Purpose |
 |------|---------|
+| [`.well-known/ai-catalog.json`](.well-known/ai-catalog.json) | Static [AI Catalog 1.0](https://ai-catalog.io/spec/) manifest listing public content and policy resources by media type. Discovered through the well-known URL and the homepage's `rel="ai-catalog"` link; served as `application/ai-catalog+json`. No executable agent or API is advertised. |
 | [`llms.txt`](llms.txt) | Standardized markdown index following the [llmstxt.org](https://llmstxt.org) specification for LLMs and autonomous scrapers. |
 | [`AGENTS.md`](AGENTS.md) | Structured entity overview, core stack competencies, and explicit answering instructions for AI assistants. |
 | [`robots.txt`](robots.txt) | Comprehensive crawler permissions granting full access to search engines and AI agents (`GPTBot`, `ClaudeBot`, `OAI-SearchBot`, etc.), linking sitemap and agent manifests. |
@@ -169,7 +170,30 @@ Open `http://localhost:8000` in your web browser.
 
 ## Deployment
 
-Deployable with zero configuration to any modern edge static hosting platform:
+### Cloudflare AI content signals and Markdown negotiation
+
+`robots.txt` and the global `_headers` rule declare `search=yes, ai-input=yes, ai-train=yes`, preserving the site's open crawler policy. `AGENTS.md` explains public access boundaries. All crawlers share one wildcard group so bot-specific groups cannot shadow the policy.
+
+`index.md` provides a maintained Markdown version of the homepage. Update it whenever homepage projects, biography, or contact details change. The HTML alternate link and `llms.txt` advertise it.
+
+On Cloudflare Pages, `functions/_middleware.js` serves that file for homepage requests that explicitly prefer `text/markdown`. It respects Accept quality weights, defaults to HTML, supports HEAD, and preserves static asset security headers. `_routes.json` limits function execution to `/` and `/index.html`. Negotiated responses use `Vary: Accept` and `no-store` to prevent HTML/Markdown cache collisions; other static assets keep their existing caching. Homepage requests consume Pages Functions invocations.
+
+Deploy through Pages Git integration (empty build command, output directory `./`) or Wrangler Pages deployment with Functions support. Dashboard drag-and-drop uploads do not compile Pages Functions. Other static hosts and plain local file servers expose `/index.md` but do not run negotiation. No browser JavaScript or build dependencies are added.
+
+Cloudflare's optional zone-level [Markdown for Agents](https://developers.cloudflare.com/fundamentals/reference/markdown-for-agents/) can also convert HTML, but this implementation does not require that dashboard setting. Keep any Cloudflare-managed robots policy consistent with the repository's all-yes content signals.
+
+Verify after deployment (the first response should be Markdown, the second HTML):
+
+```sh
+curl -i -H "Accept: text/markdown" https://danilostoletovic.com/
+curl -i -H "Accept: text/html" https://danilostoletovic.com/
+curl -I https://danilostoletovic.com/index.md
+curl https://danilostoletovic.com/robots.txt
+```
+
+Run the local negotiation checks with `node --test tests/markdown-negotiation.test.mjs`.
+
+The static site can also be hosted on other platforms (negotiation requires equivalent server support):
 
 - **Cloudflare Pages**: Connect GitHub repository, set build command to empty, build directory to `./`.
 - **Vercel**: Import repository as a static site.

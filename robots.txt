@@ -1,53 +1,18 @@
 # Robots.txt for Danilo Stoletović (https://danilostoletovic.com)
-# Allow all web search engines, AI agents, and autonomous crawlers full access
+# Public site content is available to all search engines and AI crawlers.
+# Content Signals: https://contentsignals.org/
+# search: indexing and displaying search results.
+# ai-input: using content as input for AI answers, grounding, and retrieval.
+# ai-train: training or fine-tuning AI models.
+# yes permits the corresponding use of this site's content.
+# These signals describe content use; they are not authentication controls.
 
 User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
 Allow: /
 
-# Explicit AI Agent & LLM Crawler Permissions
-User-agent: GPTBot
-Allow: /
-
-User-agent: ChatGPT-User
-Allow: /
-
-User-agent: OAI-SearchBot
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: Claude-Web
-Allow: /
-
-User-agent: anthropic-ai
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: Google-Extended
-Allow: /
-
-User-agent: Applebot-Extended
-Allow: /
-
-User-agent: CCBot
-Allow: /
-
-User-agent: Bytespider
-Allow: /
-
-User-agent: cohere-ai
-Allow: /
-
-User-agent: Meta-ExternalAgent
-Allow: /
-
-# Machine-Readable Endpoints & Manifests
 Sitemap: https://danilostoletovic.com/sitemap.xml
-# Humans Credits: https://danilostoletovic.com/humans.txt
+# Markdown homepage: https://danilostoletovic.com/index.md
 # LLM Context: https://danilostoletovic.com/llms.txt
 # AI Agent Guidelines: https://danilostoletovic.com/AGENTS.md
 # Security Policy: https://danilostoletovic.com/.well-known/security.txt
-

@@ -1,0 +1,39 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Danilo Stoletović",
+    "identifier": "danilostoletovic.com",
+    "documentationUrl": "https://danilostoletovic.com/AGENTS.md",
+    "logoUrl": "https://danilostoletovic.com/img/logo.avif"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:danilostoletovic.com:content:portfolio",
+      "displayName": "Portfolio in Markdown",
+      "type": "text/markdown",
+      "url": "https://danilostoletovic.com/index.md",
+      "description": "Projects, biography, technical stack, and contact information for Danilo Stoletović, Full-Stack Developer and Multiplatform & Systems Builder."
+    },
+    {
+      "identifier": "urn:air:danilostoletovic.com:content:agent-guidelines",
+      "displayName": "AI Agent Guidelines",
+      "type": "text/markdown",
+      "url": "https://danilostoletovic.com/AGENTS.md",
+      "description": "Entity facts, official sources, public access boundaries, and content-use guidance for automated systems."
+    },
+    {
+      "identifier": "urn:air:danilostoletovic.com:content:llm-context",
+      "displayName": "LLM Context Index",
+      "type": "text/plain",
+      "url": "https://danilostoletovic.com/llms.txt",
+      "description": "Structured portfolio context and links to official site resources."
+    },
+    {
+      "identifier": "urn:air:danilostoletovic.com:policy:crawler-access",
+      "displayName": "Crawler Access and Content Signals",
+      "type": "text/plain",
+      "url": "https://danilostoletovic.com/robots.txt",
+      "description": "Public crawl permissions and content signals for search, AI input, and AI training."
+    }
+  ]
+}

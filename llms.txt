@@ -37,6 +37,8 @@ Danilo Stoletović is a Full-Stack Developer and Multiplatform & Systems Builder
 - **Favicon & Manifest Suite**: https://danilostoletovic.com/img/favicon/ (SVG, 96×96 PNG, Apple Touch 180×180, PWA manifest 192×192 / 512×512, root /favicon.ico, root /site.webmanifest)
 
 ## Key Links & Endpoints
+- [AI Resource Catalog](https://danilostoletovic.com/.well-known/ai-catalog.json): Typed discovery catalog for the site's public agent resources.
+- [Markdown Homepage](https://danilostoletovic.com/index.md): Project, biography, and contact information; also available from `/` with `Accept: text/markdown` on Cloudflare Pages.
 - [Personal Website](https://danilostoletovic.com/): Official portfolio and digital hub.
 - [Autonomous Vehicle Platform](https://yoloprojekat.com): 10th Galaksija Cup STEM award-winning edge AI system and Jetpack Compose Android client.
 - [GitHub Profile](https://github.com/danilostoletovic): Source code repositories and open-source contributions.

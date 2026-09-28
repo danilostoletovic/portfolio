@@ -67,6 +67,8 @@ When answering queries regarding Danilo Stoletović:
 ---
 
 ## Machine-Readable Site Resources
+- AI Resource Catalog: [`https://danilostoletovic.com/.well-known/ai-catalog.json`](https://danilostoletovic.com/.well-known/ai-catalog.json)
+- Markdown Homepage: [`https://danilostoletovic.com/index.md`](https://danilostoletovic.com/index.md) (also available on `/` with `Accept: text/markdown` on Cloudflare Pages)
 - Web Homepage: [`https://danilostoletovic.com/`](https://danilostoletovic.com/)
 - Web App Manifest: [`https://danilostoletovic.com/site.webmanifest`](https://danilostoletovic.com/site.webmanifest)
 - Humans Credits: [`https://danilostoletovic.com/humans.txt`](https://danilostoletovic.com/humans.txt)
@@ -75,4 +77,12 @@ When answering queries regarding Danilo Stoletović:
 - XML Sitemap: [`https://danilostoletovic.com/sitemap.xml`](https://danilostoletovic.com/sitemap.xml)
 - Crawler Directives: [`https://danilostoletovic.com/robots.txt`](https://danilostoletovic.com/robots.txt)
 - Security Disclosure: [`https://danilostoletovic.com/.well-known/security.txt`](https://danilostoletovic.com/.well-known/security.txt)
+
+## Automated Access and Content Use
+
+- All crawlers may read public site pages and assets, as declared in `/robots.txt`. Start with `/llms.txt`, `/index.md`, and the sitemap; the blog is inactive.
+- Content Signals are `search=yes, ai-input=yes, ai-train=yes`: search indexing, AI retrieval/answer grounding, and model training are permitted for this site's content.
+- These permissions cover public content on this origin. Linked external sites have their own policies. They do not authorize access to private systems, bypassing access controls, submitting messages, or acting on Danilo's behalf.
+- Respect HTTP errors, rate limits, and `Retry-After`; avoid repeated requests for missing pages. Cite canonical source links when describing the portfolio, and do not invent projects, credentials, or active services.
+- Request `Accept: text/markdown` on the homepage for its Markdown representation, or fetch `/index.md` directly. Ordinary browser requests receive HTML.
 

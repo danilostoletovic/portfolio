@@ -1,0 +1,45 @@
+// Only the homepage routes in _routes.json invoke this edge function.
+function prefersMarkdown(accept) {
+  const ranges = accept.toLowerCase().split(',').map((entry) => {
+    const [type, ...parameters] = entry.trim().split(';');
+    const quality = parameters.find((part) => part.trim().startsWith('q='));
+    const q = quality === undefined ? 1 : Number(quality.trim().slice(2));
+    return { type: type.trim(), q: Number.isFinite(q) && q >= 0 && q <= 1 ? q : 0 };
+  });
+  // Wildcards alone must never switch ordinary browsers to Markdown.
+  const markdown = ranges.find((range) => range.type === 'text/markdown');
+  const html = ranges.find((range) => range.type === 'text/html')
+    ?? ranges.find((range) => range.type === 'text/*')
+    ?? ranges.find((range) => range.type === '*/*');
+  return markdown?.q > 0 && markdown.q >= (html?.q ?? 0);
+}
+
+export async function onRequest(context) {
+  const { request, env } = context;
+  const url = new URL(request.url);
+  if (!['/', '/index.html'].includes(url.pathname)
+      || !['GET', 'HEAD'].includes(request.method)) return context.next();
+
+  let response;
+  if (prefersMarkdown(request.headers.get('Accept') ?? '')) {
+    url.pathname = '/index.md';
+    url.search = '';
+    // Fetch the static representation without HTML conditional/range headers.
+    // ASSETS also applies _headers, preserving the site's security policy.
+    response = await env.ASSETS.fetch(new Request(url, { method: request.method }));
+  } else {
+    response = await context.next();
+  }
+  const headers = new Headers(response.headers);
+  const vary = headers.get('Vary');
+  if (!vary?.split(',').some((value) => ['accept', '*'].includes(value.trim().toLowerCase()))) {
+    headers.set('Vary', vary ? `${vary}, Accept` : 'Accept');
+  }
+  // Avoid shared-cache variant collisions, including custom Cache Everything rules.
+  headers.set('Cache-Control', 'no-store');
+  headers.set('Cloudflare-CDN-Cache-Control', 'no-store');
+  headers.set('Content-Signal', 'search=yes, ai-input=yes, ai-train=yes');
+  return new Response(request.method === 'HEAD' ? null : response.body, {
+    status: response.status, statusText: response.statusText, headers,
+  });
+}

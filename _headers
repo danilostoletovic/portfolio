@@ -1,4 +1,5 @@
 /*
+  Content-Signal: search=yes, ai-input=yes, ai-train=yes
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN
@@ -30,4 +31,18 @@
 /humans.txt
   Content-Type: text/plain; charset=utf-8
   Cache-Control: public, max-age=86400
+
+/index.md
+  Content-Type: text/markdown; charset=utf-8
+  Link: <https://danilostoletovic.com/>; rel="canonical"
+
+/AGENTS.md
+  Content-Type: text/markdown; charset=utf-8
+
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
+
+/.well-known/ai-catalog.json
+  Content-Type: application/ai-catalog+json
+  Cache-Control: public, max-age=3600
 
