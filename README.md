@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-emerald.svg)](LICENSE)
 [![Core Web Vitals](https://img.shields.io/badge/Core%20Web%20Vitals-100%2F100-brightgreen.svg)](https://pagespeed.web.dev/)
 [![Security Headers](https://img.shields.io/badge/Security%20Headers-Grade%20A-brightgreen.svg)](https://securityheaders.com/?q=https%3A%2F%2Fdanilostoletovic.com&followRedirects=on)
-[![JavaScript Bloat](https://img.shields.io/badge/Client--Side%20JS-0%20KB-blue.svg)](index.html)
+[![Vanilla JavaScript](https://img.shields.io/badge/Secretary-Vanilla%20JS-blue.svg)](js/secretary.js)
 [![HTML5](https://img.shields.io/badge/HTML5-Semantic-orange.svg)](index.html)
 [![CSS3](https://img.shields.io/badge/CSS3-Vanilla-blueviolet.svg)](style.css)
 
@@ -48,7 +48,7 @@ The website is continuously validated against strict industry-standard web perfo
 
 | Audit Category | Score / Grade | Verification Source | Standards & Directives |
 |:---|:---:|:---|:---|
-| **Performance** | `100/100` | [Google PageSpeed Insights](https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fdanilostoletovic.com) | Sub-50ms TTFB, 0 KB client-side JS runtime |
+| **Performance** | `100/100` | [Google PageSpeed Insights](https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fdanilostoletovic.com) | Static portfolio with a small optional Secretary script |
 | **Accessibility** | `100/100` | [Google Lighthouse](https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fdanilostoletovic.com) | Semantic HTML5, full ARIA roles, WCAG AAA contrast |
 | **Best Practices** | `100/100` | [Google Lighthouse](https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fdanilostoletovic.com) | Modern AVIF formats, HTTPS enforcement, zero deprecated APIs |
 | **SEO** | `100/100` | [Google Lighthouse](https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fdanilostoletovic.com) | Machine-readable metadata, Schema.org JSON-LD, XML sitemap |
@@ -67,7 +67,7 @@ The website is continuously validated against strict industry-standard web perfo
 
 ## Architecture & Performance Highlights
 
-- **0 KB Client-Side JavaScript**: No heavy runtimes, virtual DOM overhead, bundle fragmentation, or client-side hydration delays.
+- **Minimal Client-Side JavaScript**: The portfolio works without JavaScript. Only the optional Secretary interface uses a small, dependency-free script.
 - **100/100 Core Web Vitals**: Instant Largest Contentful Paint (LCP), 0ms Interaction to Next Paint (INP), and zero Cumulative Layout Shift (CLS).
 - **Sub-50ms Global TTFB**: Static assets served directly from global edge CDNs.
 - **Accessible & Semantic HTML5**: Full ARIA Landmark roles, screen-reader optimized heading hierarchy, and vector SVG inline assets.
@@ -142,6 +142,38 @@ danilostoletovic/
 ---
 
 ## Local Development
+
+### Ask Danilo's Secretary
+
+The portfolio contains a lightweight frontend for Danilo's virtual Secretary in
+`js/secretary.js` and `css/secretary.css`. The actual service is a separate Cloudflare
+Worker, maintained in the separate `Secretary` repository. Production API:
+`https://secretary.danilostoletovic.com`.
+
+The browser sends HTTPS `POST /chat` requests containing `{ "message": "…" }` and
+reads a nonempty string from `{ "reply": "…" }`, verified against the production
+API. The browser never receives the OpenAI API key. No backend credentials,
+database, chat analytics, or persistent storage are included here. Messages stay
+in memory until the page is reloaded; each request contains only the current
+question. Replies are rendered as text.
+
+The launcher initializes the dialog on first use. Suggested questions are the
+`suggestions` array at the top of `js/secretary.js`. Requests time out after 30
+seconds; errors and rate limits offer a retry and an email alternative. The rest
+of the portfolio works without JavaScript or API availability.
+
+No frontend configuration is needed for production. `_headers` permits the API
+in `connect-src`; the Worker already permits the production site's origin via
+CORS. For live requests from localhost or preview domains, the separate Worker
+must allow that origin. Do not work around CORS with a frontend key or proxy.
+
+Checks: `node --test tests/*.test.mjs` and `node --check js/secretary.js`.
+With a local server on port 8000 and Playwright plus Microsoft Edge available,
+run `node tests/secretary.browser.mjs` for browser regression checks using mocked
+API responses. Set `PLAYWRIGHT_PATH` if Playwright is supplied outside the usual
+module path, or `SECRETARY_TEST_URL` to change the local server address. The test
+captures desktop, mobile, and dark-theme screenshots in the current directory.
+There is no build, lint, or type-check pipeline in this static repository.
 
 Because this site relies entirely on standard web technologies with **zero build step and zero dependencies**, no `npm install` or node runtime is required.
 
