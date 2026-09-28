@@ -46,3 +46,17 @@
   Content-Type: application/ai-catalog+json
   Cache-Control: public, max-age=3600
 
+/.well-known/api-catalog
+  Content-Type: application/linkset+json; profile="https://www.rfc-editor.org/info/rfc9727"
+  Link: </.well-known/api-catalog>; rel="api-catalog"; type="application/linkset+json"
+  Cache-Control: public, max-age=3600
+
+/openapi.json
+  Content-Type: application/json
+
+/api.md
+  Content-Type: text/markdown; charset=utf-8
+
+/auth.md
+  Content-Type: text/markdown; charset=utf-8
+

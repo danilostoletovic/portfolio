@@ -202,6 +202,31 @@ Open `http://localhost:8000` in your web browser.
 
 ## Deployment
 
+### API discovery and access documentation
+
+`/.well-known/api-catalog` is an RFC 9727 Linkset describing the existing Secretary
+API, with `service-desc` and `service-doc` links to `/openapi.json` and `/api.md`.
+It is a static asset; `_headers` sets `application/linkset+json` and a catalog Link
+header for GET and HEAD. No health endpoint is advertised.
+
+The homepage Pages Function adds RFC 8288 Link headers for `api-catalog`,
+`service-desc`, `service-doc`, and `describedby` to HTML and negotiated Markdown
+responses, including HEAD. Existing Link values are preserved. API description
+and documentation links use the Secretary endpoint as their link context.
+
+`/auth.md` documents the existing unauthenticated access model. The portfolio
+does not implement agent registration, credential issuance, or OAuth, so it does
+not publish fictional OAuth metadata or registration URLs. A scanner requiring
+actual agent registration may still report that capability as unsupported.
+
+These resources deploy with the existing Cloudflare Pages Git integration and
+require no build step. A plain static server does not apply `_headers` or run
+the homepage Function. Run `node --test tests/*.test.mjs` for local checks.
+After deployment, POST `{"url":"https://danilostoletovic.com"}` as JSON to
+`https://isitagentready.com/api/scan` and inspect
+`checks.discovery.apiCatalog.status` and
+`checks.discoverability.linkHeaders.status`; both should be `"pass"`.
+
 ### Cloudflare AI content signals and Markdown negotiation
 
 `robots.txt` and the global `_headers` rule declare `search=yes, ai-input=yes, ai-train=yes`, preserving the site's open crawler policy. `AGENTS.md` explains public access boundaries. All crawlers share one wildcard group so bot-specific groups cannot shadow the policy.

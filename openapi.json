@@ -1,0 +1,47 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Danilo's Secretary API",
+    "version": "1.0.0",
+    "description": "The chat interface used by Danilo Stoletović's portfolio. Each question is answered independently. This description documents the existing portfolio client contract; the service is maintained separately."
+  },
+  "servers": [{ "url": "https://secretary.danilostoletovic.com" }],
+  "externalDocs": { "url": "https://danilostoletovic.com/api.md" },
+  "security": [],
+  "paths": {
+    "/chat": {
+      "post": {
+        "operationId": "askSecretary",
+        "summary": "Ask about Danilo's work and projects",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["message"],
+                "properties": { "message": { "type": "string", "minLength": 1, "description": "A nonblank question." } }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "An AI-generated answer; verify important facts against the portfolio.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["reply"],
+                  "properties": { "reply": { "type": "string", "minLength": 1 } }
+                }
+              }
+            }
+          },
+          "429": { "description": "Rate limited. Wait before retrying; honor Retry-After when supplied." },
+          "default": { "description": "Request failed. No error-body schema is guaranteed by the portfolio client." }
+        }
+      }
+    }
+  }
+}

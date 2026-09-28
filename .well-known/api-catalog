@@ -1,0 +1,19 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://secretary.danilostoletovic.com/chat",
+      "service-desc": [
+        {
+          "href": "https://danilostoletovic.com/openapi.json",
+          "type": "application/json"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://danilostoletovic.com/api.md",
+          "type": "text/markdown"
+        }
+      ]
+    }
+  ]
+}

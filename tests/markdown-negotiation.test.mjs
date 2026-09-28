@@ -60,6 +60,34 @@ test('HEAD returns negotiated headers without a body', async () => {
   }
 });
 
+test('discovery links survive HTML and Markdown GET/HEAD and preserve existing links', async () => {
+  for (const path of ['/', '/index.html']) {
+    for (const method of ['GET', 'HEAD']) {
+      for (const accept of ['text/html', 'text/markdown']) {
+        const ctx = context(accept, method, path);
+        const existingLink = '<https://danilostoletovic.com/>; rel="canonical"';
+        const getResponse = accept === 'text/markdown' ? ctx.env.ASSETS.fetch : ctx.next;
+        const withLink = async (...args) => {
+          const response = await getResponse(...args);
+          response.headers.set('Link', existingLink);
+          return response;
+        };
+        if (accept === 'text/markdown') ctx.env.ASSETS.fetch = withLink;
+        else ctx.next = withLink;
+        const response = await onRequest(ctx);
+        assert.equal(response.status, 200);
+        const links = response.headers.get('Link');
+        assert.ok(links.includes(existingLink));
+        for (const relation of ['api-catalog', 'service-desc', 'service-doc', 'describedby']) {
+          assert.ok(links.includes(`rel="${relation}"`));
+        }
+        assert.match(links, /anchor="https:\/\/secretary\.danilostoletovic\.com\/chat"/);
+        if (method === 'HEAD') assert.equal(await response.text(), '');
+      }
+    }
+  }
+});
+
 test('index.html alias and query strings negotiate Markdown', async () => {
   const response = await onRequest(context('text/markdown', 'GET', '/index.html?source=agent'));
   assert.equal(await response.text(), markdown);

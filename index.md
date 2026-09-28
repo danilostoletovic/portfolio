@@ -34,7 +34,7 @@ A lightweight interface for working with AI across different tasks. An evolving 
 
 ### This portfolio
 
-Semantic HTML and vanilla CSS, with no client-side JavaScript runtime.
+Semantic HTML and vanilla CSS, with a little JavaScript for the virtual secretary. Alongside its public-web deployment, I configured a Tor hidden service for a separately hosted .onion mirror.
 
 - [View source](https://github.com/danilostoletovic/portfolio)
 
@@ -46,7 +46,7 @@ I'm a full-stack developer and multiplatform & systems builder, and a final-year
 
 - Mobile & desktop: Kotlin, Jetpack Compose, Flutter, Dart, WinUI, C#.
 - Web & backend: HTML & CSS, JavaScript, React, Node.js, Python, Programmatic SEO.
-- Systems & shipping: Linux / systemd, Raspberry Pi, Docker, GitHub Actions, Cloudflare, Vercel.
+- Systems & shipping: Linux / systemd, Raspberry Pi, Docker, GitHub Actions, Cloudflare, Vercel. Provisioning and administering a Hetzner Cloud Linux VPS over SSH, including networking, deployment, and troubleshooting.
 - Distribution: Google Play and Microsoft Store publishing; 10,000+ visitors across web projects and case studies.
 
 ## Contact
