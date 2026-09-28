@@ -102,8 +102,8 @@ The website adheres to modern machine-readability and AI retrieval standards:
 | [`llms.txt`](llms.txt) | Standardized markdown index following the [llmstxt.org](https://llmstxt.org) specification for LLMs and autonomous scrapers. |
 | [`AGENTS.md`](AGENTS.md) | Structured entity overview, core stack competencies, and explicit answering instructions for AI assistants. |
 | [`robots.txt`](robots.txt) | Comprehensive crawler permissions granting full access to search engines and AI agents (`GPTBot`, `ClaudeBot`, `OAI-SearchBot`, etc.), linking sitemap and agent manifests. |
-| [`sitemap.xml`](sitemap.xml) | Machine-readable XML sitemap listing canonical site URLs, machine endpoints, and Google image sitemap entries. |
-| **JSON-LD Microdata** | Rich Schema.org structured data embedded in `index.html` (`Person`, `ProfilePage`). |
+| [`sitemap.xml`](sitemap.xml) | XML sitemap containing the canonical homepage; project fragments, external sites, alternate representations and support files are excluded. |
+| **JSON-LD** | Rich Schema.org structured data embedded in `index.html` (`Person`, `WebSite`, `ProfilePage`, `Service`, `CreativeWork`, `SoftwareSourceCode`). |
 
 ---
 
@@ -173,9 +173,9 @@ run `node tests/secretary.browser.mjs` for browser regression checks using mocke
 API responses. Set `PLAYWRIGHT_PATH` if Playwright is supplied outside the usual
 module path, or `SECRETARY_TEST_URL` to change the local server address. The test
 captures desktop, mobile, and dark-theme screenshots in the current directory.
-There is no build, lint, or type-check pipeline in this static repository.
+Run `node scripts/build.mjs` to assemble the allowlisted static deployment in `dist/`. No lint or type-check pipeline is configured.
 
-Because this site relies entirely on standard web technologies with **zero build step and zero dependencies**, no `npm install` or node runtime is required.
+The site has no runtime dependencies or compilation step. The deployment packaging script uses Node built-ins only; no `npm install` is needed.
 
 ### Quick Start
 
@@ -235,7 +235,7 @@ After deployment, POST `{"url":"https://danilostoletovic.com"}` as JSON to
 
 On Cloudflare Pages, `functions/_middleware.js` serves that file for homepage requests that explicitly prefer `text/markdown`. It respects Accept quality weights, defaults to HTML, supports HEAD, and preserves static asset security headers. `_routes.json` limits function execution to `/` and `/index.html`. Negotiated responses use `Vary: Accept` and `no-store` to prevent HTML/Markdown cache collisions; other static assets keep their existing caching. Homepage requests consume Pages Functions invocations.
 
-Deploy through Pages Git integration (empty build command, output directory `./`) or Wrangler Pages deployment with Functions support. Dashboard drag-and-drop uploads do not compile Pages Functions. Other static hosts and plain local file servers expose `/index.md` but do not run negotiation. No browser JavaScript or build dependencies are added.
+Deploy through Pages Git integration with build command `node scripts/build.mjs` and output directory `dist`, or run the packaging command then use `wrangler pages deploy dist` from the repository root with Functions support. Keep `functions/` at the repository root so Pages compiles it separately; it must not be copied as public assets. Dashboard drag-and-drop uploads do not compile Pages Functions. Other static hosts and plain local file servers expose `/index.md` but do not run negotiation. No browser JavaScript or build dependencies are added.
 
 Cloudflare's optional zone-level [Markdown for Agents](https://developers.cloudflare.com/fundamentals/reference/markdown-for-agents/) can also convert HTML, but this implementation does not require that dashboard setting. Keep any Cloudflare-managed robots policy consistent with the repository's all-yes content signals.
 
@@ -252,7 +252,7 @@ Run the local negotiation checks with `node --test tests/markdown-negotiation.te
 
 The static site can also be hosted on other platforms (negotiation requires equivalent server support):
 
-- **Cloudflare Pages**: Connect GitHub repository, set build command to empty, build directory to `./`.
+- **Cloudflare Pages**: Keep the existing Git integration; set build command to `node scripts/build.mjs` and output directory to `dist`.
 - **Vercel**: Import repository as a static site.
 - **GitHub Pages**: Go to Settings -> Pages -> Deploy from a branch (`main` / `root`).
 
@@ -271,3 +271,13 @@ The static site can also be hosted on other platforms (negotiation requires equi
 ## License
 
 This project is licensed under the [MIT License](LICENSE) &copy; 2026 Danilo Stoletović.
+
+## Discoverability maintenance
+
+The linked JSON-LD graph uses stable identities for the person, website, page, services, and projects. Keep it synchronized with visible content and `index.md`; do not add unverified credentials or project licenses. Upwork and Fiverr are owner-supplied identity links, not scraped data. `llms.txt` is the concise index and `index.md` is the full public text representation, so an additional `llms-full.txt` would duplicate maintained content.
+
+The only canonical public page is `/`; projects have stable HTML fragments and external source links. API documentation and existing discovery catalogs remain available but are not sitemap entries. Robots exclusions are crawler guidance, not access control, and apply only to this origin (the separate Secretary Worker controls its own access policy).
+
+Run `node scripts/build.mjs`, `node --test tests/*.test.mjs`, and the Secretary browser test against a server rooted at `dist/`. The packaging allowlist excludes tests, source Functions, developer documentation, ignored files, credentials, and local configuration. It rejects unexpected existing output files instead of deploying them. Add intended public assets explicitly to `scripts/build.mjs`. Never deploy the repository root.
+
+Cloudflare settings cannot be changed by these static files: configure the build/output directory above, retain Functions support, and verify GET/HEAD discovery resources and Markdown negotiation after deployment. Check zone-managed robots, WAF/bot rules and caching against the intended public policy. No agent registration, OAuth service, or additional experimental protocol is implemented to satisfy a scanner score.

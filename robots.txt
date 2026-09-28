@@ -10,6 +10,15 @@
 User-agent: *
 Content-Signal: search=yes, ai-input=yes, ai-train=yes
 Allow: /
+# Defense in depth only; deployment excludes non-public files.
+Disallow: /api/
+Disallow: /admin/
+Disallow: /functions/
+Disallow: /tests/
+Disallow: /scripts/
+Disallow: /.git/
+Disallow: /.env
+Disallow: /.dev.vars
 
 Sitemap: https://danilostoletovic.com/sitemap.xml
 # Markdown homepage: https://danilostoletovic.com/index.md

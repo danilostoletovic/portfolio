@@ -49,13 +49,25 @@ I'm a full-stack developer and multiplatform & systems builder, and a final-year
 - Systems & shipping: Linux / systemd, Raspberry Pi, Docker, GitHub Actions, Cloudflare, Vercel. Provisioning and administering a Hetzner Cloud Linux VPS over SSH, including networking, deployment, and troubleshooting.
 - Distribution: Google Play and Microsoft Store publishing; 10,000+ visitors across web projects and case studies.
 
+## Services
+
+Software development across Android, cross-platform mobile, Windows desktop, web and backend systems, including app store publishing and edge deployments. Open to engineering advisory and technical collaborations.
+
 ## Contact
 
 Open to freelance work, engineering advisory, and technical collaborations.
 
 - [Email](mailto:contact@danilostoletovic.com): contact@danilostoletovic.com
+- [Phone](tel:+381677732060): +381677732060
 - [GitHub](https://github.com/danilostoletovic)
 - [LinkedIn](https://linkedin.com/in/danilostoletovic)
+
+- [Upwork](https://www.upwork.com/freelancers/danilostoletovic)
+- [Fiverr](https://pro.fiverr.com/freelancers/stoletovicd)
+
+## Ask Danilo’s Secretary
+
+The optional virtual Secretary on the homepage answers questions about Danilo’s work and technologies. Email or the professional profiles above are the direct contact routes. The portfolio remains readable without JavaScript.
 
 ## Official media and agent resources
 

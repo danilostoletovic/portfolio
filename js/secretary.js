@@ -93,7 +93,9 @@
     disclosure.id = 'secretary-disclosure';
     const contact = element('a', '', 'Prefer a person? Email Danilo ↗');
     contact.href = 'mailto:contact@danilostoletovic.com';
-    disclosure.append(document.createElement('br'), contact);
+    const phone = element('a', '', '+381677732060');
+    phone.href = 'tel:+381677732060';
+    disclosure.append(document.createElement('br'), contact, document.createTextNode(' · '), phone);
     panel.append(header, log, prompts, status, form, disclosure);
     panel.addEventListener('keydown', event => {
       if (event.key !== 'Tab') return;

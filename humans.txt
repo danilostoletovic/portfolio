@@ -2,21 +2,25 @@
 Full-Stack Developer & Systems Builder: Danilo Stoletović
 Site: https://danilostoletovic.com/
 Contact: contact@danilostoletovic.com
+Phone: +381677732060
 GitHub: https://github.com/danilostoletovic
 LinkedIn: https://linkedin.com/in/danilostoletovic
 Location: Nis, Serbia / Global Remote
 
+Upwork: https://www.upwork.com/freelancers/danilostoletovic
+Fiverr: https://pro.fiverr.com/freelancers/stoletovicd
+
 /* SITE */
 Standards: Semantic HTML5, Vanilla CSS3 (Custom Design Tokens)
-Architecture: Zero-Bloat Pure Static Site, 0 KB Client-Side JavaScript
+Architecture: Static HTML and CSS with optional dependency-free JavaScript Secretary
 Performance: 100/100 Core Web Vitals, Sub-50ms TTFB
-Typography: Outfit, Plus Jakarta Sans (Cloudflare Fonts)
+Typography: Georgia, Arial, Courier New (system fonts)
 Edge Hosting: Cloudflare Pages (Global Anycast Edge CDN)
 Media & Graphics: High-efficiency AVIF & Pure SVG Insignia
 Security: Strict CSP, HSTS Preloaded, Grade A+ Security Headers
 Doctype: HTML5
 Language: English
-Last Updated: 2026-09-07
+Last Updated: 2026-09-29
 
 /* SPECIAL THANKS */
 Galaksija Cup STEM Championship (National Autonomous Smart Vehicle Platform)
