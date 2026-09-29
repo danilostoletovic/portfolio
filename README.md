@@ -89,7 +89,8 @@ The website is continuously validated against strict industry-standard web perfo
 - **CSS-only light / dark themes**: Follows the system preference; the keyboard-accessible checkbox reverses it for the current page.
 - **Responsive and accessible**: Single-column mobile layout, skip navigation, visible focus, reduced-motion support, and semantic landmarks.
 - **Shared 404 styling**: The error page uses the same stylesheet and navigation destinations.
-- **CSS delivery**: Edit `style.css`, then regenerate `style.min.css` by stripping comments and collapsing whitespace. Both pages reference the same versioned stylesheet.
+- **CSS delivery**: The homepage embeds `style.css` and `css/secretary.css` to remove stylesheet requests from the first-render path. After editing either source, run `node scripts/inline-styles.cjs` and commit the updated `index.html`. CSS is embedded without transformation to preserve layout and no-JavaScript behavior. This trades independent stylesheet caching for a larger HTML response on the single-page portfolio. The 404 page still uses `style.min.css`; regenerate that file and bump its version when changing the shared styles.
+- **Public email delivery**: The homepage contact link is wrapped in Cloudflare's `email_off` comments so the already-public address stays usable without an email-decoding script. Check the deployed response after release to confirm Cloudflare preserves the exclusion.
 
 ---
 ## AI Agent & Machine Readability
