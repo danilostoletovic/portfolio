@@ -875,3 +875,52 @@ html:has(#theme-toggle-check:checked) .availability span {
 .hero>div {
   min-width:0
 }
+
+/* Client paths reuse the workshop palette and native disclosure controls. */
+.offers-section,.compact-section { padding-top:56px; }
+.offer-list { border-top:1px solid var(--ink); }
+.offer { border-bottom:1px solid var(--line); }
+summary { cursor:pointer; padding:18px 16px; font-weight:700; }
+summary:focus-visible { outline:3px solid var(--accent); outline-offset:3px; }
+.offer[open] { background:var(--surface); }
+.offer[open] summary { color:var(--accent); }
+.offer-body { padding:8px 28px 28px; max-width:850px; }
+.offer-body h3 { font-family:var(--font-display); font-size:30px; }
+.offer-body .project-detail { font-size:14px; }
+.section-next { margin:24px 0 0; font-size:14px; }
+.process-list { display:grid; grid-template-columns:repeat(4,1fr); gap:28px; padding-left:22px; }
+.process-list li { padding-left:4px; }
+.process-list li::marker { color:var(--accent); font-weight:700; }
+.process-list h3 { font-size:18px; line-height:1.35; letter-spacing:-.02em; }
+.process-list p { font-size:14px; }
+#testimonials { border-bottom:1px solid var(--line); padding-bottom:30px; }
+#testimonials>p { max-width:800px; font-size:15px; }
+.testimonial { margin:20px 0; padding:24px; border:1px solid var(--line); background:var(--surface); }
+.testimonial blockquote { margin:0 0 16px; }
+.testimonial img { width:48px; height:48px; }
+.site-header nav a,.contact-socials a { min-height:44px; display:inline-flex; align-items:center; }
+.theme-control { min-width:44px; min-height:44px; }
+@media(max-width:950px) { .site-header nav { gap:18px; } .process-list { grid-template-columns:repeat(2,1fr); } }
+@media(max-width:700px) {
+ .site-header { flex-wrap:wrap; padding-block:16px; gap:10px; }
+ .site-header nav { order:3; width:100%; margin:0; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+ .site-header nav a:last-child { max-width:none; }
+ .theme-control { margin-left:auto; }
+ .offers-section,.compact-section { padding-top:38px; }
+ .offer-body { padding:8px 16px 24px; }
+ .offer-body h3 { font-size:27px; }
+}
+@media(max-width:450px) { .process-list { grid-template-columns:1fr; gap:10px; } }
+
+/* Offers are readable immediately, side by side where space allows. */
+.offer-list { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; border-top:0; align-items:start; }
+.offer { min-width:0; border:1px solid var(--line); background:var(--surface); }
+.offer summary { padding:18px 16px; font-size:14px; }
+.offer-body { padding:8px 16px 24px; }
+.offer-body h3 { font-size:27px; }
+.offer-body p { font-size:14px; }
+.offer-body .offer-aside { font:italic 16px/1.5 Georgia,serif; color:var(--muted); }
+.offer-body .button { gap:10px; }
+@media(min-width:1051px) { .offer-body h3 { min-height:150px; } }
+@media(max-width:1050px) { .offer-list { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:600px) { .offer-list { grid-template-columns:1fr; } }

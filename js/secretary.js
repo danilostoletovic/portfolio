@@ -11,6 +11,7 @@
   const welcome = 'Hi. I’m Danilo’s virtual secretary. Ask me about his work, projects, or what he can build for you. No appointment needed.';
   const state = { messages: [], busy: false };
   let panel, input, log, status, send, prompts;
+  let opener;
 
   function element(tag, className, text) {
     const node = document.createElement(tag);
@@ -113,7 +114,7 @@
     panel.addEventListener('close', () => {
       document.body.classList.remove('secretary-open');
       launcher.setAttribute('aria-expanded', 'false');
-      launcher.focus({ preventScroll: true });
+      (opener || launcher).focus({ preventScroll: true });
     });
     document.body.append(panel);
     addMessage('assistant', welcome);
@@ -162,14 +163,21 @@
   }
 
   // No API requests or conversation DOM until a visitor opens the front desk.
-  launcher.addEventListener('click', () => {
+  function openSecretary(event) {
+    event.preventDefault();
+    opener = event.currentTarget;
     if (!panel) initialize();
     panel.showModal();
     document.body.classList.add('secretary-open');
     launcher.setAttribute('aria-expanded', 'true');
     input.focus({ preventScroll: true });
-  });
+  }
   if (typeof HTMLDialogElement !== 'undefined' && HTMLDialogElement.prototype.showModal) {
+    launcher.addEventListener('click', openSecretary);
+    document.querySelectorAll('[data-secretary]').forEach(link => {
+      link.setAttribute('aria-haspopup', 'dialog');
+      link.addEventListener('click', openSecretary);
+    });
     document.body.append(launcher);
     document.body.classList.add('secretary-enabled');
   }

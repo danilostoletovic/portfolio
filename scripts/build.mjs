@@ -1,5 +1,6 @@
+import { renderTestimonials } from './testimonials.mjs';
 // Dependency-free, explicit public asset allowlist. Functions compile separately in Pages.
-import { copyFile, mkdir, readdir } from 'node:fs/promises';
+import { copyFile, mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, relative } from 'node:path';
 
@@ -28,5 +29,12 @@ for (const file of publicFiles) {
   const destination = new URL(file, output);
   await mkdir(dirname(fileURLToPath(destination)), { recursive: true });
   await copyFile(new URL(file, root), destination);
+}
+const quotes = renderTestimonials(JSON.parse(await readFile(new URL('data/testimonials.json', root), 'utf8')));
+for (const file of ['index.html', 'index.md']) {
+  const path = new URL(file, output);
+  let content = await readFile(path, 'utf8');
+  if (quotes) content = content.replace(/<!-- testimonials:start -->[\s\S]*?<!-- testimonials:end -->/, () => '<!-- testimonials:start -->\n' + quotes + '\n<!-- testimonials:end -->');
+  await writeFile(path, content);
 }
 console.log(`Built ${publicFiles.length} allowlisted public files in dist/.`);

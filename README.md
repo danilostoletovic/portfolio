@@ -281,3 +281,11 @@ The only canonical public page is `/`; projects have stable HTML fragments and e
 Run `node scripts/build.mjs`, `node --test tests/*.test.mjs`, and the Secretary browser test against a server rooted at `dist/`. The packaging allowlist excludes tests, source Functions, developer documentation, ignored files, credentials, and local configuration. It rejects unexpected existing output files instead of deploying them. Add intended public assets explicitly to `scripts/build.mjs`. Never deploy the repository root.
 
 Cloudflare settings cannot be changed by these static files: configure the build/output directory above, retain Functions support, and verify GET/HEAD discovery resources and Markdown negotiation after deployment. Check zone-managed robots, WAF/bot rules and caching against the intended public policy. No agent registration, OAuth service, or additional experimental protocol is implemented to satisfy a scanner score.
+
+## Offers and testimonials
+
+Offers use native details/summary controls: keyboard, touch, and no-JavaScript support without dependencies. Contextual Secretary links reuse the existing dialog and fall back to contact.
+
+Edit data/testimonials.json as an array with name, project (company/project), role, testimonial, service, projectURL, date (YYYY-MM-DD), image (optional HTTPS URL), and public (boolean). Start with public: false; publish only with permission covering the quote, attribution, links, and image. Never commit confidential client material to this public repository, even when public is false. Keep private records outside the repository.
+
+The build renders only literal public: true entries into dist/index.html and dist/index.md. Raw data and rendering code are excluded from the deployment allowlist. Empty collections retain the honest no-quotes message. Preview dist to see published quotes; do not manually embed quotes in the HTML or Markdown templates.
