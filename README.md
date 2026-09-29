@@ -302,10 +302,12 @@ because there is no remote MCP server to describe.
 ### DNS-AID publication
 
 On 2026-09-29, the following record was published through Cloudflare DNS and
-verified through Google and Cloudflare public resolvers. Cloudflare DNSSEC setup
-was enabled; zone signatures are present, while automatic registrar DS publication
-is pending. The scanner recognizes a valid ServiceMode record but does not yet
-report authenticated DNSSEC (`AD: true`). DNS changes are managed outside this repository.
+verified through Google and Cloudflare public resolvers. DNSSEC is enabled and
+the registrar DS record is published. Google Public DNS returned authenticated
+data (`AD: true`) for the SVCB record on 2026-09-29. During propagation, Cloudflare's
+resolver still returned an older unauthenticated answer, so the readiness scanner
+may temporarily report a DNSSEC warning. DNS changes are managed outside this
+repository; adding a DS record to HTML or JavaScript does not enable DNSSEC.
 
 This ServiceMode SVCB record advertises the site's HTTPS discovery entrypoint
 (priority 1, port 443, Cloudflare Auto TTL currently 300 seconds):
@@ -323,9 +325,16 @@ numeric `keyNNNNN` mapping before publishing it; do not invent a registered key.
 See the [DNS-AID draft](https://datatracker.ietf.org/doc/draft-mozleywilliams-dnsop-dnsaid/)
 and [RFC 9460](https://www.rfc-editor.org/rfc/rfc9460).
 
-Cloudflare Registrar is automatically publishing the DS record for this domain.
-Verify that setup changes from pending to active and that public resolvers validate
-the chain. For other registrars, publish Cloudflare's exact generated DS values. See
+Cloudflare Registrar published the following parent-zone DS record, verified
+through both Google and Cloudflare public resolvers:
+
+```dns
+danilostoletovic.com. IN DS 2371 13 2 4CC099C898F437788649E7D8F9A3D56794F218AB0272FA14DC864CCBC2EACB3E
+```
+
+This is a record of the verified configuration, not an instruction to add another
+DS record inside the child zone. Keep registrar DS values synchronized with the
+DNS provider during any future key or provider changes. See
 [Cloudflare's DNSSEC setup](https://developers.cloudflare.com/dns/dnssec/).
 Once propagated, query SVCB type 64 with DNSSEC enabled through a validating
 resolver; require the expected record, a successful response, and `AD: true`.
