@@ -1,5 +1,3 @@
-/dist/
-/secretary-*.png
 .env
 .env.*
 .dev.vars

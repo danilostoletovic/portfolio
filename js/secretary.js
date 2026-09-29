@@ -12,6 +12,7 @@
   const state = { messages: [], busy: false };
   let panel, input, log, status, send, prompts;
   let opener;
+  let challengeTimer;
 
   function element(tag, className, text) {
     const node = document.createElement(tag);
@@ -165,12 +166,98 @@
   // No API requests or conversation DOM until a visitor opens the front desk.
   function openSecretary(event) {
     event.preventDefault();
+    clearTimeout(challengeTimer);
     opener = event.currentTarget;
     if (!panel) initialize();
     panel.showModal();
     document.body.classList.add('secretary-open');
     launcher.setAttribute('aria-expanded', 'true');
     input.focus({ preventScroll: true });
+  }
+
+  function initializeChallenge() {
+    const key = 'secretaryChallengeSeen';
+    const entry = element('button', 'challenge-entry', 'Break my AI secretary');
+    entry.type = 'button';
+    entry.setAttribute('aria-haspopup', 'dialog');
+    entry.setAttribute('aria-controls', 'secretary-challenge');
+    const challenge = element('dialog', 'challenge-panel');
+    challenge.id = 'secretary-challenge';
+    challenge.setAttribute('aria-labelledby', 'challenge-title');
+    challenge.setAttribute('aria-describedby', 'challenge-copy');
+    const close = element('button', 'secretary-close challenge-close', '×');
+    close.type = 'button';
+    close.setAttribute('aria-label', 'Close challenge');
+    const title = element('h2');
+    title.id = 'challenge-title';
+    title.append(document.createTextNode('BREAK MY AI SECRETARY.'), element('span', 'orange', 'GET A WEBSITE FOR FREE.'));
+    title.tabIndex = -1;
+    const copy = element('div');
+    copy.id = 'challenge-copy';
+    const offer = element('p');
+    offer.append(document.createTextNode('Find a '), element('strong', '', 'real, reproducible vulnerability'), document.createTextNode(' and I’ll build you a website for free.'));
+    copy.append(element('p', '', 'I gave an AI access to knowledge about me and my work.'), element('p', '', 'Think you can make her reveal something she shouldn’t?'), offer);
+    const accept = element('button', 'secretary-send challenge-accept', 'ACCEPT THE CHALLENGE');
+    accept.type = 'button';
+    const dismiss = element('button', 'challenge-dismiss', 'No thanks, I fear the secretary');
+    dismiss.type = 'button';
+    const rules = element('details', 'challenge-rules');
+    rules.append(element('summary', '', 'What counts as breaking her?'), element('p', '', 'A genuine, reproducible vulnerability with security impact: an unintended disclosure or bypass. Silly answers, roleplay, hallucinations, claims of being hacked, or trivial prompt injection without actual security impact do not automatically qualify.'), element('p', '', 'No DDoS or intentional service disruption. Unrelated infrastructure and third-party services are out of scope. Qualification requires a reproducible technical issue.'));
+    const report = element('p', '', 'Report findings responsibly with reproduction steps to ');
+    const email = element('a', '', 'contact@danilostoletovic.com');
+    email.href = 'mailto:contact@danilostoletovic.com';
+    report.append(email, document.createTextNode('.'));
+    rules.append(report);
+    challenge.append(close, element('p', 'secretary-kicker', 'THE FRONT DESK / A CHALLENGE'), title, copy, accept, dismiss, rules);
+    let returnFocus;
+    function finish(accepted = false) {
+      clearTimeout(challengeTimer);
+      try { localStorage.setItem(key, 'true'); } catch { /* Storage is optional. */ }
+      challenge.close();
+      document.body.classList.remove('challenge-open');
+      if (accepted) {
+        // Use the same opener and input focus path as the normal launcher.
+        openSecretary({ preventDefault() {}, currentTarget: returnFocus || entry });
+      } else {
+        returnFocus?.focus({ preventScroll: true });
+      }
+    }
+    function show() {
+      clearTimeout(challengeTimer);
+      if (challenge.open) return;
+      returnFocus = document.activeElement;
+      rules.open = false;
+      challenge.showModal();
+      document.body.classList.add('challenge-open');
+      title.focus({ preventScroll: true });
+    }
+    accept.addEventListener('click', () => finish(true));
+    dismiss.addEventListener('click', () => finish());
+    close.addEventListener('click', () => finish());
+    challenge.addEventListener('cancel', event => { event.preventDefault(); finish(); });
+    challenge.addEventListener('keydown', event => {
+      if (event.key !== 'Tab') return;
+      const nodes = [...challenge.querySelectorAll('button, summary, a')].filter(node =>
+        node.getClientRects().length && (node.tagName !== 'A' || rules.open));
+      const first = nodes[0], last = nodes[nodes.length - 1];
+      if (event.shiftKey && (document.activeElement === first || document.activeElement === title)) {
+        event.preventDefault(); last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault(); first.focus();
+      }
+    });
+    entry.addEventListener('click', show);
+    document.body.append(entry, challenge);
+    function schedule() {
+      try { if (localStorage.getItem(key) === 'true') return; } catch { return; }
+      challengeTimer = setTimeout(() => {
+        try { if (localStorage.getItem(key) === 'true') return; } catch { return; }
+        // Never interrupt an already-open Secretary or another modal.
+        if (!document.querySelector('dialog[open]')) show();
+      }, 1800);
+    }
+    if (document.readyState === 'complete') schedule();
+    else window.addEventListener('load', schedule, { once: true });
   }
   if (typeof HTMLDialogElement !== 'undefined' && HTMLDialogElement.prototype.showModal) {
     launcher.addEventListener('click', openSecretary);
@@ -180,5 +267,6 @@
     });
     document.body.append(launcher);
     document.body.classList.add('secretary-enabled');
+    initializeChallenge();
   }
 })();

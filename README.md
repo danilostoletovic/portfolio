@@ -167,15 +167,14 @@ in `connect-src`; the Worker already permits the production site's origin via
 CORS. For live requests from localhost or preview domains, the separate Worker
 must allow that origin. Do not work around CORS with a frontend key or proxy.
 
-Checks: `node --test tests/*.test.mjs` and `node --check js/secretary.js`.
-With a local server on port 8000 and Playwright plus Microsoft Edge available,
-run `node tests/secretary.browser.mjs` for browser regression checks using mocked
-API responses. Set `PLAYWRIGHT_PATH` if Playwright is supplied outside the usual
-module path, or `SECRETARY_TEST_URL` to change the local server address. The test
-captures desktop, mobile, and dark-theme screenshots in the current directory.
-Run `node scripts/build.mjs` to assemble the allowlisted static deployment in `dist/`. No lint or type-check pipeline is configured.
+The first-visit challenge uses the same native-dialog styling and Secretary opener.
+It appears 1.8 seconds after load unless dismissed previously or another dialog is
+open. Accept, dismiss, close, and Escape save `secretaryChallengeSeen=true` in
+localStorage. The fixed “Break my AI secretary” entry point always remains available.
+Blocked storage disables automatic display; the manual flow still works. Opening
+either dialog makes no API request. Challenge rules are expandable inside the modal.
 
-The site has no runtime dependencies or compilation step. The deployment packaging script uses Node built-ins only; no `npm install` is needed.
+The site runs directly from the project root with no build step or dependencies.
 
 ### Quick Start
 
@@ -221,7 +220,7 @@ actual agent registration may still report that capability as unsupported.
 
 These resources deploy with the existing Cloudflare Pages Git integration and
 require no build step. A plain static server does not apply `_headers` or run
-the homepage Function. Run `node --test tests/*.test.mjs` for local checks.
+the homepage Function.
 After deployment, POST `{"url":"https://danilostoletovic.com"}` as JSON to
 `https://isitagentready.com/api/scan` and inspect
 `checks.discovery.apiCatalog.status` and
@@ -235,7 +234,7 @@ After deployment, POST `{"url":"https://danilostoletovic.com"}` as JSON to
 
 On Cloudflare Pages, `functions/_middleware.js` serves that file for homepage requests that explicitly prefer `text/markdown`. It respects Accept quality weights, defaults to HTML, supports HEAD, and preserves static asset security headers. `_routes.json` limits function execution to `/` and `/index.html`. Negotiated responses use `Vary: Accept` and `no-store` to prevent HTML/Markdown cache collisions; other static assets keep their existing caching. Homepage requests consume Pages Functions invocations.
 
-Deploy through Pages Git integration with build command `node scripts/build.mjs` and output directory `dist`, or run the packaging command then use `wrangler pages deploy dist` from the repository root with Functions support. Keep `functions/` at the repository root so Pages compiles it separately; it must not be copied as public assets. Dashboard drag-and-drop uploads do not compile Pages Functions. Other static hosts and plain local file servers expose `/index.md` but do not run negotiation. No browser JavaScript or build dependencies are added.
+Deploy the static project root with no build command and retain Pages Functions support. Keep `functions/` at the repository root so Pages compiles it separately; it must not be copied as public assets. Dashboard drag-and-drop uploads do not compile Pages Functions. Other static hosts and plain local file servers expose `/index.md` but do not run negotiation. No browser JavaScript or build dependencies are added.
 
 Cloudflare's optional zone-level [Markdown for Agents](https://developers.cloudflare.com/fundamentals/reference/markdown-for-agents/) can also convert HTML, but this implementation does not require that dashboard setting. Keep any Cloudflare-managed robots policy consistent with the repository's all-yes content signals.
 
@@ -248,11 +247,9 @@ curl -I https://danilostoletovic.com/index.md
 curl https://danilostoletovic.com/robots.txt
 ```
 
-Run the local negotiation checks with `node --test tests/markdown-negotiation.test.mjs`.
-
 The static site can also be hosted on other platforms (negotiation requires equivalent server support):
 
-- **Cloudflare Pages**: Keep the existing Git integration; set build command to `node scripts/build.mjs` and output directory to `dist`.
+- **Cloudflare Pages**: Keep the existing Git integration; leave the build command empty and use the project root as the output directory.
 - **Vercel**: Import repository as a static site.
 - **GitHub Pages**: Go to Settings -> Pages -> Deploy from a branch (`main` / `root`).
 
@@ -278,14 +275,10 @@ The linked JSON-LD graph uses stable identities for the person, website, page, s
 
 The only canonical public page is `/`; projects have stable HTML fragments and external source links. API documentation and existing discovery catalogs remain available but are not sitemap entries. Robots exclusions are crawler guidance, not access control, and apply only to this origin (the separate Secretary Worker controls its own access policy).
 
-Run `node scripts/build.mjs`, `node --test tests/*.test.mjs`, and the Secretary browser test against a server rooted at `dist/`. The packaging allowlist excludes tests, source Functions, developer documentation, ignored files, credentials, and local configuration. It rejects unexpected existing output files instead of deploying them. Add intended public assets explicitly to `scripts/build.mjs`. Never deploy the repository root.
-
 Cloudflare settings cannot be changed by these static files: configure the build/output directory above, retain Functions support, and verify GET/HEAD discovery resources and Markdown negotiation after deployment. Check zone-managed robots, WAF/bot rules and caching against the intended public policy. No agent registration, OAuth service, or additional experimental protocol is implemented to satisfy a scanner score.
 
 ## Offers and testimonials
 
 Offers use native details/summary controls: keyboard, touch, and no-JavaScript support without dependencies. Contextual Secretary links reuse the existing dialog and fall back to contact.
 
-Edit data/testimonials.json as an array with name, project (company/project), role, testimonial, service, projectURL, date (YYYY-MM-DD), image (optional HTTPS URL), and public (boolean). Start with public: false; publish only with permission covering the quote, attribution, links, and image. Never commit confidential client material to this public repository, even when public is false. Keep private records outside the repository.
-
-The build renders only literal public: true entries into dist/index.html and dist/index.md. Raw data and rendering code are excluded from the deployment allowlist. Empty collections retain the honest no-quotes message. Preview dist to see published quotes; do not manually embed quotes in the HTML or Markdown templates.
+Testimonials are maintained directly in index.html and index.md. Publish only approved quotes and attribution; keep private records outside the repository.
