@@ -299,17 +299,19 @@ not applicable to the current public access model. `/auth.md` describes it accur
 A browser WebMCP tool is not a remote MCP transport: no MCP Server Card is published
 because there is no remote MCP server to describe.
 
-### DNS-AID publication (pending DNS access)
+### DNS-AID publication
 
-The public DNS check on 2026-09-29 found NXDOMAIN for
-`_index._agents.danilostoletovic.com` and no parent DS record. These repository
-changes do not publish DNS records or activate DNSSEC.
+On 2026-09-29, the following record was published through Cloudflare DNS and
+verified through Google and Cloudflare public resolvers. Cloudflare DNSSEC setup
+was enabled; zone signatures are present, while automatic registrar DS publication
+is pending. The scanner recognizes a valid ServiceMode record but does not yet
+report authenticated DNSSEC (`AD: true`). DNS changes are managed outside this repository.
 
-After deploying the discovery files, the following ServiceMode SVCB record can
-advertise the site's HTTPS discovery entrypoint (priority 1, port 443):
+This ServiceMode SVCB record advertises the site's HTTPS discovery entrypoint
+(priority 1, port 443, Cloudflare Auto TTL currently 300 seconds):
 
 ```dns
-_index._agents.danilostoletovic.com. 3600 IN SVCB 1 danilostoletovic.com. alpn="h2" port=443
+_index._agents.danilostoletovic.com. 300 IN SVCB 1 danilostoletovic.com. alpn="h2" port=443
 ```
 
 The HTTPS homepage links to the API catalog and skills index. This is a basic
@@ -321,9 +323,9 @@ numeric `keyNNNNN` mapping before publishing it; do not invent a registered key.
 See the [DNS-AID draft](https://datatracker.ietf.org/doc/draft-mozleywilliams-dnsop-dnsaid/)
 and [RFC 9460](https://www.rfc-editor.org/rfc/rfc9460).
 
-Add the record in the domain's Cloudflare DNS settings. Enable DNSSEC there, then
-publish Cloudflare's exact generated DS values through the domain registrar (or
-verify automatic DS publication when supported). See
+Cloudflare Registrar is automatically publishing the DS record for this domain.
+Verify that setup changes from pending to active and that public resolvers validate
+the chain. For other registrars, publish Cloudflare's exact generated DS values. See
 [Cloudflare's DNSSEC setup](https://developers.cloudflare.com/dns/dnssec/).
 Once propagated, query SVCB type 64 with DNSSEC enabled through a validating
 resolver; require the expected record, a successful response, and `AD: true`.
