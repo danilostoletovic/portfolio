@@ -275,7 +275,60 @@ The linked JSON-LD graph uses stable identities for the person, website, page, s
 
 The only canonical public page is `/`; projects have stable HTML fragments and external source links. API documentation and existing discovery catalogs remain available but are not sitemap entries. Robots exclusions are crawler guidance, not access control, and apply only to this origin (the separate Secretary Worker controls its own access policy).
 
-Cloudflare settings cannot be changed by these static files: configure the build/output directory above, retain Functions support, and verify GET/HEAD discovery resources and Markdown negotiation after deployment. Check zone-managed robots, WAF/bot rules and caching against the intended public policy. No agent registration, OAuth service, or additional experimental protocol is implemented to satisfy a scanner score.
+Cloudflare settings cannot be changed by these static files: configure the build/output directory above, retain Functions support, and verify GET/HEAD discovery resources and Markdown negotiation after deployment. Check zone-managed robots, WAF/bot rules and caching against the intended public policy. No agent registration or OAuth service is implemented.
+
+### Agent skills and browser tools
+
+`/.well-known/agent-skills/index.json` follows the Agent Skills Discovery RFC v0.2.0
+and links to a public `read-portfolio` skill. Its digest covers the exact UTF-8
+bytes of `SKILL.md`; `.gitattributes` keeps those bytes LF-normalized. After editing
+the skill, update its digest with `node scripts/update-skill-digest.cjs`.
+The homepage advertises the index in HTML and HTTP Link headers; `llms.txt` also links it.
+
+`js/webmcp.js` registers `read_portfolio_section` and `navigate_portfolio` on page
+load in supported browsers. It prefers `document.modelContext` and falls back to
+the older `navigator.modelContext`. Registration is aborted on pagehide and
+restored on pageshow, including back/forward cache restores. Unsupported browsers
+keep the ordinary site behavior. The tools use current page content, make no API
+requests, and send no messages. The Secretary form remains an ordinary chat UI.
+WebMCP is experimental; native browser interoperability needs testing in a browser
+that implements the API. Run `node --test tests/discovery.test.cjs` for local checks.
+
+OAuth/OIDC discovery, Protected Resource Metadata, and Auth.md registration are
+not applicable to the current public access model. `/auth.md` describes it accurately.
+A browser WebMCP tool is not a remote MCP transport: no MCP Server Card is published
+because there is no remote MCP server to describe.
+
+### DNS-AID publication (pending DNS access)
+
+The public DNS check on 2026-09-29 found NXDOMAIN for
+`_index._agents.danilostoletovic.com` and no parent DS record. These repository
+changes do not publish DNS records or activate DNSSEC.
+
+After deploying the discovery files, the following ServiceMode SVCB record can
+advertise the site's HTTPS discovery entrypoint (priority 1, port 443):
+
+```dns
+_index._agents.danilostoletovic.com. 3600 IN SVCB 1 danilostoletovic.com. alpn="h2" port=443
+```
+
+The HTTPS homepage links to the API catalog and skills index. This is a basic
+organization entrypoint, not an A2A or MCP endpoint. DNS-AID leaves index schemas
+and protocols outside its scope, so client compatibility must be verified. No
+experimental path parameter is assigned here: the draft has no final numeric key
+allocation. If a consuming implementation requires a path parameter, agree on its
+numeric `keyNNNNN` mapping before publishing it; do not invent a registered key.
+See the [DNS-AID draft](https://datatracker.ietf.org/doc/draft-mozleywilliams-dnsop-dnsaid/)
+and [RFC 9460](https://www.rfc-editor.org/rfc/rfc9460).
+
+Add the record in the domain's Cloudflare DNS settings. Enable DNSSEC there, then
+publish Cloudflare's exact generated DS values through the domain registrar (or
+verify automatic DS publication when supported). See
+[Cloudflare's DNSSEC setup](https://developers.cloudflare.com/dns/dnssec/).
+Once propagated, query SVCB type 64 with DNSSEC enabled through a validating
+resolver; require the expected record, a successful response, and `AD: true`.
+Also verify the parent DS and the zone DNSKEY. A successful DNS response without
+authenticated data does not complete the DNSSEC requirement.
 
 ## Offers and testimonials
 

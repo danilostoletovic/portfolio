@@ -1,0 +1,2 @@
+# Discovery digests cover exact bytes; keep skill artifacts stable on Windows.
+/.well-known/agent-skills/** text eol=lf

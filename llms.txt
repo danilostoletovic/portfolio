@@ -26,6 +26,7 @@ Technologies: Kotlin / Jetpack Compose, Flutter / Dart, WinUI / C#, HTML / CSS, 
 - [Phone](tel:+381677732060): +381677732060
 
 ## Agent resources
+- [Agent skills index](https://danilostoletovic.com/.well-known/agent-skills/index.json): Portfolio reading instructions with a SHA-256 integrity digest.
 - [AI resource catalog](https://danilostoletovic.com/.well-known/ai-catalog.json): Existing public content catalog.
 - [Agent guidelines](https://danilostoletovic.com/AGENTS.md): Public facts and access boundaries.
 - [Sitemap](https://danilostoletovic.com/sitemap.xml): Canonical public pages.

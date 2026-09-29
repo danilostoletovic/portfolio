@@ -1,0 +1,12 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "read-portfolio",
+      "type": "skill-md",
+      "description": "Find verified information about Danilo Stoletovic's projects, services, experience, and contact details from his public portfolio.",
+      "url": "https://danilostoletovic.com/.well-known/agent-skills/read-portfolio/SKILL.md",
+      "digest": "sha256:d69841b73499d1da1e5056dddb0daf619fb36b4dcf34d50c4c3070df156598db"
+    }
+  ]
+}
