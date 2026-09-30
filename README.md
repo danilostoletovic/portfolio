@@ -151,12 +151,14 @@ The portfolio contains a lightweight frontend for Danilo's virtual Secretary in
 Worker, maintained in the separate `Secretary` repository. Production API:
 `https://secretary.danilostoletovic.com`.
 
-The browser sends HTTPS `POST /chat` requests containing `{ "message": "…" }` and
-reads a nonempty string from `{ "reply": "…" }`, verified against the production
-API. The browser never receives the OpenAI API key. No backend credentials,
-database, chat analytics, or persistent storage are included here. Messages stay
-in memory until the page is reloaded; each request contains only the current
-question. Replies are rendered as text.
+The browser sends HTTPS `POST /chat` requests containing a current `message` and
+an optional ordered `history` of prior `{ "role": "user" | "assistant", "content": "…" }`
+messages, then reads a nonempty string from `{ "reply": "…" }`. History is
+untrusted, session-only client state capped at 20 messages and approximately
+12,000 characters; the current question is sent separately and is not duplicated
+in `history`. The browser never receives the OpenAI API key. No backend
+credentials, database, or chat analytics are included here. Replies are rendered
+as text.
 
 The launcher initializes the dialog on first use. Suggested questions are the
 `suggestions` array at the top of `js/secretary.js`. Requests time out after 30
@@ -167,13 +169,6 @@ No frontend configuration is needed for production. `_headers` permits the API
 in `connect-src`; the Worker already permits the production site's origin via
 CORS. For live requests from localhost or preview domains, the separate Worker
 must allow that origin. Do not work around CORS with a frontend key or proxy.
-
-The first-visit challenge uses the same native-dialog styling and Secretary opener.
-It appears 1.8 seconds after load unless dismissed previously or another dialog is
-open. Accept, dismiss, close, and Escape save `secretaryChallengeSeen=true` in
-localStorage. The fixed “Break my AI secretary” entry point always remains available.
-Blocked storage disables automatic display; the manual flow still works. Opening
-either dialog makes no API request. Challenge rules are expandable inside the modal.
 
 The site runs directly from the project root with no build step or dependencies.
 

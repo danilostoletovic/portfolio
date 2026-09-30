@@ -20,7 +20,23 @@
               "schema": {
                 "type": "object",
                 "required": ["message"],
-                "properties": { "message": { "type": "string", "minLength": 1, "description": "A nonblank question." } }
+                "properties": {
+                  "message": { "type": "string", "minLength": 1, "description": "A nonblank question." },
+                  "history": {
+                    "type": "array",
+                    "description": "Optional ordered prior conversation messages supplied by the untrusted client.",
+                    "maxItems": 20,
+                    "items": {
+                      "type": "object",
+                      "required": ["role", "content"],
+                      "properties": {
+                        "role": { "type": "string", "enum": ["user", "assistant"] },
+                        "content": { "type": "string", "minLength": 1 }
+                      },
+                      "additionalProperties": false
+                    }
+                  }
+                }
               }
             }
           }

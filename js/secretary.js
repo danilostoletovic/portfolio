@@ -9,10 +9,23 @@
   ];
   const endpoint = 'https://secretary.danilostoletovic.com/chat';
   const welcome = 'Hi. I’m Danilo’s virtual secretary. Ask me about his work, projects, or what he can build for you. No appointment needed.';
+  const maxHistoryMessages = 20;
+  const maxHistoryCharacters = 12000;
   const state = { messages: [], busy: false };
   let panel, input, log, status, send, prompts;
   let opener;
   let challengeTimer;
+
+  function conversationHistory() {
+    const history = [];
+    let characters = 0;
+    for (const message of state.messages.slice(-maxHistoryMessages)) {
+      if (characters + message.content.length > maxHistoryCharacters) break;
+      history.push({ role: message.role, content: message.content });
+      characters += message.content.length;
+    }
+    return history;
+  }
 
   function element(tag, className, text) {
     const node = document.createElement(tag);
@@ -29,7 +42,6 @@
 
   function addMessage(role, text, forceScroll = false) {
     const nearBottom = log.scrollHeight - log.scrollTop - log.clientHeight < 80;
-    state.messages.push({ role, text });
     const message = element('div', `secretary-message secretary-message--${role}`);
     message.append(element('span', 'secretary-speaker', role === 'user' ? 'You' : 'Secretary'), element('p', '', text));
     log.append(message);
@@ -45,11 +57,24 @@
     const title = element('h2', '', 'Danilo’s Secretary');
     title.id = 'secretary-title';
     identity.append(element('span', 'secretary-kicker', 'THE FRONT DESK / VIRTUAL ASSISTANT'), title);
+    const reset = element('button', 'secretary-reset', 'New conversation');
+    reset.type = 'button';
+    reset.addEventListener('click', () => {
+      if (state.busy) return;
+      state.messages = [];
+      log.replaceChildren();
+      prompts.hidden = false;
+      status.textContent = '';
+      addMessage('assistant', welcome);
+      input.value = '';
+      send.disabled = true;
+      input.focus({ preventScroll: true });
+    });
     const close = element('button', 'secretary-close', '×');
     close.type = 'button';
     close.setAttribute('aria-label', 'Close Secretary');
     close.addEventListener('click', () => panel.close());
-    header.append(identity, close);
+    header.append(identity, reset, close);
     log = element('div', 'secretary-log');
     log.setAttribute('role', 'log');
     log.setAttribute('aria-label', 'Conversation with Secretary');
@@ -137,7 +162,7 @@
     try {
       const response = await fetch(endpoint, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message }), signal: controller.signal,
+        body: JSON.stringify({ message, history: conversationHistory() }), signal: controller.signal,
         credentials: 'omit', redirect: 'error', cache: 'no-store'
       });
       if (response.status === 429) {
@@ -149,6 +174,11 @@
       const data = await response.json();
       if (!data || typeof data.reply !== 'string' || !data.reply.trim()) throw new Error('Invalid reply');
       addMessage('assistant', data.reply);
+      state.messages.push({ role: 'user', content: message }, { role: 'assistant', content: data.reply });
+      while (state.messages.length > maxHistoryMessages
+        || state.messages.reduce((total, item) => total + item.content.length, 0) > maxHistoryCharacters) {
+        state.messages.shift();
+      }
       status.textContent = '';
     } catch {
       status.textContent = controller.signal.aborted
@@ -267,6 +297,5 @@
     });
     document.body.append(launcher);
     document.body.classList.add('secretary-enabled');
-    initializeChallenge();
   }
 })();

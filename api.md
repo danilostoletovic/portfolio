@@ -4,7 +4,7 @@ Danilo's portfolio uses a separately maintained Cloudflare Worker to answer ques
 
 - Endpoint: `POST https://secretary.danilostoletovic.com/chat`
 - Request content type: `application/json`
-- Request body: `{"message":"What projects has Danilo built?"}`
+- Request body: `{"message":"What projects has Danilo built?","history":[{"role":"user","content":"Who is Danilo?"},{"role":"assistant","content":"..."}]}`. `history` is an optional ordered array of prior messages; each item has `role` (`user` or `assistant`) and `content` (string). The portfolio client sends at most 20 messages and approximately 12,000 characters, and does not include the current `message` in `history`.
 - Successful response: HTTP 200 with a JSON object containing a nonempty `reply` string.
 - [OpenAPI description](https://danilostoletovic.com/openapi.json)
 - [Access and authentication](https://danilostoletovic.com/auth.md)
