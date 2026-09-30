@@ -2,24 +2,53 @@
   'use strict';
   const endpoint = 'https://secretary.danilostoletovic.com/chat';
   const welcome = 'Hi. I’m Danilo’s virtual secretary. Ask me about his work, projects, or what he can build for you. No appointment needed.';
-  const maxHistoryMessages = 20;
+  const maxHistoryMessages = 40;
   const maxHistoryCharacters = 12000;
+  const storageKey = 'secretaryConversation:v1';
   const state = { messages: [], busy: false };
-  let panel, input, log, status, send;
+  let panel, input, log, status, send, reset;
   let opener;
   let challengeTimer;
 
-  function conversationHistory() {
+  function conversationHistory(message = '') {
     const history = [];
     let characters = 0;
-    for (const message of state.messages.slice(-maxHistoryMessages)) {
+    for (const message of state.messages.slice(-maxHistoryMessages).reverse()) {
       if (message.role !== 'user' && message.role !== 'assistant'
         || typeof message.content !== 'string' || !message.content) continue;
       if (characters + message.content.length > maxHistoryCharacters) break;
-      history.push({ role: message.role, content: message.content });
+      history.unshift({ role: message.role, content: message.content });
       characters += message.content.length;
     }
+    while (history[0]?.role === 'assistant') history.shift();
+    // Bound encoded JSON bytes as well as characters; remove oldest turns first.
+    while (history.length && new TextEncoder().encode(JSON.stringify({ message, history })).length > 16384) history.splice(0, 2);
     return history;
+  }
+
+  function persistConversation() {
+    try {
+      if (state.messages.length) sessionStorage.setItem(storageKey, JSON.stringify(state.messages));
+      else sessionStorage.removeItem(storageKey);
+    } catch { /* Storage is optional; keep the in-memory conversation. */ }
+  }
+
+  function restoreConversation() {
+    try {
+      const raw = sessionStorage.getItem(storageKey);
+      if (!raw) return;
+      if (raw.length > 80000) throw new Error('Oversized history');
+      const messages = JSON.parse(raw);
+      if (!Array.isArray(messages) || messages.length > maxHistoryMessages || messages.length % 2
+        || messages.some((item, index) => !item || item.role !== (index % 2 ? 'assistant' : 'user')
+          || typeof item.content !== 'string' || !item.content.trim()
+          || item.content.length > (item.role === 'user' ? 2000 : 6000))) throw new Error('Invalid history');
+      state.messages = messages;
+      state.messages = conversationHistory();
+    } catch {
+      state.messages = [];
+      persistConversation();
+    }
   }
 
   function element(tag, className, text) {
@@ -41,6 +70,7 @@
     message.append(element('span', 'secretary-speaker', role === 'user' ? 'You' : 'Secretary'), element('p', '', text));
     log.append(message);
     if (nearBottom || forceScroll) log.scrollTop = log.scrollHeight;
+    return message;
   }
 
   function initialize() {
@@ -52,11 +82,12 @@
     const title = element('h2', '', 'Danilo’s Secretary');
     title.id = 'secretary-title';
     identity.append(element('span', 'secretary-kicker', 'THE FRONT DESK / VIRTUAL ASSISTANT'), title);
-    const reset = element('button', 'secretary-reset', 'New conversation');
+    reset = element('button', 'secretary-reset', 'New chat');
     reset.type = 'button';
     reset.addEventListener('click', () => {
       if (state.busy) return;
       state.messages = [];
+      persistConversation();
       log.replaceChildren();
       status.textContent = '';
       addMessage('assistant', welcome);
@@ -103,7 +134,7 @@
     actions.append(help, send);
     form.append(label, input, actions);
     form.addEventListener('submit', event => { event.preventDefault(); submit(); });
-    const disclosure = element('p', 'secretary-disclosure', 'AI-powered; replies may be imperfect. This conversation is kept in this browser session only. Please don’t share passwords or sensitive/confidential information.');
+    const disclosure = element('p', 'secretary-disclosure', 'AI-powered; replies may be imperfect. Conversation context is kept for this chat. Please don’t share passwords or sensitive/confidential information.');
     disclosure.id = 'secretary-disclosure';
     const contact = element('a', '', 'Prefer a person? Email Danilo ↗');
     contact.href = 'mailto:contact@danilostoletovic.com';
@@ -130,20 +161,24 @@
       (opener || launcher).focus({ preventScroll: true });
     });
     document.body.append(panel);
+    restoreConversation();
     addMessage('assistant', welcome);
+    for (const message of state.messages) addMessage(message.role, message.content);
   }
 
   async function submit() {
     const message = input.value.trim();
     if (!message || state.busy) return;
     state.busy = true;
+    reset.disabled = true;
     send.disabled = true;
     input.value = '';
     input.focus({ preventScroll: true });
-    addMessage('user', message, true);
+    const pendingMessage = addMessage('user', message, true);
+    let committed = false;
     // Only committed, successful turns are sent. The current message is sent in
     // `message` below and is intentionally not also included in `history`.
-    const payload = { message, history: conversationHistory() };
+    const payload = { message, history: conversationHistory(message) };
     status.textContent = 'Secretary is working on your question…';
     send.textContent = 'Waiting…';
     const controller = new AbortController();
@@ -161,13 +196,12 @@
       }
       if (!response.ok) throw new Error('Unavailable');
       const data = await response.json();
-      if (!data || typeof data.reply !== 'string' || !data.reply.trim()) throw new Error('Invalid reply');
+      if (!data || typeof data.reply !== 'string' || !data.reply.trim() || data.reply.length > 6000) throw new Error('Invalid reply');
       addMessage('assistant', data.reply);
       state.messages.push({ role: 'user', content: message }, { role: 'assistant', content: data.reply });
-      while (state.messages.length > maxHistoryMessages
-        || state.messages.reduce((total, item) => total + item.content.length, 0) > maxHistoryCharacters) {
-        state.messages.shift();
-      }
+      state.messages = conversationHistory();
+      persistConversation();
+      committed = true;
       status.textContent = '';
     } catch {
       status.textContent = controller.signal.aborted
@@ -175,8 +209,10 @@
         : 'The Secretary couldn’t answer just now. Please try again, or email Danilo below.';
       if (!input.value) input.value = message;
     } finally {
+      if (!committed) pendingMessage.remove();
       clearTimeout(timeout);
       state.busy = false;
+      reset.disabled = false;
       send.disabled = !input.value.trim();
       send.textContent = 'Send ↗';
     }
