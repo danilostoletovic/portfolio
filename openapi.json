@@ -3,7 +3,7 @@
   "info": {
     "title": "Danilo's Secretary API",
     "version": "1.0.0",
-    "description": "The chat interface used by Danilo Stoletović's portfolio. Each question is answered independently. This description documents the existing portfolio client contract; the service is maintained separately."
+    "description": "The chat interface used by Danilo Stoletović's portfolio. The client may provide ordered prior user/assistant turns in history. This description documents the existing portfolio client contract; the service is maintained separately."
   },
   "servers": [{ "url": "https://secretary.danilostoletovic.com" }],
   "externalDocs": { "url": "https://danilostoletovic.com/api.md" },

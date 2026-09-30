@@ -160,9 +160,9 @@ in `history`. The browser never receives the OpenAI API key. No backend
 credentials, database, or chat analytics are included here. Replies are rendered
 as text.
 
-The launcher initializes the dialog on first use. Suggested questions are the
-`suggestions` array at the top of `js/secretary.js`. Requests time out after 30
-seconds; errors and rate limits offer a retry and an email alternative. The rest
+The launcher initializes the dialog on first use; it does not inject default
+question options into the conversation. Requests time out after 30 seconds;
+errors and rate limits offer a retry and an email alternative. The rest
 of the portfolio works without JavaScript or API availability.
 
 No frontend configuration is needed for production. `_headers` permits the API

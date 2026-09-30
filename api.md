@@ -9,7 +9,7 @@ Danilo's portfolio uses a separately maintained Cloudflare Worker to answer ques
 - [OpenAPI description](https://danilostoletovic.com/openapi.json)
 - [Access and authentication](https://danilostoletovic.com/auth.md)
 
-The existing portfolio client sends no API key, bearer token, or cookies. Each request contains only the current question. There is no registration step. Browser clients remain subject to the Worker's CORS policy; publishing these docs does not add allowed origins.
+The existing portfolio client sends no API key, bearer token, or cookies. Each request contains the current question plus successful prior user/assistant turns in `history`. There is no registration step. Browser clients remain subject to the Worker's CORS policy; publishing these docs does not add allowed origins.
 
 Send a nonblank question. The portfolio client waits up to 30 seconds. Handle HTTP errors and network failures; on HTTP 429, wait before retrying and respect `Retry-After` when present. No fixed quota or uptime guarantee is advertised.
 

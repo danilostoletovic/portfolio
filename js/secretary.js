@@ -1,18 +1,11 @@
 (() => {
   'use strict';
-  // Edit these prompts to change the first-visit suggestions.
-  const suggestions = [
-    'What can Danilo build for me?',
-    'Tell me about his projects.',
-    'What technologies does he use?',
-    'How can I contact Danilo?'
-  ];
   const endpoint = 'https://secretary.danilostoletovic.com/chat';
   const welcome = 'Hi. I’m Danilo’s virtual secretary. Ask me about his work, projects, or what he can build for you. No appointment needed.';
   const maxHistoryMessages = 20;
   const maxHistoryCharacters = 12000;
   const state = { messages: [], busy: false };
-  let panel, input, log, status, send, prompts;
+  let panel, input, log, status, send;
   let opener;
   let challengeTimer;
 
@@ -20,6 +13,8 @@
     const history = [];
     let characters = 0;
     for (const message of state.messages.slice(-maxHistoryMessages)) {
+      if (message.role !== 'user' && message.role !== 'assistant'
+        || typeof message.content !== 'string' || !message.content) continue;
       if (characters + message.content.length > maxHistoryCharacters) break;
       history.push({ role: message.role, content: message.content });
       characters += message.content.length;
@@ -63,7 +58,6 @@
       if (state.busy) return;
       state.messages = [];
       log.replaceChildren();
-      prompts.hidden = false;
       status.textContent = '';
       addMessage('assistant', welcome);
       input.value = '';
@@ -81,13 +75,6 @@
     log.setAttribute('aria-live', 'polite');
     log.setAttribute('aria-relevant', 'additions');
     log.tabIndex = 0;
-    prompts = element('div', 'secretary-prompts');
-    suggestions.forEach(question => {
-      const button = element('button', '', question);
-      button.type = 'button';
-      button.addEventListener('click', () => { input.value = question; submit(); });
-      prompts.append(button);
-    });
     status = element('p', 'secretary-status');
     status.setAttribute('role', 'status');
     status.setAttribute('aria-live', 'polite');
@@ -116,14 +103,14 @@
     actions.append(help, send);
     form.append(label, input, actions);
     form.addEventListener('submit', event => { event.preventDefault(); submit(); });
-    const disclosure = element('p', 'secretary-disclosure', 'AI-powered; replies may be imperfect. Each question is answered on its own. Please don’t share passwords or sensitive/confidential information.');
+    const disclosure = element('p', 'secretary-disclosure', 'AI-powered; replies may be imperfect. This conversation is kept in this browser session only. Please don’t share passwords or sensitive/confidential information.');
     disclosure.id = 'secretary-disclosure';
     const contact = element('a', '', 'Prefer a person? Email Danilo ↗');
     contact.href = 'mailto:contact@danilostoletovic.com';
     const phone = element('a', '', '+381677732060');
     phone.href = 'tel:+381677732060';
     disclosure.append(document.createElement('br'), contact, document.createTextNode(' · '), phone);
-    panel.append(header, log, prompts, status, form, disclosure);
+    panel.append(header, log, status, form, disclosure);
     panel.addEventListener('keydown', event => {
       if (event.key !== 'Tab') return;
       const focusable = [...panel.querySelectorAll('button, textarea, a, [tabindex="0"]')]
@@ -151,10 +138,13 @@
     if (!message || state.busy) return;
     state.busy = true;
     send.disabled = true;
-    prompts.hidden = true;
     input.value = '';
     input.focus({ preventScroll: true });
     addMessage('user', message, true);
+    const payload = { message, history: conversationHistory() };
+    // Keep this visible during local debugging so the complete multi-turn contract
+    // can be inspected without changing the API request or UI.
+    console.debug('[Secretary] request payload', payload);
     status.textContent = 'Secretary is working on your question…';
     send.textContent = 'Waiting…';
     const controller = new AbortController();
@@ -162,7 +152,7 @@
     try {
       const response = await fetch(endpoint, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message, history: conversationHistory() }), signal: controller.signal,
+        body: JSON.stringify(payload), signal: controller.signal,
         credentials: 'omit', redirect: 'error', cache: 'no-store'
       });
       if (response.status === 429) {
