@@ -141,10 +141,9 @@
     input.value = '';
     input.focus({ preventScroll: true });
     addMessage('user', message, true);
+    // Only committed, successful turns are sent. The current message is sent in
+    // `message` below and is intentionally not also included in `history`.
     const payload = { message, history: conversationHistory() };
-    // Keep this visible during local debugging so the complete multi-turn contract
-    // can be inspected without changing the API request or UI.
-    console.debug('[Secretary] request payload', payload);
     status.textContent = 'Secretary is working on your question…';
     send.textContent = 'Waiting…';
     const controller = new AbortController();
