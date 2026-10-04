@@ -181,3 +181,16 @@ The optional virtual Secretary on the homepage answers questions about Danilo’
 - [Crawler permissions and content signals](https://danilostoletovic.com/robots.txt)
 
 © 2026 Danilo Stoletović
+
+## News / Press — Coverage & recognition
+
+Occasionally, things I build escape GitHub and end up in the news.
+
+- [Niška Priča](https://niskaprica.rs/drustvo/niski-tesla-sa-kolegama-medju-najboljima-u-srbiji/) — 2026 / PRESS. Niš students recognized at Galaksija Cup. Reports on Danilo’s special award for Pametno vozilo Yolo.
+- [Blic](https://www.blic.rs/biznis/tech/ovo-dva-tehnoloske-resenja-su-odnela-pobedu-na-10-galaksija-kupu-2026/6vt13wc) — 2026 / PRESS. Galaksija Cup 2026: recognized projects. National coverage lists Danilo and Pametno vozilo Yolo among the special-award recipients.
+- [PC Press](https://pcpress.rs/pobednici-galaksija-kupa-2026-logopedski-uredaj-iz-novog-sada-najbolji-nagradeni-i-podvodni-dron-iz-nisa-i-pametna-invalidska-kolica-iz-cacka/) — 2026 / PRESS. Technology coverage of Galaksija Cup. Includes Pametno vozilo Yolo in the competition’s special-award results.
+- [Nauka Telegraf](https://nauka.telegraf.rs/naucne-zanimljivosti/4300950-pobednici-galaksija-kupa-2026-logopedski-uredjaj-iz-novog-sada-najbolji) — 2026 / PRESS. Science coverage of Galaksija Cup. Names Danilo and Pametno vozilo Yolo in the recognized projects.
+- [Metropolitan University](https://www.metropolitan.ac.rs/novosti/mladi-it-talenti-stvarali-prve-digitalne-projekte-na-make-it-day-met-2026/) — 2026 / COMPETITION. 2nd place — AI assistant competition, Niš. Official Make IT Day @ MET 2026 results: Napravi AI asistenta.
+- [Galaksija Cup](https://galaksijakup.rs/pobednici-galaksija-kupa-2026/) — 2026 / AWARD. Special recognition — Pametno vozilo Yolo. Official results confirm the award for a notable result (nagrada za zapaženi rezultat).
+
+These are coverage and official results, not endorsements.
