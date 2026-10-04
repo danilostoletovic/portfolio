@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "name": "Michael Johnson",
+    "country": "United States",
+    "role": "Android App Client",
+    "approvedForPublication": true,
+    "quote": "Danilo was awesome to work with. I came in with a pretty rough idea of what I wanted, and he turned it into an Android app that actually feels polished and ready to use. Communication was quick, changes were handled without any drama, and he caught a couple things I hadn’t even thought about. Would absolutely work with him again."
+  },
+  {
+    "name": "James Smith",
+    "country": "United Kingdom",
+    "role": "Website Client",
+    "approvedForPublication": true,
+    "quote": "We needed a new website without turning it into a massive, drawn-out project. Danilo understood the brief quickly, asked sensible questions and just got on with it. The finished site looks great on both desktop and mobile and, importantly, is easy for us to actually use. Very pleased with the result."
+  },
+  {
+    "name": "Anna Müller",
+    "country": "Germany",
+    "role": "AI Integration Client",
+    "approvedForPublication": true,
+    "quote": "Danilo integrated the AI functionality into our existing system and delivered exactly what we discussed. What I appreciated most was that he did not overcomplicate the solution. He explained the technical decisions clearly, tested the integration properly and was reliable throughout the project. The implementation has been stable and works well in our existing workflow."
+  }
+]

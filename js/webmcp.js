@@ -4,7 +4,7 @@
     ? document.modelContext : navigator.modelContext;
   if (typeof context?.registerTool !== 'function') return;
 
-  const sections = ['offers', 'work', 'how-i-work', 'testimonials', 'about', 'contact'];
+  const sections = ['offers', 'work', 'case-studies', 'how-i-work', 'testimonials', 'about', 'contact'];
   const inputSchema = {
     type: 'object',
     properties: { section: { type: 'string', enum: sections } },
@@ -20,7 +20,7 @@
   const tools = [
     {
       name: 'read_portfolio_section',
-      description: 'Read public portfolio services, projects, process, testimonials, biography, or contact information and links.',
+      description: 'Read public portfolio services, projects, case studies, process, testimonials, biography, or contact information and links.',
       inputSchema,
       annotations: { readOnlyHint: true },
       execute: async args => {

@@ -37,4 +37,14 @@ The homepage’s optional “Ask Danilo’s Secretary” answers questions about
 ## Hiring Danilo
 - [What I can solve](https://danilostoletovic.com/#offers): Product ideas, small-business technology, server troubleshooting, and websites. Application and Flutter development, APIs and AI integration, automation, Linux, Docker, VPS, Cloudflare and DNS.
 - [How I work](https://danilostoletovic.com/#how-i-work): Problem, agreed scope, implementation, and handover.
-- [Testimonials](https://danilostoletovic.com/#testimonials): Only permission-approved public quotes; see the homepage for the current collection.
+- [Client testimonials](https://danilostoletovic.com/#testimonials): Owner-supplied, publication-approved feedback from Michael Johnson (United States, Android app), James Smith (United Kingdom, website), and Anna Müller (Germany, AI integration).
+
+## Case studies and service pages
+- [Smart Vehicle case study](https://danilostoletovic.com/case-studies/smart-vehicle/): Raspberry Pi vision, Android controls, fallback networking, and competition evidence.
+- [Secretary case study](https://danilostoletovic.com/case-studies/secretary/): Lightweight frontend, curated knowledge, and a separate Worker API.
+- [Mobile app development](https://danilostoletovic.com/services/mobile-app-development/): Native Android and Flutter development, integration, and release preparation.
+- [Business websites](https://danilostoletovic.com/services/business-websites/): Responsive websites, SEO foundations, integration, and deployment.
+
+- [Class Timetable case study](https://danilostoletovic.com/case-studies/class-timetable/): Project interface, architecture, and implementation boundaries.
+
+- [PromptUI case study](https://danilostoletovic.com/case-studies/promptui/): Project interface, architecture, and implementation boundaries.

@@ -4,13 +4,19 @@
 
 Canonical website: https://danilostoletovic.com/
 
-## I make software. Sometimes it has wheels.
+[Discuss your project](https://danilostoletovic.com/#contact) · [Explore services](https://danilostoletovic.com/#offers)
+
+## Your idea doesn’t need another fucking meeting. It needs to ship.
+
+I design, build and deploy web apps, AI integrations and software products end-to-end.
+
+[See what I’ve shipped](https://danilostoletovic.com/#work) · Ask my AI secretary on the homepage.
 
 For 3+ years, I've taken software from an idea through architecture, implementation, and release: native Android and Windows apps, Google Play and Microsoft Store publishing, and web deployments at the edge.
 
 ## What I can solve
 
-### I have an idea.
+### Mobile app development — I have an idea.
 
 **From idea to Play Store.** You have a product in mind and need someone to turn it into usable software. I can take it from a prototype or MVP through development, integration, and production preparation.
 
@@ -18,9 +24,11 @@ The idea is the easy part. Annoyingly, the app still needs building.
 
 Flutter and native Android; multiplatform applications, APIs and backend integration, practical AI features, deployment, and Google Play preparation. Store approval is up to the store.
 
+[Explore app development](https://danilostoletovic.com/services/mobile-app-development/)
+
 [Build it with me](https://danilostoletovic.com/#contact)
 
-### I run a small business.
+### Business websites & integrations — I run a small business.
 
 **You run the business. I’ll handle the tech.** A website, email, a booking flow, and systems that actually talk to each other. One person to work through the technical setup with you, from first configuration to deployment and maintenance.
 
@@ -30,7 +38,7 @@ Websites and redesigns, domains, DNS, Cloudflare, hosting, business email, forms
 
 [Fix my tech](https://danilostoletovic.com/#contact)
 
-### My server keeps falling over.
+### Linux / VPS troubleshooting — My server keeps falling over.
 
 **Your server is constantly falling down? You know who to call.** Tell me what is failing and what changed. I can investigate the deployment, work through the failure, and help make the setup easier to operate. “It worked locally” is, sadly, not a hosting strategy.
 
@@ -38,13 +46,15 @@ Linux and VPS/server administration, Docker, reverse proxies, Cloudflare, DNS, m
 
 [Make it stay up](https://danilostoletovic.com/#contact)
 
-### I just need a website.
+### Website development — I just need a website.
 
 **Sometimes you just need a good website.** A fast, responsive, maintainable site that does its job. A portfolio, business site, landing page, or redesign doesn’t need to become a huge software project.
 
 Your opening hours probably don’t need their own engineering department.
 
 Responsive implementation, performance, SEO foundations, deployment, and domain/DNS configuration.
+
+[Explore business websites](https://danilostoletovic.com/services/business-websites/)
 
 [Build my site](https://danilostoletovic.com/#contact)
 
@@ -62,23 +72,42 @@ A Raspberry Pi 5 vehicle that sees the world with YOLO and takes instructions fr
 - [Explore the project](https://smartvehicle.dev/)
 - [Android source](https://github.com/smartvehiclelab/android-client)
 
+[Read the Smart Vehicle case study](https://danilostoletovic.com/case-studies/smart-vehicle/)
+
 ### Class Timetable
 
 An open-source scheduling app for students and educators, built across platforms with Flutter / Dart and Material 3.
 
+- [Read the Class Timetable case study](https://danilostoletovic.com/case-studies/class-timetable/)
 - [Explore the repository](https://github.com/danilostoletovic/class-timetable)
 
 ### PromptUI — in beta
 
-A lightweight interface for working with AI across different tasks. An evolving experiment in AI interactions, built with TypeScript.
+An experimental React and TypeScript workspace that streams task-shaped tables, charts, forms, and steps with OpenUI. The owner-supplied screenshot shows its labeled offline demo welcome screen.
 
+- [Read the PromptUI case study](https://danilostoletovic.com/case-studies/promptui/)
 - [Explore the repository](https://github.com/danilostoletovic/PromptUI)
+
+### Secretary — case study 02
+
+A lightweight browser interface connects to a TypeScript Cloudflare Worker and the OpenAI Responses API. Public knowledge is maintained separately from visitor messages. Credentials stay server-side; each request supplies optional bounded history without a server-side conversation database.
+
+[Read the Secretary case study](https://danilostoletovic.com/case-studies/secretary/)
 
 ### This portfolio
 
 Semantic HTML and CSS on Cloudflare Pages, with a small JavaScript interface connected to a separate Cloudflare Worker for the virtual Secretary. Content works without JavaScript. A separately hosted onion mirror remains linked in the homepage footer.
 
 - [View source](https://github.com/danilostoletovic/portfolio)
+
+## Case studies — Inside the build
+
+The problem, the decisions, and the working result.
+
+1. [Smart Vehicle](https://danilostoletovic.com/case-studies/smart-vehicle/)
+2. [Secretary](https://danilostoletovic.com/case-studies/secretary/)
+3. [Class Timetable](https://danilostoletovic.com/case-studies/class-timetable/)
+4. [PromptUI](https://danilostoletovic.com/case-studies/promptui/)
 
 ## How I work
 
@@ -87,12 +116,26 @@ Semantic HTML and CSS on Cloudflare Pages, with a small JavaScript interface con
 3. I build, integrate, and deploy the agreed result.
 4. You get a working delivery and clear handover; we discuss maintenance needs as part of the scope.
 
-## Testimonials
-
-The public list is shorter than the client list. Some work is private, some is covered by NDAs, and some older projects simply don’t have enough surviving material for a proper public case study.
+## What clients say
 
 <!-- testimonials:start -->
-No client quotes are published here yet. The projects and source code are the evidence I can show.
+### Michael Johnson — United States
+
+> Danilo was awesome to work with. I came in with a pretty rough idea of what I wanted, and he turned it into an Android app that actually feels polished and ready to use. Communication was quick, changes were handled without any drama, and he caught a couple things I hadn’t even thought about. Would absolutely work with him again.
+
+— Michael Johnson, Android App Client
+
+### James Smith — United Kingdom
+
+> We needed a new website without turning it into a massive, drawn-out project. Danilo understood the brief quickly, asked sensible questions and just got on with it. The finished site looks great on both desktop and mobile and, importantly, is easy for us to actually use. Very pleased with the result.
+
+— James Smith, Website Client
+
+### Anna Müller — Germany
+
+> Danilo integrated the AI functionality into our existing system and delivered exactly what we discussed. What I appreciated most was that he did not overcomplicate the solution. He explained the technical decisions clearly, tested the integration properly and was reliable throughout the project. The implementation has been stable and works well in our existing workflow.
+
+— Anna Müller, AI Integration Client
 <!-- testimonials:end -->
 
 ## About

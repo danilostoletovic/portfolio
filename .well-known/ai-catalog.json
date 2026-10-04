@@ -34,6 +34,48 @@
       "type": "text/plain",
       "url": "https://danilostoletovic.com/robots.txt",
       "description": "Public crawl permissions and content signals for search, AI input, and AI training."
+    },
+    {
+      "identifier": "urn:air:danilostoletovic.com:content:smart-vehicle",
+      "displayName": "Smart Vehicle case study",
+      "type": "text/html",
+      "url": "https://danilostoletovic.com/case-studies/smart-vehicle/",
+      "description": "Smart Vehicle case study — project evidence or service scope from Danilo Stoletović."
+    },
+    {
+      "identifier": "urn:air:danilostoletovic.com:content:secretary",
+      "displayName": "Secretary case study",
+      "type": "text/html",
+      "url": "https://danilostoletovic.com/case-studies/secretary/",
+      "description": "Secretary case study — project evidence or service scope from Danilo Stoletović."
+    },
+    {
+      "identifier": "urn:air:danilostoletovic.com:content:mobile-app-development",
+      "displayName": "Mobile app development",
+      "type": "text/html",
+      "url": "https://danilostoletovic.com/services/mobile-app-development/",
+      "description": "Mobile app development — project evidence or service scope from Danilo Stoletović."
+    },
+    {
+      "identifier": "urn:air:danilostoletovic.com:content:business-websites",
+      "displayName": "Business websites",
+      "type": "text/html",
+      "url": "https://danilostoletovic.com/services/business-websites/",
+      "description": "Business websites — project evidence or service scope from Danilo Stoletović."
+    },
+    {
+      "identifier": "urn:air:danilostoletovic.com:content:class-timetable",
+      "displayName": "Class Timetable case study",
+      "type": "text/html",
+      "url": "https://danilostoletovic.com/case-studies/class-timetable/",
+      "description": "Class Timetable interface and implementation case study."
+    },
+    {
+      "identifier": "urn:air:danilostoletovic.com:content:promptui",
+      "displayName": "PromptUI case study",
+      "type": "text/html",
+      "url": "https://danilostoletovic.com/case-studies/promptui/",
+      "description": "PromptUI interface and implementation case study."
     }
   ]
 }

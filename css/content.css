@@ -1,0 +1,93 @@
+/* Existing workshop tokens; editorial reading rhythm and unframed project evidence. */
+.hero-actions { flex-wrap:wrap; }
+.hero-actions .text-link { max-width:none; }
+.offer summary .service-label { display:block; margin:0 0 8px; color:var(--muted); font:10px/1.4 'Courier New',monospace; text-transform:uppercase; letter-spacing:.06em; }
+.offer summary .service-summary { display:block; margin-top:10px; font-size:13px; line-height:1.6; font-weight:400; color:var(--muted); }
+.offer summary { list-style:none; }
+.offer summary::-webkit-details-marker { display:none; }
+.offer summary::after { content:'Details +'; display:block; margin-top:16px; color:var(--accent); font-size:12px; }
+.offer[open] summary::after { content:'Details −'; }
+.project-evidence { margin:0; padding:24px; border-left:1px solid var(--ink); background:var(--green); }
+.project-evidence img { display:block; width:100%; height:auto; max-height:400px; object-fit:contain; }
+.project-evidence figcaption,.evidence-gallery figcaption { margin-top:12px; color:var(--muted); font:12px/1.6 'Courier New',monospace; }
+.project-preview { margin:16px 0; }
+.project-preview img { display:block; width:100%; height:auto; border:1px solid var(--line); }
+.project-preview figcaption { margin-top:8px; color:var(--muted); font:11px/1.6 'Courier New',monospace; }
+.case-strip { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; margin-top:26px; }
+.case-link { display:block; padding:28px; border:1px solid var(--line); text-decoration:none; background:var(--surface); }
+.case-link h3 { font:30px/1.15 var(--font-display); margin:12px 0; }
+.case-link p { font-size:15px; }
+.case-link .read-link { display:block; margin-top:20px; font-size:13px; font-weight:700; text-decoration:underline; }
+.case-link:hover { border-color:var(--accent); }
+.case-number { color:var(--muted); font:11px/1.4 'Courier New',monospace; }
+.proof-list { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; }
+.proof-list article { border-top:1px solid var(--line); padding-top:20px; }
+.proof-list h3 { font-size:21px; }
+.proof-list p { font-size:14px; }
+.reading-page { padding-bottom:40px; }
+.page-intro { padding:60px 0 40px; border-bottom:1px solid var(--ink); }
+.page-intro h1 { max-width:950px; font:clamp(38px,5vw,68px)/1.06 var(--font-display); letter-spacing:-.035em; text-wrap:balance; margin:20px 0; }
+.page-intro .intro { max-width:720px; }
+.breadcrumb { font-size:13px; color:var(--muted); }
+.page-meta { display:flex; flex-wrap:wrap; gap:12px 28px; padding:0; margin:24px 0 0; list-style:none; font:12px/1.6 'Courier New',monospace; }
+.case-layout { display:grid; grid-template-columns:220px minmax(0,1fr); gap:65px; padding:44px 0; }
+.page-index { align-self:start; position:sticky; top:24px; }
+.page-index strong { display:block; font:11px/1.5 'Courier New',monospace; margin-bottom:12px; }
+.page-index a { display:block; padding:9px 0; font-size:14px; }
+.page-body { min-width:0; max-width:790px; }
+.page-body section { margin-bottom:48px; scroll-margin-top:24px; }
+.page-body h2 { font:clamp(28px,3vw,40px)/1.2 var(--font-display); letter-spacing:-.025em; margin:0 0 18px; text-wrap:balance; }
+.page-body h3 { font-size:20px; margin:24px 0 10px; }
+.page-body p,.page-body li { line-height:1.8; }
+.page-body li { margin-bottom:8px; }
+.page-body figure { margin:24px 0; }
+.page-body figure img { display:block; width:100%; height:auto; border:1px solid var(--line); }
+.page-body .vehicle-photo { max-height:560px; object-fit:contain; background:var(--green); }
+.evidence-gallery { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; }
+.evidence-gallery .phone-evidence img { max-height:540px; object-fit:contain; background:var(--surface); }
+.case-callout { border-left:3px solid var(--accent); padding:12px 24px; background:var(--surface); }
+.system-flow { list-style:none; padding:0; display:flex; flex-wrap:wrap; gap:10px; }
+.system-flow li { padding:12px 16px; border:1px solid var(--line); background:var(--surface); font-size:14px; }
+.related-reading { border-top:1px solid var(--ink); padding:28px 0; }
+.related-reading a { display:inline-block; margin:8px 24px 8px 0; }
+.service-deliverables { padding-left:22px; }
+.page-body details { border-bottom:1px solid var(--line); }
+.page-body details summary { padding-left:0; }
+.page-body details p { margin-top:0; }
+@media(max-width:950px) { .case-layout { grid-template-columns:160px minmax(0,1fr); gap:32px; } }
+@media(max-width:700px) {
+ .case-strip,.proof-list,.evidence-gallery { grid-template-columns:1fr; }
+ .case-layout { grid-template-columns:1fr; gap:32px; padding-top:24px; }
+ .page-index { position:static; border-bottom:1px solid var(--line); padding-bottom:16px; }
+ .page-index a { display:inline-block; margin-right:16px; }
+ .page-intro { padding-top:36px; }
+ .project-evidence { border-left:0; border-top:1px solid var(--ink); }
+ .page-intro h1 { font-size:42px; }
+ .case-link { padding:24px; }
+}
+@media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+
+.hero-proof { display:flex; flex-wrap:wrap; gap:10px 22px; margin:24px 0 0; padding-top:16px; border-top:1px solid var(--line); font:11px/1.6 "Courier New",monospace; color:var(--muted); }
+.hero-proof a { color:inherit; text-underline-offset:3px; }
+
+.case-studies-section { margin:64px 0; padding:40px 0; border-top:1px solid var(--ink); border-bottom:1px solid var(--ink); scroll-margin-top:24px; }
+.case-studies-section .case-strip { gap:0; border:1px solid var(--ink); background-color:var(--green); background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px); background-size:28px 28px; }
+.case-studies-section .case-link { background:transparent; border:0; border-bottom:1px solid var(--line); padding:32px; }
+.case-studies-section .case-link:nth-child(odd) { border-right:1px solid var(--line); }
+.case-studies-section .case-link:hover { background:var(--surface); }
+.case-studies-section .case-number { color:var(--ink); }
+@media(max-width:700px) { .case-studies-section { margin:40px 0; padding:28px 0; } .case-studies-section .case-link:nth-child(odd) { border-right:0; } }
+
+
+.hero.shipping-hero { display:block; padding:76px 0 64px; }
+.shipping-hero .hero-copy { max-width:1080px; }
+.hero.shipping-hero h1 { font-size:clamp(44px,5.6vw,78px); line-height:1.08; letter-spacing:-.035em; margin:26px 0 32px; }
+.shipping-hero .hook-setup { display:block; }
+.shipping-hero .hook-payoff { display:block; margin-top:20px; }
+.hero.shipping-hero .intro { max-width:660px; font-size:18px; }
+.shipping-hero .hero-actions { gap:28px; }
+.shipping-hero .hero-actions .text-link { font-size:14px; }
+.featured-workbench { max-width:560px; margin:32px auto 64px; }
+.workbench-context { margin-top:48px; text-align:center; color:var(--muted); font:10px/1.6 "Courier New",monospace; }
+@media(max-width:700px) { .hero.shipping-hero { padding:44px 0 40px; } .hero.shipping-hero h1 { font-size:clamp(36px,8.7vw,58px); line-height:1.12; } .shipping-hero .desktop-break { display:none; } .shipping-hero .hook-payoff { margin-top:24px; } .hero.shipping-hero .intro { font-size:16px; } .shipping-hero .hero-actions { align-items:flex-start; gap:22px; } .featured-workbench { margin:28px 12px 54px; } }
+

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://danilostoletovic.com/</loc>
-  </url>
+  <url><loc>https://danilostoletovic.com/</loc></url>
+  <url><loc>https://danilostoletovic.com/case-studies/smart-vehicle/</loc></url>
+  <url><loc>https://danilostoletovic.com/case-studies/secretary/</loc></url>
+  <url><loc>https://danilostoletovic.com/case-studies/class-timetable/</loc></url>
+  <url><loc>https://danilostoletovic.com/case-studies/promptui/</loc></url>
+  <url><loc>https://danilostoletovic.com/services/mobile-app-development/</loc></url>
+  <url><loc>https://danilostoletovic.com/services/business-websites/</loc></url>
 </urlset>

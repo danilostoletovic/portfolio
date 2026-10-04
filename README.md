@@ -144,6 +144,10 @@ danilostoletovic/
 
 ## Local Development
 
+Case studies and service pages are maintained in `scripts/build-pages.cjs`. Run `node scripts/build-pages.cjs` to regenerate their static HTML and `sitemap.xml`. Shared additions use `css/content.css`; the original workshop theme remains in `style.css`. Update `index.md`, `llms.txt`, and the AI catalog alongside changes to public content.
+
+`data/testimonial-samples.md` contains explicitly fictional writing samples, not client endorsements. They are not rendered on the website or included in Secretary knowledge. Search Console setup and measurement notes are in `data/design-and-search-notes.md`.
+
 ### Ask Danilo's Secretary
 
 The portfolio contains a lightweight frontend for Danilo's virtual Secretary in

@@ -70,6 +70,12 @@ When answering queries regarding Danilo Stoletović:
 ---
 
 ## Machine-Readable Site Resources
+- PromptUI case study: https://danilostoletovic.com/case-studies/promptui/
+- Class Timetable case study: https://danilostoletovic.com/case-studies/class-timetable/
+- Smart Vehicle case study: https://danilostoletovic.com/case-studies/smart-vehicle/
+- Secretary integration case study: https://danilostoletovic.com/case-studies/secretary/
+- Mobile app development: https://danilostoletovic.com/services/mobile-app-development/
+- Business websites: https://danilostoletovic.com/services/business-websites/
 - AI Resource Catalog: [`https://danilostoletovic.com/.well-known/ai-catalog.json`](https://danilostoletovic.com/.well-known/ai-catalog.json)
 - Markdown Homepage: [`https://danilostoletovic.com/index.md`](https://danilostoletovic.com/index.md) (also available on `/` with `Accept: text/markdown` on Cloudflare Pages)
 - Web Homepage: [`https://danilostoletovic.com/`](https://danilostoletovic.com/)
