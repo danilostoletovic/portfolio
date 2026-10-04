@@ -11,8 +11,8 @@ Technologies: Kotlin / Jetpack Compose, Flutter / Dart, WinUI / C#, HTML / CSS, 
 - [Full portfolio in Markdown](https://danilostoletovic.com/index.md): Detailed public project descriptions, services, biography, and contact links; also served on the homepage when Accept prefers text/markdown.
 
 ## Projects and source
-- [YOLO Smart Vehicle](https://yoloprojekat.com): Raspberry Pi 5 vision, motor control, video and telemetry with an Android client.
-- [YOLO Android source](https://github.com/yoloprojekat/android-client): Kotlin / Jetpack Compose client.
+- [YOLO Smart Vehicle](https://smartvehicle.dev/): Raspberry Pi 5 vision, motor control, video and telemetry with an Android client.
+- [YOLO Android source](https://github.com/smartvehiclelab/android-client): Kotlin / Jetpack Compose client.
 - [Class Timetable](https://github.com/danilostoletovic/class-timetable): Open-source Flutter / Dart scheduling app for students and educators.
 - [PromptUI](https://github.com/danilostoletovic/PromptUI): TypeScript AI interface experiment, in beta.
 - [Portfolio source](https://github.com/danilostoletovic/portfolio): HTML, CSS, and a small optional JavaScript Secretary interface.

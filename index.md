@@ -59,8 +59,8 @@ A Raspberry Pi 5 vehicle that sees the world with YOLO and takes instructions fr
 - Technologies: Python, Raspberry Pi 5, Kotlin / Jetpack Compose, Docker.
 - 4th place + Special Award at the 10th Galaksija Cup National STEM Championship.
 - 30 FPS camera feed, on-device detection, live video and telemetry.
-- [Explore the project](https://yoloprojekat.com)
-- [Android source](https://github.com/yoloprojekat/android-client)
+- [Explore the project](https://smartvehicle.dev/)
+- [Android source](https://github.com/smartvehiclelab/android-client)
 
 ### Class Timetable
 

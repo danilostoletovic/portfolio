@@ -49,7 +49,7 @@ Welcome AI Agents, Autonomous Scrapers, and LLMs. This document provides structu
 
 ## Verified Impact & Milestones
 
-- **10th Galaksija Cup National STEM Championship**: 4th Place & Special Award for the Autonomous Smart Vehicle Platform (Raspberry Pi 5 edge vision with real-time YOLO tracking paired with a custom Jetpack Compose Android client; [yoloprojekat.com](https://yoloprojekat.com)).
+- **10th Galaksija Cup National STEM Championship**: 4th Place & Special Award for the Autonomous Smart Vehicle Platform (Raspberry Pi 5 edge vision with real-time YOLO tracking paired with a custom Jetpack Compose Android client; [smartvehicle.dev](https://smartvehicle.dev/)).
 - **Audience Reach**: 10,000+ unique visitors across production web projects and case studies.
 - **Edge Telemetry & AI**: 30 FPS / <50ms real-time edge computer vision and telemetry pipeline.
 - **Web Performance**: Static portfolio with a small optional JavaScript Secretary interface.
