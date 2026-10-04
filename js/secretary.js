@@ -64,10 +64,49 @@
   launcher.setAttribute('aria-controls', 'secretary-panel');
   launcher.setAttribute('aria-expanded', 'false');
 
+  // Model output remains text; only validated link tokens become DOM anchors.
+  function appendReplyText(container, text) {
+    const tokens = /\[([^\]\n]+)\]\(([^\s)]+)\)|(?:https?:\/\/|mailto:|tel:)[^\s<>"\]]+/gi;
+    let cursor = 0;
+    for (const match of text.matchAll(tokens)) {
+      container.append(document.createTextNode(text.slice(cursor, match.index)));
+      const markdown = Boolean(match[1]);
+      let href = markdown ? match[2] : match[0];
+      let suffix = '';
+      if (!markdown) {
+        // Sentence punctuation is not part of a bare URL. Preserve balanced parentheses.
+        while (/[.,!?:;]$/.test(href) || (href.endsWith(')') && (href.match(/\)/g) || []).length > (href.match(/\(/g) || []).length)) {
+          suffix = href.slice(-1) + suffix;
+          href = href.slice(0, -1);
+        }
+      }
+      let url;
+      try {
+        url = new URL(href, location.href);
+        if (!['https:', 'http:', 'mailto:', 'tel:'].includes(url.protocol)
+          || url.username || url.password) url = null;
+      } catch { url = null; }
+      if (url) {
+        const link = element('a', '', markdown ? match[1] : href);
+        link.href = url.href;
+        if (['https:', 'http:'].includes(url.protocol) && url.origin !== location.origin) {
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+        }
+        container.append(link, document.createTextNode(suffix));
+      } else container.append(document.createTextNode(match[0]));
+      cursor = match.index + match[0].length;
+    }
+    container.append(document.createTextNode(text.slice(cursor)));
+  }
+
   function addMessage(role, text, forceScroll = false) {
     const nearBottom = log.scrollHeight - log.scrollTop - log.clientHeight < 80;
     const message = element('div', `secretary-message secretary-message--${role}`);
-    message.append(element('span', 'secretary-speaker', role === 'user' ? 'You' : 'Secretary'), element('p', '', text));
+    const body = element('p');
+    if (role === 'assistant') appendReplyText(body, text);
+    else body.textContent = text;
+    message.append(element('span', 'secretary-speaker', role === 'user' ? 'You' : 'Secretary'), body);
     log.append(message);
     if (nearBottom || forceScroll) log.scrollTop = log.scrollHeight;
     return message;
