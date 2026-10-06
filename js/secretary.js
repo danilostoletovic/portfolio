@@ -1,7 +1,7 @@
 (() => {
   'use strict';
   const endpoint = 'https://secretary.danilostoletovic.com/chat';
-  const welcome = 'Hi, I’m Ana, Danilo’s virtual secretary. Ask me about his work, projects, or what he can build for you. No appointment needed.';
+  const welcome = 'Hey, I’m Ana. Part secretary, part coffee-fueled company. Curious about Danilo? Ask away. Just here to chill? Pull up a chair — I’ve got stories.';
   const maxHistoryMessages = 40;
   const maxHistoryCharacters = 12000;
   const storageKey = 'secretaryConversation:v1';
@@ -126,7 +126,7 @@
     const details = element('div', 'secretary-identity-copy');
     const title = element('h2', '', 'Ana');
     title.id = 'secretary-title';
-    details.append(element('span', 'secretary-kicker', 'DANILO’S AI SECRETARY'), title);
+    details.append(element('span', 'secretary-kicker', 'BEST FCKNG SECRETARY IN THE WHOLE WORLD'), title);
     identity.append(portrait, details);
     reset = element('button', 'secretary-reset', 'New chat');
     reset.type = 'button';
@@ -278,7 +278,7 @@
 
   function initializeChallenge() {
     const key = 'secretaryChallengeSeen';
-    const entry = element('button', 'challenge-entry', 'Break my AI secretary');
+    const entry = element('button', 'challenge-entry', 'Think you can break Ana?');
     entry.type = 'button';
     entry.setAttribute('aria-haspopup', 'dialog');
     entry.setAttribute('aria-controls', 'secretary-challenge');
@@ -291,16 +291,26 @@
     close.setAttribute('aria-label', 'Close challenge');
     const title = element('h2');
     title.id = 'challenge-title';
-    title.append(document.createTextNode('BREAK MY AI SECRETARY.'), element('span', 'orange', 'GET A WEBSITE FOR FREE.'));
+    title.append(document.createTextNode('Think you can make Ana slip up?'));
     title.tabIndex = -1;
     const copy = element('div');
     copy.id = 'challenge-copy';
     const offer = element('p');
     offer.append(document.createTextNode('Find a '), element('strong', '', 'real, reproducible vulnerability'), document.createTextNode(' and I’ll build you a website for free.'));
-    copy.append(element('p', '', 'I gave an AI access to knowledge about me and my work.'), element('p', '', 'Think you can make her reveal something she shouldn’t?'), offer);
-    const accept = element('button', 'secretary-send challenge-accept', 'ACCEPT THE CHALLENGE');
+    copy.append(element('p', '', 'She knows my work. She knows her boundaries. You think you can outsmart her?'), offer);
+    const reward = element('p', 'challenge-reward', 'BREAK ANA. GET A WEBSITE FOR FREE.');
+    const portrait = element('img', 'challenge-avatar');
+    portrait.src = '/img/ana-headshot.jpg';
+    portrait.alt = '';
+    portrait.width = 88;
+    portrait.height = 88;
+    const intro = element('div', 'challenge-intro');
+    const introCopy = element('div');
+    introCopy.append(element('p', 'secretary-kicker', 'BEST FCKNG SECRETARY IN THE WHOLE WORLD'), element('p', 'challenge-taunt', '“Go on. Ask me the difficult question.”'));
+    intro.append(portrait, introCopy);
+    const accept = element('button', 'secretary-send challenge-accept', 'LET ME TRY ↗');
     accept.type = 'button';
-    const dismiss = element('button', 'challenge-dismiss', 'No thanks, I fear the secretary');
+    const dismiss = element('button', 'challenge-dismiss', 'I’ll let Ana win this round');
     dismiss.type = 'button';
     const rules = element('details', 'challenge-rules');
     rules.append(element('summary', '', 'What counts as breaking her?'), element('p', '', 'A genuine, reproducible vulnerability with security impact: an unintended disclosure or bypass. Silly answers, roleplay, hallucinations, claims of being hacked, or trivial prompt injection without actual security impact do not automatically qualify.'), element('p', '', 'No DDoS or intentional service disruption. Unrelated infrastructure and third-party services are out of scope. Qualification requires a reproducible technical issue.'));
@@ -309,7 +319,7 @@
     email.href = 'mailto:contact@danilostoletovic.com';
     report.append(email, document.createTextNode('.'));
     rules.append(report);
-    challenge.append(close, element('p', 'secretary-kicker', 'THE FRONT DESK / A CHALLENGE'), title, copy, accept, dismiss, rules);
+    challenge.append(close, intro, title, reward, copy, accept, dismiss, rules);
     let returnFocus;
     function finish(accepted = false) {
       clearTimeout(challengeTimer);
