@@ -10,7 +10,7 @@ Canonical website: https://danilostoletovic.com/
 
 I design, build and deploy web apps, AI integrations and software products end-to-end.
 
-[See what I’ve shipped](https://danilostoletovic.com/#work) · Ask my AI secretary on the homepage.
+[See what I’ve shipped](https://danilostoletovic.com/#work) · Ask Ana on the homepage.
 
 For 3+ years, I've taken software from an idea through architecture, implementation, and release: native Android and Windows apps, Google Play and Microsoft Store publishing, and web deployments at the edge.
 
@@ -58,7 +58,7 @@ Responsive implementation, performance, SEO foundations, deployment, and domain/
 
 [Build my site](https://danilostoletovic.com/#contact)
 
-Not sure which one you need? Ask my Secretary on the homepage, or email me.
+Not sure which one you need? Ask Ana on the homepage, or email me.
 
 ## Things I've built
 
@@ -167,7 +167,7 @@ Open to freelance work, engineering advisory, and technical collaborations.
 - [Upwork](https://www.upwork.com/freelancers/danilostoletovic)
 - [Fiverr Pro](https://pro.fiverr.com/freelancers/stoletovicd)
 
-## Ask Danilo’s Secretary
+## Ask Ana
 
 The optional virtual Secretary on the homepage answers questions about Danilo’s work and technologies. Email or the professional profiles above are the direct contact routes. The portfolio remains readable without JavaScript.
 

@@ -1,7 +1,7 @@
 (() => {
   'use strict';
   const endpoint = 'https://secretary.danilostoletovic.com/chat';
-  const welcome = 'Hi. I’m Danilo’s virtual secretary. Ask me about his work, projects, or what he can build for you. No appointment needed.';
+  const welcome = 'Hi, I’m Ana, Danilo’s virtual secretary. Ask me about his work, projects, or what he can build for you. No appointment needed.';
   const maxHistoryMessages = 40;
   const maxHistoryCharacters = 12000;
   const storageKey = 'secretaryConversation:v1';
@@ -58,7 +58,7 @@
     return node;
   }
 
-  const launcher = element('button', 'secretary-launcher', 'Ask Danilo’s Secretary');
+  const launcher = element('button', 'secretary-launcher', 'Ask Ana');
   launcher.type = 'button';
   launcher.setAttribute('aria-haspopup', 'dialog');
   launcher.setAttribute('aria-controls', 'secretary-panel');
@@ -106,7 +106,7 @@
     const body = element('p');
     if (role === 'assistant') appendReplyText(body, text);
     else body.textContent = text;
-    message.append(element('span', 'secretary-speaker', role === 'user' ? 'You' : 'Secretary'), body);
+    message.append(element('span', 'secretary-speaker', role === 'user' ? 'You' : 'Ana'), body);
     log.append(message);
     if (nearBottom || forceScroll) log.scrollTop = log.scrollHeight;
     return message;
@@ -117,10 +117,17 @@
     panel.id = 'secretary-panel';
     panel.setAttribute('aria-labelledby', 'secretary-title');
     const header = element('header', 'secretary-header');
-    const identity = element('div');
-    const title = element('h2', '', 'Danilo’s Secretary');
+    const identity = element('div', 'secretary-identity');
+    const portrait = element('img', 'secretary-avatar');
+    portrait.src = '/img/ana-headshot.jpg';
+    portrait.alt = '';
+    portrait.width = 56;
+    portrait.height = 56;
+    const details = element('div', 'secretary-identity-copy');
+    const title = element('h2', '', 'Ana');
     title.id = 'secretary-title';
-    identity.append(element('span', 'secretary-kicker', 'THE FRONT DESK / VIRTUAL ASSISTANT'), title);
+    details.append(element('span', 'secretary-kicker', 'DANILO’S AI SECRETARY'), title);
+    identity.append(portrait, details);
     reset = element('button', 'secretary-reset', 'New chat');
     reset.type = 'button';
     reset.addEventListener('click', () => {
@@ -136,12 +143,12 @@
     });
     const close = element('button', 'secretary-close', '×');
     close.type = 'button';
-    close.setAttribute('aria-label', 'Close Secretary');
+    close.setAttribute('aria-label', 'Close Ana chat');
     close.addEventListener('click', () => panel.close());
     header.append(identity, reset, close);
     log = element('div', 'secretary-log');
     log.setAttribute('role', 'log');
-    log.setAttribute('aria-label', 'Conversation with Secretary');
+    log.setAttribute('aria-label', 'Conversation with Ana');
     log.setAttribute('aria-live', 'polite');
     log.setAttribute('aria-relevant', 'additions');
     log.tabIndex = 0;
@@ -218,7 +225,7 @@
     // Only committed, successful turns are sent. The current message is sent in
     // `message` below and is intentionally not also included in `history`.
     const payload = { message, history: conversationHistory(message) };
-    status.textContent = 'Secretary is working on your question…';
+    status.textContent = 'Ana is working on your question…';
     send.textContent = 'Waiting…';
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 30000);
@@ -245,7 +252,7 @@
     } catch {
       status.textContent = controller.signal.aborted
         ? 'That took a little too long. Please try again, or email Danilo below.'
-        : 'The Secretary couldn’t answer just now. Please try again, or email Danilo below.';
+        : 'Ana couldn’t answer just now. Please try again, or email Danilo below.';
       if (!input.value) input.value = message;
     } finally {
       if (!committed) pendingMessage.remove();
