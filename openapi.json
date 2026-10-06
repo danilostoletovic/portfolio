@@ -19,13 +19,15 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "description": "Complete UTF-8 JSON body is limited to 16 KiB. History content is limited to 12,000 characters in total, with each user message limited to 2,000 characters. Conversation context is supplied per request; no server sessions, persisted tasks, or streaming are available.",
                 "required": ["message"],
+                "additionalProperties": false,
                 "properties": {
-                  "message": { "type": "string", "minLength": 1, "description": "A nonblank question." },
+                  "message": { "type": "string", "minLength": 1, "maxLength": 2000, "description": "A nonblank message for Ana about public portfolio information or conversation." },
                   "history": {
                     "type": "array",
                     "description": "Optional ordered prior conversation messages supplied by the untrusted client.",
-                    "maxItems": 20,
+                    "maxItems": 40,
                     "items": {
                       "type": "object",
                       "required": ["role", "content"],

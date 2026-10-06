@@ -65,7 +65,7 @@
   Cache-Control: public, max-age=0, must-revalidate
   Access-Control-Allow-Origin: *
 
-/.well-known/agent-skills/read-portfolio/SKILL.md
+/.well-known/agent-skills/*/SKILL.md
   Content-Type: text/markdown; charset=utf-8
   Cache-Control: public, max-age=0, must-revalidate
   Access-Control-Allow-Origin: *

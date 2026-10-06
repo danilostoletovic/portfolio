@@ -6,7 +6,14 @@
       "type": "skill-md",
       "description": "Find verified information about Danilo Stoletovic's projects, services, experience, and contact details from his public portfolio.",
       "url": "https://danilostoletovic.com/.well-known/agent-skills/read-portfolio/SKILL.md",
-      "digest": "sha256:2b45e04684b35c8704b20b8e67e123e7f393089dac61b6f41f705e47c35469b3"
+      "digest": "sha256:1d314419b79604172fcce0f9b936e518abb04c21eb2f66c0f8b436830ffee4e2"
+    },
+    {
+      "name": "secretary-chat",
+      "type": "skill-md",
+      "description": "Converse with Ana, Danilo Stoletovic's public virtual secretary, about his portfolio, projects, freelance services, project fit, or casual topics using the existing chat API.",
+      "url": "https://danilostoletovic.com/.well-known/agent-skills/secretary-chat/SKILL.md",
+      "digest": "sha256:ea5d0ac53eb8ee85bd957a8aedf88c49ddcd814e9c9c897bf7ebfb087fec252e"
     }
   ]
 }

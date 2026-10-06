@@ -43,6 +43,19 @@ for (const mode of ['document', 'navigator']) {
     const { registered, events, section } = browser(mode);
     assert.equal(registered.length, 2);
     const [read, navigate] = registered.map(entry => entry.tool);
+    for (const tool of [read, navigate]) {
+      assert.equal(tool.inputSchema.type, 'object');
+      assert.equal(tool.inputSchema.additionalProperties, false);
+      assert.equal(tool.inputSchema.required[0], 'section');
+      assert.equal(tool.inputSchema.properties.section.enum.length, 7);
+      const homepage = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+      assert.match(homepage, /<script[^>]+src="js\/webmcp\.js/);
+      for (const id of tool.inputSchema.properties.section.enum) {
+        assert.ok(homepage.includes(`id="${id}"`), `WebMCP section ${id} must exist on the homepage`);
+      }
+      await assert.rejects(tool.execute({ section: 'https://example.com/private' }), /Unknown/);
+      await assert.rejects(tool.execute({ url: 'https://example.com/private' }), /Unknown/);
+    }
     const result = await read.execute({ section: 'work' });
     assert.equal(result.text, section.innerText);
     assert.equal(result.links[0].label, 'Repository');

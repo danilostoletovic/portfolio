@@ -158,7 +158,7 @@ Worker, maintained in the separate `Secretary` repository. Production API:
 The browser sends HTTPS `POST /chat` requests containing a current `message` and
 an optional ordered `history` of prior `{ "role": "user" | "assistant", "content": "…" }`
 messages, then reads a nonempty string from `{ "reply": "…" }`. History is
-untrusted, session-only client state capped at 20 messages and approximately
+untrusted, session-only client state capped at 40 messages and
 12,000 characters; the current question is sent separately and is not duplicated
 in `history`. The browser never receives the OpenAI API key. No backend
 credentials, database, or chat analytics are included here. Replies are rendered
@@ -280,7 +280,7 @@ Cloudflare settings cannot be changed by these static files: configure the build
 ### Agent skills and browser tools
 
 `/.well-known/agent-skills/index.json` follows the Agent Skills Discovery RFC v0.2.0
-and links to a public `read-portfolio` skill. Its digest covers the exact UTF-8
+and links to public `read-portfolio` and `secretary-chat` skills. Each digest covers the exact UTF-8
 bytes of `SKILL.md`; `.gitattributes` keeps those bytes LF-normalized. After editing
 the skill, update its digest with `node scripts/update-skill-digest.cjs`.
 The homepage advertises the index in HTML and HTTP Link headers; `llms.txt` also links it.
@@ -340,6 +340,70 @@ Once propagated, query SVCB type 64 with DNSSEC enabled through a validating
 resolver; require the expected record, a successful response, and `AD: true`.
 Also verify the parent DS and the zone DNSKEY. A successful DNS response without
 authenticated data does not complete the DNSSEC requirement.
+
+### Discovery audit (2026-10-06)
+
+The existing Skills Index uses Cloudflare's discovery v0.2.0 format. Keep its
+hyphenated skill names: underscores are not valid skill artifact names. The
+`read-portfolio` instructions describe `portfolio_information`,
+`project_information`, `services_information`, and `freelance_inquiry` as public
+informational capabilities. The separate `secretary-chat` skill describes
+`secretary_chat` through Ana's existing custom `POST /chat` API. Discovering a
+skill does not call the API or send an inquiry. Skill artifacts and the index
+use revalidation rather than immutable caching.
+
+WebMCP remains unchanged: `read_portfolio_section` reads visible public content,
+and `navigate_portfolio` scrolls to an allowlisted section. Both have explicit
+object schemas with an enum and no additional properties; neither performs
+network requests or writes to external systems.
+
+Google Public DNS returned the documented DNS-AID SVCB record on 2026-10-06,
+with `Status: 0` and `AD: true`. No repository-side DNS change is needed.
+
+The current [A2A specification](https://a2a-protocol.org/latest/specification/)
+uses `/.well-known/agent-card.json`; `/.well-known/agent.json` is a legacy location.
+Ana's custom `{message, history}` / `{reply}` API does not implement A2A messages,
+tasks, or protocol operations. A static card cannot make that endpoint A2A
+compliant. Do not advertise JSONRPC, HTTP+JSON, an A2A protocol version, or a
+custom A2A binding for it without implementing the corresponding protocol.
+An A2A discovery recommendation must remain unsupported until a real interface
+is available. OAuth discovery, protected resource metadata, remote MCP cards,
+and Web Bot Auth remain intentionally absent.
+
+Current surfaces:
+
+- Humans: browser → portfolio → Ana UI → Secretary `/chat` → shared Ana backend.
+- Browser agents: agent/browser → WebMCP → public portfolio reading/navigation tools.
+- Skill discovery: agent → Skills Index → public capability descriptions.
+- DNS discovery: agent → existing DNS-AID entrypoint.
+
+Planned A2A flow (developer architecture; not implemented or published):
+
+```text
+A2A agent
+  → portfolio Agent Card
+  → Secretary Worker A2A endpoint
+  → shared Secretary validation/rate admission
+  → converseWithAna
+  → existing Ana model path
+```
+
+The Secretary audit confirms adapter readiness, not protocol support. The next
+implementation belongs in the Secretary Worker and calls `converseWithAna`
+directly, with its lazy input reader and trusted `{ env, clientIp }` context.
+Do not add a portfolio proxy to `/chat`, copy backend code, or invent an endpoint
+path. Add the portfolio Agent Card only after a genuine public A2A endpoint is
+implemented and tested in the Worker. Ana currently has no A2A interface,
+streaming, persisted tasks, or server sessions. Internal entry-point names belong
+in developer notes, not public capability metadata.
+
+`_routes.json` invokes Functions only for `/` and `/index.html`; `.well-known`
+files are static assets. The root `404.html` prevents Pages' implicit SPA
+fallback for missing resources. No redirects or rewrite rules are present.
+After a reviewed deployment, verify GET and HEAD for the Skills Index and both
+skill artifacts, JSON/Markdown content types, digest equality, and a 404 for a
+missing skill. Cloudflare zone cache overrides and WAF rules must still allow
+the intended public discovery; no new dashboard setting is required here.
 
 ## Offers and testimonials
 
