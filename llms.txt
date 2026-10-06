@@ -40,6 +40,8 @@ The homepage’s optional “Ask Danilo’s Secretary” answers questions about
 - [Client testimonials](https://danilostoletovic.com/#testimonials): Owner-supplied, publication-approved feedback from Michael Johnson (United States, Android app), James Smith (United Kingdom, website), and Anna Müller (Germany, AI integration).
 
 ## Case studies and service pages
+
+- [Portfolio case study](https://danilostoletovic.com/case-studies/portfolio/): Semantic HTML, progressive browser enhancements and a separate Secretary Worker.
 - [Smart Vehicle case study](https://danilostoletovic.com/case-studies/smart-vehicle/): Raspberry Pi vision, Android controls, fallback networking, and competition evidence.
 - [Secretary case study](https://danilostoletovic.com/case-studies/secretary/): Lightweight frontend, curated knowledge, and a separate Worker API.
 - [Mobile app development](https://danilostoletovic.com/services/mobile-app-development/): Native Android and Flutter development, integration, and release preparation.

@@ -4,9 +4,16 @@
     "displayName": "Danilo Stoletović",
     "identifier": "danilostoletovic.com",
     "documentationUrl": "https://danilostoletovic.com/AGENTS.md",
-    "logoUrl": "https://danilostoletovic.com/img/logo.avif"
+    "logoUrl": "https://danilostoletovic.com/img/logo.svg"
   },
   "entries": [
+    {
+      "identifier": "urn:air:danilostoletovic.com:content:portfolio-case-study",
+      "displayName": "Portfolio case study",
+      "type": "text/html",
+      "url": "https://danilostoletovic.com/case-studies/portfolio/",
+      "description": "A lightweight workshop portfolio on Cloudflare Pages with static content, optional browser interactions and a separate Ana Secretary Worker."
+    },
     {
       "identifier": "urn:air:danilostoletovic.com:content:portfolio",
       "displayName": "Portfolio in Markdown",

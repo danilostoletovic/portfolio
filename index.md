@@ -6,11 +6,13 @@ Canonical website: https://danilostoletovic.com/
 
 [Discuss your project](https://danilostoletovic.com/#contact) · [Explore services](https://danilostoletovic.com/#offers)
 
-## Your idea doesn’t need another fucking meeting. It needs to ship.
+## Your idea deserves to see the light.
 
-I design, build and deploy web apps, AI integrations and software products end-to-end.
+I turn ideas into working apps, websites, and AI integrations. From the circuit to the screen. And sometimes, all the way to the wheels.
 
-[See what I’ve shipped](https://danilostoletovic.com/#work) · Ask Ana on the homepage.
+[Explore the work](https://danilostoletovic.com/#case-studies) · Ask Ana on the homepage.
+
+The browser portfolio starts with an introduction and service choices. Its “Open the hood” archive is collapsed until requested. Hardware, AI, mobile, websites and experiment filters organize all five projects; the Other/all-projects category includes every project. Open a case study to choose its overview, build, evidence, or result. Complete technical articles remain available at their canonical links below.
 
 For 3+ years, I've taken software from an idea through architecture, implementation, and release: native Android and Windows apps, Google Play and Microsoft Store publishing, and web deployments at the edge.
 
@@ -101,6 +103,8 @@ Semantic HTML and CSS on Cloudflare Pages, with a small JavaScript interface con
 - [View source](https://github.com/danilostoletovic/portfolio)
 
 ## Case studies — Inside the build
+
+- [This portfolio](https://danilostoletovic.com/case-studies/portfolio/): A lightweight Cloudflare workshop with static content and an optional Ana interface.
 
 The problem, the decisions, and the working result.
 

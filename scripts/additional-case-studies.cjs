@@ -1,5 +1,19 @@
 module.exports = email => [
  {
+  route:'/case-studies/portfolio/',type:'case',title:'Static portfolio case study — Danilo Stoletović',
+  description:'A lightweight workshop portfolio on Cloudflare Pages, with public evidence, static discovery and a separate Ana Secretary integration.',
+  eyebrow:'CASE STUDY 05 / LIGHTWEIGHT WEB',heading:'A workshop with the door open.',
+  intro:'This portfolio brings projects, evidence and services together without a frontend framework. Its public content remains readable without JavaScript.',
+  meta:['Semantic HTML · Vanilla CSS','Cloudflare Pages','Optional browser interactions'],
+  sections:[
+   ['brief','Make the work easy to inspect','<p>A portfolio should let a visitor inspect the problem, implementation and evidence behind a project. Dedicated static case studies provide canonical links, while the homepage offers quick project selections.</p>'],
+   ['implementation','Small pieces with clear responsibilities','<p>HTML contains the public content. CSS supplies the workshop identity. Optional browser JavaScript adds project tabs, evidence previews, service choices and press filters. Search metadata and public discovery resources remain static.</p>'],
+   ['secretary','Ana has her own backend','<p>The existing Ask Ana interface talks directly to the separate Secretary Worker’s public chat endpoint. The portfolio does not duplicate its prompts, model integration or knowledge. No A2A endpoint is advertised.</p>'],
+   ['outcome','Readable before the scripts arrive','<p>Without JavaScript, the project notes, sources, client feedback and contact links remain available. Browser enhancements organize this content without adding a runtime data service.</p>'],
+   ['sources','Inspect the source',`<p><a href="https://github.com/danilostoletovic/portfolio">Portfolio source ↗</a></p>${email}`]
+  ]
+ },
+ {
   route:'/case-studies/class-timetable/',type:'case',title:'Class Timetable Flutter case study — Danilo Stoletović',
   description:'A Flutter scheduling app with rotating weeks, local reminders, JSON backups and platform-specific delivery.',
   eyebrow:'CASE STUDY 03 / MULTIPLATFORM APPLICATION',heading:'Class Timetable. A changing week, made clear.',

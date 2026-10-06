@@ -359,16 +359,8 @@
     });
     entry.addEventListener('click', show);
     document.body.append(entry, challenge);
-    function schedule() {
-      try { if (localStorage.getItem(key) === 'true') return; } catch { return; }
-      challengeTimer = setTimeout(() => {
-        try { if (localStorage.getItem(key) === 'true') return; } catch { return; }
-        // Never interrupt an already-open Secretary or another modal.
-        if (!document.querySelector('dialog[open]')) show();
-      }, 1800);
-    }
-    if (document.readyState === 'complete') schedule();
-    else window.addEventListener('load', schedule, { once: true });
+    // The workshop is visitor-led. Keep the existing challenge available through
+    // its entry button, but never open it automatically over portfolio browsing.
   }
   if (typeof HTMLDialogElement !== 'undefined' && HTMLDialogElement.prototype.showModal) {
     launcher.addEventListener('click', openSecretary);
