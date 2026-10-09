@@ -10,7 +10,7 @@ function transform(html, translate) {
   if (/^<(?:script|style|!--)/i.test(token)) return token;
   if (token.startsWith('<')) {
    token = token.replace(/\b(alt|title|aria-label|placeholder|data-ana-prompt)="([^"]*)"/g, (_,attr,value) => `${attr}="${escape(translate(normalize(value)))}"`);
-   if (/^<meta\b/i.test(token) && /(?:name="(?:description|keywords|twitter:title|twitter:description)"|property="(?:og:title|og:description|og:image:alt)")/.test(token)) token = token.replace(/content="([^"]*)"/, (_,value) => `content="${escape(translate(normalize(value)))}"`);
+   if (/^<meta\b/i.test(token) && /(?:name="(?:description|keywords|twitter:title|twitter:description|twitter:image:alt)"|property="(?:og:title|og:description|og:image:alt)")/.test(token)) token = token.replace(/content="([^"]*)"/, (_,value) => `content="${escape(translate(normalize(value)))}"`);
    return token;
   }
   const key = normalize(token);

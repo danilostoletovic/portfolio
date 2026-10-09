@@ -1,0 +1,8 @@
+[
+  {"question":"Is my project too small?","answer":"A focused fix, a landing page, or a prototype can be a sensible starting point. Send me the problem and what you already have; we can work out whether a small, clearly scoped engagement fits."},
+  {"question":"How do we discuss price?","answer":"Price depends on scope, integrations, existing code, and the support you need. Share your goal, any budget range, and constraints. We agree on the work and cost before development starts."},
+  {"question":"How soon could it be ready?","answer":"Timing depends on the scope, my availability, and what needs to be supplied or integrated. Tell me about your deadline early. We discuss a realistic plan before agreeing to the project; there is no one-size-fits-all turnaround."},
+  {"question":"What happens after I contact you?","answer":"We clarify the problem, users, and constraints. I suggest an approach and we agree on scope, timing, and cost. You review working software as the build progresses, then receive the agreed delivery and handover."},
+  {"question":"What about maintenance after launch?","answer":"Bug fixes, updates, hosting help, and ongoing maintenance can be discussed as part of the scope. We agree on what the handover includes and which support, if any, continues after launch."},
+  {"question":"Can we work together remotely?","answer":"Yes. I work remotely with international clients. We agree on communication, review points, and any time-zone constraints at the start. You work directly with me."}
+]

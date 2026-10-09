@@ -155,6 +155,9 @@ danilostoletovic/
 
 ## Local Development
 
+The [portfolio refinement audit](docs/portfolio-refinement.md) records the Refero
+references, buyer FAQ, bilingual SEO fixes, conversion events and validation limits.
+
 In VS Code, right-click the root `index.html` and choose **Open with Live Server**.
 The root chooses a language; `/en/` and `/sr/` also work directly. All pages are
 ordinary static HTML with directory indexes, so no Cloudflare emulator is needed.

@@ -271,7 +271,9 @@
     clearTimeout(challengeTimer);
     opener = event.currentTarget;
     if (!panel) initialize();
+    const alreadyOpen = panel.open;
     panel.showModal();
+    if (!alreadyOpen) window.dispatchEvent(new Event('portfolio:ana-opened'));
     document.body.classList.add('secretary-open');
     launcher.setAttribute('aria-expanded', 'true');
     input.focus({ preventScroll: true });

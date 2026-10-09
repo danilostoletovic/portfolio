@@ -39,6 +39,13 @@ for(const route of routes){
    return `${attr}="${attr==='href'?localeURL(value,language):value}"`;
   });
   html=html.replace(/<meta property="og:url" content="[^"]*">/,`<meta property="og:url" content="${url}">`).replace(/<meta property="og:locale(?:[:]alternate)?"[^>]*>/g,'');
+  html=html.replace(/<meta name="twitter:url" content="[^"]*">/,`<meta name="twitter:url" content="${url}">`);
+  if(route!=='/404.html'){
+   if(!html.includes('name="twitter:url"'))html=html.replace('</head>',`<meta name="twitter:url" content="${url}"></head>`);
+   if(!html.includes('name="twitter:card"'))html=html.replace('</head>','<meta name="twitter:card" content="summary_large_image"></head>');
+   const image=html.match(/<meta property="og:image" content="([^"]*)"/)?.[1];
+   if(image&&!html.includes('name="twitter:image"'))html=html.replace('</head>',`<meta name="twitter:image" content="${image}"></head>`);
+  }
   html=html.replace(/<script type="application\/ld\+json">([^]*?)<\/script>/g,(_,json)=>{
    function localize(value,key=''){
     if(Array.isArray(value))return value.map(v=>localize(v,key));

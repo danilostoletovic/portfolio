@@ -4,6 +4,7 @@ const root = path.resolve(__dirname, '..');
 const origin = 'https://danilostoletovic.com';
 const escape = s => s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const email = '<a class="button" href="mailto:contact@danilostoletovic.com">Discuss your project ↗</a>';
+const projectContext=require('../data/project-context.json');
 const pages = [
  {
   route:'/case-studies/smart-vehicle/', type:'case', title:'Smart Vehicle case study — Danilo Stoletović',
@@ -99,6 +100,12 @@ for (const p of pages) {
 </body></html>\n`;
  content=content.replace(/<a class="wordmark"[\s\S]*?<\/a>/,'<a class="wordmark" href="/" aria-label="Danilo Stoletović, home"><span class="brand-lockup"><img src="/img/logo.svg?v=workshop-2" width="32" height="32" alt=""><span>danilo<span class="orange">.</span></span></span><span class="wordmark-note">a person who builds things</span></a>');
  content=content.replace('<link rel="icon" href="/favicon.ico">','<link rel="icon" type="image/svg+xml" href="/img/favicon/favicon.svg?v=workshop-2"><link rel="alternate icon" href="/favicon.ico?v=workshop-2"><link rel="apple-touch-icon" href="/img/favicon/apple-touch-icon.png?v=workshop-2">');
+ const context=projectContext[p.route.split('/')[2]];
+ if(p.type==='case'&&context){
+  content=content.replace('<div class="case-layout">',`<dl class="project-context"><div><dt>My role</dt><dd>${escape(context.role)}</dd></div><div><dt>Useful for your project</dt><dd>${escape(context.fit)}</dd></div></dl><div class="case-layout">`);
+  content=content.replace('<nav class="related-reading"',`<aside class="project-next-step" aria-labelledby="project-next-heading"><div><p class="eyebrow">FROM THIS BUILD TO YOURS</p><h2 id="project-next-heading">Have a similar problem?</h2><p>${escape(context.fit)}. <a href="${context.href}">Explore the relevant service ↗</a></p></div><a class="button" href="mailto:contact@danilostoletovic.com?subject=${encodeURIComponent('Project inquiry: '+p.heading.split('. ')[0])}">Discuss your project ↗</a></aside><nav class="related-reading"`);
+ }
+ content=content.replace('</head>','<link rel="stylesheet" href="/css/refinement.css?v=1"><script src="/js/conversion.js?v=1" defer></script></head>');
  const dir=path.join(root,p.route);fs.mkdirSync(dir,{recursive:true});fs.writeFileSync(path.join(dir,'index.html'),content);
 }
 fs.writeFileSync(path.join(root,'sitemap.xml'),`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${['/',...pages.map(p=>p.route)].map(route=>`  <url><loc>${origin}${route}</loc></url>`).join('\n')}\n</urlset>\n`);

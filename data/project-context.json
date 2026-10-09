@@ -1,0 +1,7 @@
+{
+  "smart-vehicle":{"role":"Raspberry Pi services and native Android control client","fit":"Connected systems and Android apps","service":"idea","href":"/services/mobile-app-development/"},
+  "secretary":{"role":"Conversation interface and separate Secretary Worker integration","fit":"Public assistants and practical AI integrations","service":"ai","href":"/#offer-ai"},
+  "class-timetable":{"role":"Flutter scheduling application and platform release workflows","fit":"Mobile and multiplatform applications","service":"idea","href":"/services/mobile-app-development/"},
+  "promptui":{"role":"Experimental React workspace and Bun gateway","fit":"AI interface prototypes and integration experiments","service":"ai","href":"/#offer-ai"},
+  "portfolio":{"role":"Design, static implementation, and Cloudflare deployment","fit":"Business websites and lightweight web systems","service":"website","href":"/services/business-websites/"}
+}

@@ -11,7 +11,7 @@
    buttons.forEach((button,i)=>{
     if(!button.id)button.id=`tab-${panels[i].id}`;
     button.setAttribute('role','tab');button.setAttribute('aria-controls',panels[i].id);button.setAttribute('aria-selected',String(i===index));button.tabIndex=i===index?0:-1;
-    panels[i].setAttribute('role','tabpanel');panels[i].setAttribute('aria-labelledby',button.id);panels[i].hidden=i!==index;
+    panels[i].setAttribute('role','tabpanel');panels[i].setAttribute('aria-labelledby',button.id);panels[i].tabIndex=0;panels[i].hidden=i!==index;
    });
    if(focus)buttons[index].focus();if(onSelect)onSelect(index);
   }
@@ -33,11 +33,19 @@
   all('[data-open-project]').forEach(link=>link.addEventListener('click',event=>{event.preventDefault();openProject(link.dataset.openProject,link);link.closest('.project-menu')?.removeAttribute('open');}));
   inspector.querySelector('[data-close-inspector]').addEventListener('click',()=>inspector.close());
   inspector.addEventListener('close',()=>opener?.focus({preventScroll:true}));
-  all('[data-inspector-exit]').forEach(link=>link.addEventListener('click',()=>inspector.close()));
+  all('[data-inspector-exit]').forEach(link=>link.addEventListener('click',()=>{
+   const service=document.querySelector(`#service-${link.dataset.serviceTarget}`);
+   if(service){service.click();opener=service;}
+   inspector.close();
+  }));
   if(location.hash.startsWith('#case-'))openProject(location.hash.slice(6));
  }
  const services=all('[data-service-select]'),panels=all('.service-panel');
- if(services.length)tabs(document.querySelector('.service-select'),services,panels,index=>services.forEach((s,i)=>s.querySelector('.service-sign').textContent=i===index?'−':'＋'));
+ if(services.length){
+  const select=tabs(document.querySelector('.service-select'),services,panels,index=>services.forEach((s,i)=>s.querySelector('.service-sign').textContent=i===index?'−':'＋'));
+  const initial=panels.findIndex(panel=>panel.id===location.hash.slice(1));
+  if(initial>=0)select(initial);
+ }
  const workFilters=all('[data-work-filter]');
  const archive=document.querySelector('.project-archive');
  all('a[href="#case-studies"]').forEach(link=>link.addEventListener('click',()=>{if(archive)archive.open=true;}));
