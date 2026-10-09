@@ -2,5 +2,6 @@
 require('./render-workshop.cjs');
 require('./render-testimonials.cjs');
 require('./build-pages.cjs');
+require('./contact.cjs');
 require('./inline-styles.cjs');
 require('./build-locales.cjs');

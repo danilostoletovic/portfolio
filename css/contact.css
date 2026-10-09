@@ -1,0 +1,18 @@
+#contact-popup{background:var(--surface,#fffcf4);color:var(--ink,#252c27);border:1px solid currentColor;border-top:4px solid var(--accent,#bd431e);padding:32px;width:min(660px,calc(100% - 32px));max-height:calc(100dvh - 32px);overflow:auto;box-sizing:border-box;box-shadow:7px 7px 0 rgb(37 44 39 / .18)}
+#contact-popup::backdrop{background:rgb(20 25 20 / .55)}
+#contact-popup h2{font-family:Georgia,serif;font-size:clamp(28px,5vw,40px);line-height:1.12;margin:16px 36px 16px 0}
+#contact-popup p{line-height:1.5}
+.contact-close{position:absolute;right:12px;top:12px;width:44px;height:44px;background:transparent;color:inherit;border:1px solid currentColor;font-size:28px;cursor:pointer}
+#quick-contact{display:grid;gap:8px;margin:24px 0 16px}
+#quick-contact label{font-weight:700;margin-top:8px}
+#quick-contact input,#quick-contact textarea{width:100%;box-sizing:border-box;border:1px solid #7b8177;background:var(--paper,#f6f3e9);color:inherit;border-radius:0;padding:12px;font:inherit;font-size:16px}
+#quick-contact textarea{resize:vertical;min-height:110px}
+.contact-options{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
+.contact-options>div{display:grid;gap:8px;min-width:0}
+#quick-contact select{width:100%;min-height:48px;box-sizing:border-box;border:1px solid #7b8177;background:var(--paper,#f6f3e9);color:inherit;border-radius:0;padding:10px;font:inherit;font-size:16px}
+#quick-contact .contact-preferences{font-size:13px;line-height:1.4;margin:2px 0}
+#quick-contact .button{margin-top:12px;justify-self:start;cursor:pointer}
+#contact-popup .contact-disclosure{font-size:14px;margin:8px 0}
+#contact-popup :focus-visible{outline:3px solid var(--accent,#bd431e);outline-offset:3px}
+body.contact-popup-open{overflow:hidden}
+@media(max-width:480px){#contact-popup{padding:24px;width:calc(100% - 16px);max-height:calc(100dvh - 16px);box-shadow:none}.contact-options{grid-template-columns:1fr;gap:8px}}

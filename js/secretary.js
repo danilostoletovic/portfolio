@@ -67,10 +67,21 @@
 
   // Model output remains text; only validated link tokens become DOM anchors.
   function appendReplyText(container, text) {
+    // Small safe inline Markdown subset. No HTML evaluation or remote images.
+    function plain(value) {
+      const format = /\*\*([^*\n]+)\*\*|__([^_\n]+)__|\x60([^\x60\n]+)\x60|\*([^*\n]+)\*|_([^_\n]+)_/g;
+      let offset = 0;
+      for (const item of value.matchAll(format)) {
+        container.append(document.createTextNode(value.slice(offset, item.index)));
+        container.append(element(item[1] || item[2] ? 'strong' : item[3] ? 'code' : 'em', '', item[1] || item[2] || item[3] || item[4] || item[5]));
+        offset = item.index + item[0].length;
+      }
+      container.append(document.createTextNode(value.slice(offset)));
+    }
     const tokens = /\[([^\]\n]+)\]\(([^\s)]+)\)|(?:https?:\/\/|mailto:|tel:)[^\s<>"\]]+/gi;
     let cursor = 0;
     for (const match of text.matchAll(tokens)) {
-      container.append(document.createTextNode(text.slice(cursor, match.index)));
+      plain(text.slice(cursor, match.index));
       const markdown = Boolean(match[1]);
       let href = markdown ? match[2] : match[0];
       let suffix = '';
@@ -98,14 +109,80 @@
       } else container.append(document.createTextNode(match[0]));
       cursor = match.index + match[0].length;
     }
-    container.append(document.createTextNode(text.slice(cursor)));
+    plain(text.slice(cursor));
+  }
+
+  function renderReply(container, text) {
+    container.replaceChildren();
+    // Block syntax is rendered with ordinary DOM nodes; raw HTML stays text.
+    const lines = text.split('\n');
+    let list = null;
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      if (line.startsWith('\x60\x60\x60')) {
+        const end = lines.findIndex((value, index) => index > i && value.startsWith('\x60\x60\x60'));
+        if (end >= 0) {
+          const pre = element('pre'); pre.append(element('code', '', lines.slice(i + 1, end).join('\n')));
+          container.append(pre); i = end; list = null; continue;
+        }
+      }
+      const item = /^(?:[-*+] |\d+\. )(.+)$/.exec(line);
+      if (item) {
+        const tag = /^\d/.test(line) ? 'ol' : 'ul';
+        if (!list || list.tagName.toLowerCase() !== tag) { list = element(tag); container.append(list); }
+        const row = element('li'); appendReplyText(row, item[1]); list.append(row); continue;
+      }
+      list = null;
+      const heading = /^#{1,6} (.+)$/.exec(line);
+      const quote = /^> (.*)$/.exec(line);
+      const row = element(quote ? 'blockquote' : 'p');
+      if (heading) { const strong = element('strong'); appendReplyText(strong, heading[1]); row.append(strong); }
+      else appendReplyText(row, quote ? quote[1] : line);
+      if (!line) row.append(document.createTextNode('\n'));
+      container.append(row);
+    }
+  }
+
+  async function readStreamingReply(response, onDelta) {
+    if (!response.body) throw new Error('Missing stream');
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder('utf-8', { fatal: true });
+    let buffer = '', reply = '', bytes = 0;
+    try {
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        bytes += value.byteLength;
+        if (bytes > 262144) throw new Error('Oversized stream');
+        buffer += decoder.decode(value, { stream: true });
+        let separator;
+        while ((separator = /\r?\n\r?\n/.exec(buffer))) {
+          const frame = buffer.slice(0, separator.index);
+          buffer = buffer.slice(separator.index + separator[0].length);
+          if (frame.length > 32768) throw new Error('Oversized event');
+          const data = frame.split(/\r?\n/).filter(line => line.startsWith('data:')).map(line => line.slice(5).replace(/^ /, '')).join('\n');
+          if (!data) continue;
+          const event = JSON.parse(data);
+          if (event.error) throw new Error('Stream failed');
+          if (event.type === 'delta') {
+            if (typeof event.text !== 'string' || reply.length + event.text.length > 6000) throw new Error('Invalid delta');
+            reply += event.text; onDelta(reply);
+          } else if (event.type === 'done') {
+            if (typeof event.reply !== 'string' || !event.reply.trim() || event.reply.length > 6000 || reply.trim() !== event.reply) throw new Error('Invalid completion');
+            return event.reply;
+          } else throw new Error('Invalid event');
+        }
+        if (buffer.length > 32768) throw new Error('Oversized event');
+      }
+      throw new Error('Incomplete reply');
+    } finally { await reader.cancel().catch(() => {}); reader.releaseLock(); }
   }
 
   function addMessage(role, text, forceScroll = false) {
     const nearBottom = log.scrollHeight - log.scrollTop - log.clientHeight < 80;
     const message = element('div', `secretary-message secretary-message--${role}`);
-    const body = element('p');
-    if (role === 'assistant') appendReplyText(body, text);
+    const body = element(role === 'assistant' ? 'div' : 'p', role === 'assistant' ? 'secretary-reply' : '');
+    if (role === 'assistant') renderReply(body, text);
     else body.textContent = text;
     message.append(element('span', 'secretary-speaker', role === 'user' ? t('You') : 'Ana'), body);
     log.append(message);
@@ -203,6 +280,7 @@
       }
     });
     panel.addEventListener('close', () => {
+      state.controller?.abort();
       document.body.classList.remove('secretary-open');
       launcher.setAttribute('aria-expanded', 'false');
       (opener || launcher).focus({ preventScroll: true });
@@ -223,16 +301,20 @@
     input.focus({ preventScroll: true });
     const pendingMessage = addMessage('user', message, true);
     let committed = false;
+    let partialMessage, paint = null, latest = '';
+    const startedAt = performance.now();
+    let firstTokenMs = null;
     // Only committed, successful turns are sent. The current message is sent in
     // `message` below and is intentionally not also included in `history`.
     const payload = { message, history: conversationHistory(message) };
     status.textContent = t('Ana is working on your question…');
     send.textContent = t('Waiting…');
     const controller = new AbortController();
+    state.controller = controller;
     const timeout = setTimeout(() => controller.abort(), 30000);
     try {
       const response = await fetch(endpoint, {
-        method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept-Language': document.documentElement.lang === 'sr-Latn' ? 'sr-Latn' : 'en' },
+        method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'text/event-stream', 'Accept-Language': document.documentElement.lang === 'sr-Latn' ? 'sr-Latn' : 'en' },
         body: JSON.stringify(payload), signal: controller.signal,
         credentials: 'omit', redirect: 'error', cache: 'no-store'
       });
@@ -242,9 +324,32 @@
         return;
       }
       if (!response.ok) throw new Error('Unavailable');
-      const data = await response.json();
+      let data;
+      if (response.headers.get('Content-Type')?.startsWith('text/event-stream')) {
+        data = { reply: await readStreamingReply(response, text => {
+          firstTokenMs ??= performance.now() - startedAt;
+          if (!partialMessage) {
+            partialMessage = addMessage('assistant', '');
+            partialMessage.setAttribute('aria-busy', 'true');
+            status.textContent = '';
+          }
+          latest = text;
+          if (paint === null) paint = requestAnimationFrame(() => {
+            paint = null;
+            const follow = log.scrollHeight - log.scrollTop - log.clientHeight < 80;
+            renderReply(partialMessage.querySelector('.secretary-reply'), latest);
+            if (follow) log.scrollTop = log.scrollHeight;
+          });
+        }) };
+      } else data = await response.json(); // Compatible with the old Worker during rollout.
+      if (paint !== null) { cancelAnimationFrame(paint); paint = null; }
       if (!data || typeof data.reply !== 'string' || !data.reply.trim() || data.reply.length > 6000) throw new Error('Invalid reply');
-      addMessage('assistant', data.reply);
+      if (partialMessage) {
+        renderReply(partialMessage.querySelector('.secretary-reply'), data.reply);
+        partialMessage.setAttribute('aria-busy', 'false');
+      } else addMessage('assistant', data.reply);
+      // Local, content-free timings only. No analytics provider or chat telemetry.
+      window.dispatchEvent(new CustomEvent('portfolio:ana-latency', { detail: { totalMs: performance.now() - startedAt, firstTokenMs } }));
       state.messages.push({ role: 'user', content: message }, { role: 'assistant', content: data.reply });
       state.messages = conversationHistory();
       persistConversation();
@@ -256,7 +361,9 @@
         : t('Ana couldn’t answer just now. Please try again, or email Danilo below.');
       if (!input.value) input.value = message;
     } finally {
-      if (!committed) pendingMessage.remove();
+      if (paint !== null) cancelAnimationFrame(paint);
+      if (!committed) { pendingMessage.remove(); partialMessage?.remove(); }
+      state.controller = null;
       clearTimeout(timeout);
       state.busy = false;
       reset.disabled = false;
