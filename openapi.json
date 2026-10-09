@@ -5,8 +5,14 @@
     "version": "1.0.0",
     "description": "The chat interface used by Danilo Stoletović's portfolio. The client may provide ordered prior user/assistant turns in history. This description documents the existing portfolio client contract; the service is maintained separately."
   },
-  "servers": [{ "url": "https://secretary.danilostoletovic.com" }],
-  "externalDocs": { "url": "https://danilostoletovic.com/api.md" },
+  "servers": [
+    {
+      "url": "https://secretary.danilostoletovic.com"
+    }
+  ],
+  "externalDocs": {
+    "url": "https://danilostoletovic.com/api.md"
+  },
   "security": [],
   "paths": {
     "/chat": {
@@ -20,20 +26,39 @@
               "schema": {
                 "type": "object",
                 "description": "Complete UTF-8 JSON body is limited to 16 KiB. History content is limited to 12,000 characters in total, with each user message limited to 2,000 characters. Conversation context is supplied per request; no server sessions, persisted tasks, or streaming are available.",
-                "required": ["message"],
+                "required": [
+                  "message"
+                ],
                 "additionalProperties": false,
                 "properties": {
-                  "message": { "type": "string", "minLength": 1, "maxLength": 2000, "description": "A nonblank message for Ana about public portfolio information or conversation." },
+                  "message": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 2000,
+                    "description": "A nonblank message for Ana about public portfolio information or conversation."
+                  },
                   "history": {
                     "type": "array",
                     "description": "Optional ordered prior conversation messages supplied by the untrusted client.",
                     "maxItems": 40,
                     "items": {
                       "type": "object",
-                      "required": ["role", "content"],
+                      "required": [
+                        "role",
+                        "content"
+                      ],
                       "properties": {
-                        "role": { "type": "string", "enum": ["user", "assistant"] },
-                        "content": { "type": "string", "minLength": 1 }
+                        "role": {
+                          "type": "string",
+                          "enum": [
+                            "user",
+                            "assistant"
+                          ]
+                        },
+                        "content": {
+                          "type": "string",
+                          "minLength": 1
+                        }
                       },
                       "additionalProperties": false
                     }
@@ -50,15 +75,41 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["reply"],
-                  "properties": { "reply": { "type": "string", "minLength": 1 } }
+                  "required": [
+                    "reply"
+                  ],
+                  "properties": {
+                    "reply": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
                 }
               }
             }
           },
-          "429": { "description": "Rate limited. Wait before retrying; honor Retry-After when supplied." },
-          "default": { "description": "Request failed. No error-body schema is guaranteed by the portfolio client." }
-        }
+          "429": {
+            "description": "Rate limited. Wait before retrying; honor Retry-After when supplied."
+          },
+          "default": {
+            "description": "Request failed. No error-body schema is guaranteed by the portfolio client."
+          }
+        },
+        "parameters": [
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required": false,
+            "description": "Optional default reply-language preference, normalized by the Secretary adapter to fixed server-authored instructions. Explicit visitor requests for another language are allowed. Requires the companion Secretary Worker release; older Worker versions ignore this header.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "en",
+                "sr-Latn"
+              ]
+            }
+          }
+        ]
       }
     }
   }

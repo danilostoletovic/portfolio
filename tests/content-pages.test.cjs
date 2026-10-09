@@ -37,7 +37,7 @@ test('sitemap and discovery catalogs include the new pages',()=>{
  const llms=fs.readFileSync(path.join(root,'llms.txt'),'utf8');
  const catalog=JSON.parse(fs.readFileSync(path.join(root,'.well-known/ai-catalog.json'),'utf8'));
  for(const route of routes) {
-  assert(sitemap.includes(`<loc>${origin}${route}</loc>`));
+  for (const language of ['en', 'sr']) assert(sitemap.includes(`<loc>${origin}/${language}${route}</loc>`));
   assert(homepage.includes(`href="${route}"`));
   assert(markdown.includes(origin+route));assert(llms.includes(origin+route));
   assert(catalog.entries.some(e=>e.url===origin+route));

@@ -30,6 +30,17 @@
 
 ## Overview
 
+### English and Serbian Latin
+
+Public pages are available at `/en/` and `/sr/`, with language-prefixed case studies
+and services. Root visits use the saved manual language, then the browser's first
+preferred language, then English. Explicit language URLs always take precedence.
+The EN / SR switcher preserves the page and anchor; both languages are static and
+readable without JavaScript. Build with `node scripts/build.cjs`.
+
+See [localization architecture, tests and the separate Ana Worker prerequisite](docs/localization.md).
+Translations live in `data/locales/`; no production dependencies were added.
+
 This repository houses the source code for [danilostoletovic.com](https://danilostoletovic.com). The site serves as a central hub showcasing 3+ years of production software delivery spanning:
 - **Mobile & Multiplatform**: Android Native (`Kotlin` / `Jetpack Compose`), `Flutter` / `Dart`, Google Play Console store publishing.
 - **Desktop & Systems**: Windows Desktop (`WinUI` / `C#` / `Flutter`), Microsoft Store publishing, Linux (`systemd`), Raspberry Pi & edge devices.
@@ -143,6 +154,13 @@ danilostoletovic/
 ---
 
 ## Local Development
+
+In VS Code, right-click the root `index.html` and choose **Open with Live Server**.
+The root chooses a language; `/en/` and `/sr/` also work directly. All pages are
+ordinary static HTML with directory indexes, so no Cloudflare emulator is needed.
+After editing source content or translation catalogs, run `node scripts/build.cjs`
+to regenerate all pages and the sitemap. No build process is needed just to browse.
+Ana still calls its separate Worker, whose existing CORS policy may reject localhost.
 
 Case studies and service pages are maintained in `scripts/build-pages.cjs`. Run `node scripts/build-pages.cjs` to regenerate their static HTML and `sitemap.xml`. Shared additions use `css/content.css`; the original workshop theme remains in `style.css`. Update `index.md`, `llms.txt`, and the AI catalog alongside changes to public content.
 

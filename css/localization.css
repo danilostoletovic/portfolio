@@ -1,0 +1,6 @@
+.language-switcher { display:inline-flex; align-items:center; gap:2px; white-space:nowrap; font:600 12px/1.2 var(--font-mono,monospace); flex-shrink:0; }
+.language-switcher a { display:grid; place-items:center; min-width:36px; min-height:44px; padding:6px; color:inherit; border-bottom:2px solid transparent; text-decoration:none; }
+.language-switcher a[aria-current="true"] { border-color:#bd431e; }
+.language-switcher a:focus-visible { outline:2px solid #bd431e; outline-offset:2px; }
+.site-header nav>a:last-of-type { border-bottom:1px solid var(--accent,#bd431e); }
+@media(max-width:600px) { .site-header { flex-wrap:wrap; } .language-switcher { margin-left:auto; } .language-switcher a { min-width:44px; } .site-header>nav { order:3; width:100%; } }

@@ -4,6 +4,7 @@ Danilo's portfolio uses a separately maintained Cloudflare Worker to answer ques
 
 - Endpoint: `POST https://secretary.danilostoletovic.com/chat`
 - Request content type: `application/json`
+- Optional reply-language preference: `Accept-Language: en` or `Accept-Language: sr-Latn`. The portfolio derives this from its explicit language URL. The updated Secretary adapter normalizes it and applies fixed server-authored default-language instructions; it never accepts client-supplied system instructions. Visitors may explicitly request another reply language. This requires the accompanying Secretary Worker release; earlier Worker versions ignore the header.
 - Request body: `{"message":"What projects has Danilo built?","history":[{"role":"user","content":"Who is Danilo?"},{"role":"assistant","content":"..."}]}`. `history` is an optional ordered array of prior messages; each item has `role` (`user` or `assistant`) and `content` (string). History is limited to 40 messages and 12,000 characters in total; user messages are limited to 2,000 characters. The current `message` is sent separately and is not duplicated in `history`. The complete UTF-8 JSON request must fit within 16 KiB. Unknown request fields and other roles are rejected.
 - Successful response: HTTP 200 with a JSON object containing a nonempty `reply` string.
 - [OpenAPI description](https://danilostoletovic.com/openapi.json)

@@ -28,7 +28,8 @@ test('discovery assets bypass homepage Functions and retain revalidating metadat
   const routes = JSON.parse(read('_routes.json'));
   assert.deepEqual(routes.include, ['/', '/index.html']);
   assert.ok(fs.existsSync(path.join(root, '404.html')));
-  assert.ok(!fs.existsSync(path.join(root, '_redirects')));
+  const redirects = fs.readFileSync(path.join(root, '_redirects'), 'utf8');
+  assert.ok(!/\.well-known|\*|index\.md|openapi/.test(redirects), 'Locale redirects must not catch discovery or technical resources');
   const headers = read('_headers');
   for (const pattern of ['/.well-known/agent-skills/index.json', '/.well-known/agent-skills/*/SKILL.md']) {
     assert.ok(headers.includes(pattern), `Missing discovery header rule: ${pattern}`);

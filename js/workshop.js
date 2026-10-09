@@ -1,6 +1,7 @@
 /* Local DOM controls only. Ana's existing interface and backend own the conversation. */
 (() => {
  'use strict';
+ const t = value => window.PortfolioLocale?.t(value) ?? value;
  const all=(selector,root=document)=>[...root.querySelectorAll(selector)];
  document.body.classList.add('workshop-ready');
  const inspector=document.querySelector('#project-inspector');
@@ -65,11 +66,11 @@
   setTimeout(()=>{const input=document.querySelector('.secretary-form textarea');if(input){input.value=button.dataset.anaPrompt;input.dispatchEvent(new Event('input',{bubbles:true}));input.focus();}},0);
  }));
  if(typeof HTMLDialogElement==='undefined')return;
- const dialog=document.createElement('dialog');dialog.className='evidence-dialog';dialog.setAttribute('aria-label','Project evidence');
- const close=document.createElement('button');close.type='button';close.textContent='Close ×';const image=document.createElement('img'),caption=document.createElement('p');dialog.append(close,image,caption);document.body.append(dialog);
+ const dialog=document.createElement('dialog');dialog.className='evidence-dialog';dialog.setAttribute('aria-label',t('Project evidence'));
+ const close=document.createElement('button');close.type='button';close.textContent=t('Close ×');const image=document.createElement('img'),caption=document.createElement('p');dialog.append(close,image,caption);document.body.append(dialog);
  let opener,gallery=[],current=0;const bar=document.createElement('div');bar.className='evidence-controls';
  function display(){const link=gallery[current],original=link.querySelector('img');image.src=original.src;image.alt=original.alt;caption.textContent=`${current+1} / ${gallery.length} — ${link.closest('figure')?.querySelector('figcaption')?.textContent||original.alt}`;bar.hidden=gallery.length<2;}
- [['← Previous',-1],['Next →',1]].forEach(([label,delta])=>{const button=document.createElement('button');button.type='button';button.textContent=label;button.addEventListener('click',()=>{current=(current+delta+gallery.length)%gallery.length;display();});bar.append(button);});dialog.append(bar);
+ [[t('← Previous'),-1],[t('Next →'),1]].forEach(([label,delta])=>{const button=document.createElement('button');button.type='button';button.textContent=label;button.addEventListener('click',()=>{current=(current+delta+gallery.length)%gallery.length;display();});bar.append(button);});dialog.append(bar);
  close.addEventListener('click',()=>dialog.close());dialog.addEventListener('close',()=>opener?.focus({preventScroll:true}));
  dialog.addEventListener('keydown',event=>{if(!['ArrowLeft','ArrowRight'].includes(event.key)||gallery.length<2)return;event.preventDefault();current=(current+(event.key==='ArrowRight'?1:-1)+gallery.length)%gallery.length;display();});
  const links=all('.evidence-link');links.forEach(link=>link.addEventListener('click',event=>{event.preventDefault();opener=link;gallery=links.filter(item=>item.dataset.gallery===link.dataset.gallery);current=gallery.indexOf(link);display();dialog.showModal();}));

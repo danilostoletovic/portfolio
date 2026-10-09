@@ -1,7 +1,8 @@
 (() => {
   'use strict';
+ const t = value => window.PortfolioLocale?.t(value) ?? value;
   const endpoint = 'https://secretary.danilostoletovic.com/chat';
-  const welcome = 'Hey, I’m Ana. Part secretary, part coffee-fueled company. Curious about Danilo? Ask away. Just here to chill? Pull up a chair — I’ve got stories.';
+  const welcome = t('Hey, I’m Ana. Part secretary, part coffee-fueled company. Curious about Danilo? Ask away. Just here to chill? Pull up a chair — I’ve got stories.');
   const maxHistoryMessages = 40;
   const maxHistoryCharacters = 12000;
   const storageKey = 'secretaryConversation:v1';
@@ -58,7 +59,7 @@
     return node;
   }
 
-  const launcher = element('button', 'secretary-launcher', 'Ask Ana');
+  const launcher = element('button', 'secretary-launcher', t('Ask Ana'));
   launcher.type = 'button';
   launcher.setAttribute('aria-haspopup', 'dialog');
   launcher.setAttribute('aria-controls', 'secretary-panel');
@@ -88,7 +89,7 @@
       } catch { url = null; }
       if (url) {
         const link = element('a', '', markdown ? match[1] : href);
-        link.href = url.href;
+        link.href = globalThis.PortfolioLocale?.localPath(url.href) ?? url.href;
         if (['https:', 'http:'].includes(url.protocol) && url.origin !== location.origin) {
           link.target = '_blank';
           link.rel = 'noopener noreferrer';
@@ -106,7 +107,7 @@
     const body = element('p');
     if (role === 'assistant') appendReplyText(body, text);
     else body.textContent = text;
-    message.append(element('span', 'secretary-speaker', role === 'user' ? 'You' : 'Ana'), body);
+    message.append(element('span', 'secretary-speaker', role === 'user' ? t('You') : 'Ana'), body);
     log.append(message);
     if (nearBottom || forceScroll) log.scrollTop = log.scrollHeight;
     return message;
@@ -126,9 +127,9 @@
     const details = element('div', 'secretary-identity-copy');
     const title = element('h2', '', 'Ana');
     title.id = 'secretary-title';
-    details.append(element('span', 'secretary-kicker', 'BEST FCKNG SECRETARY IN THE WHOLE WORLD'), title);
+    details.append(element('span', 'secretary-kicker', t('BEST FCKNG SECRETARY IN THE WHOLE WORLD')), title);
     identity.append(portrait, details);
-    reset = element('button', 'secretary-reset', 'New chat');
+    reset = element('button', 'secretary-reset', t('New chat'));
     reset.type = 'button';
     reset.addEventListener('click', () => {
       if (state.busy) return;
@@ -143,12 +144,12 @@
     });
     const close = element('button', 'secretary-close', '×');
     close.type = 'button';
-    close.setAttribute('aria-label', 'Close Ana chat');
+    close.setAttribute('aria-label', t('Close Ana chat'));
     close.addEventListener('click', () => panel.close());
     header.append(identity, reset, close);
     log = element('div', 'secretary-log');
     log.setAttribute('role', 'log');
-    log.setAttribute('aria-label', 'Conversation with Ana');
+    log.setAttribute('aria-label', t('Conversation with Ana'));
     log.setAttribute('aria-live', 'polite');
     log.setAttribute('aria-relevant', 'additions');
     log.tabIndex = 0;
@@ -156,13 +157,13 @@
     status.setAttribute('role', 'status');
     status.setAttribute('aria-live', 'polite');
     const form = element('form', 'secretary-form');
-    const label = element('label', '', 'Your question');
+    const label = element('label', '', t('Your question'));
     label.htmlFor = 'secretary-input';
     input = element('textarea');
     input.id = 'secretary-input';
     input.rows = 2;
     input.maxLength = 2000;
-    input.placeholder = 'What are you curious about?';
+    input.placeholder = t('What are you curious about?');
     input.setAttribute('aria-describedby', 'secretary-help secretary-disclosure');
     input.addEventListener('keydown', event => {
       if (event.key === 'Enter' && !event.shiftKey && !event.isComposing) {
@@ -172,17 +173,17 @@
     });
     input.addEventListener('input', () => { send.disabled = state.busy || !input.value.trim(); });
     const actions = element('div', 'secretary-actions');
-    const help = element('span', '', 'Enter to send · Shift+Enter for a new line');
+    const help = element('span', '', t('Enter to send · Shift+Enter for a new line'));
     help.id = 'secretary-help';
-    send = element('button', 'secretary-send', 'Send ↗');
+    send = element('button', 'secretary-send', t('Send ↗'));
     send.type = 'submit';
     send.disabled = true;
     actions.append(help, send);
     form.append(label, input, actions);
     form.addEventListener('submit', event => { event.preventDefault(); submit(); });
-    const disclosure = element('p', 'secretary-disclosure', 'AI-powered; replies may be imperfect. Conversation context is kept for this chat. Please don’t share passwords or sensitive/confidential information.');
+    const disclosure = element('p', 'secretary-disclosure', t('AI-powered; replies may be imperfect. Conversation context is kept for this chat. Please don’t share passwords or sensitive/confidential information.'));
     disclosure.id = 'secretary-disclosure';
-    const contact = element('a', '', 'Prefer a person? Email Danilo ↗');
+    const contact = element('a', '', t('Prefer a person? Email Danilo ↗'));
     contact.href = 'mailto:contact@danilostoletovic.com';
     const phone = element('a', '', '+381677732060');
     phone.href = 'tel:+381677732060';
@@ -225,18 +226,18 @@
     // Only committed, successful turns are sent. The current message is sent in
     // `message` below and is intentionally not also included in `history`.
     const payload = { message, history: conversationHistory(message) };
-    status.textContent = 'Ana is working on your question…';
-    send.textContent = 'Waiting…';
+    status.textContent = t('Ana is working on your question…');
+    send.textContent = t('Waiting…');
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 30000);
     try {
       const response = await fetch(endpoint, {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept-Language': document.documentElement.lang === 'sr-Latn' ? 'sr-Latn' : 'en' },
         body: JSON.stringify(payload), signal: controller.signal,
         credentials: 'omit', redirect: 'error', cache: 'no-store'
       });
       if (response.status === 429) {
-        status.textContent = 'The front desk is a little busy. Please wait a minute before trying again.';
+        status.textContent = t('The front desk is a little busy. Please wait a minute before trying again.');
         if (!input.value) input.value = message;
         return;
       }
@@ -251,8 +252,8 @@
       status.textContent = '';
     } catch {
       status.textContent = controller.signal.aborted
-        ? 'That took a little too long. Please try again, or email Danilo below.'
-        : 'Ana couldn’t answer just now. Please try again, or email Danilo below.';
+        ? t('That took a little too long. Please try again, or email Danilo below.')
+        : t('Ana couldn’t answer just now. Please try again, or email Danilo below.');
       if (!input.value) input.value = message;
     } finally {
       if (!committed) pendingMessage.remove();
@@ -260,7 +261,7 @@
       state.busy = false;
       reset.disabled = false;
       send.disabled = !input.value.trim();
-      send.textContent = 'Send ↗';
+      send.textContent = t('Send ↗');
     }
   }
 
@@ -278,7 +279,7 @@
 
   function initializeChallenge() {
     const key = 'secretaryChallengeSeen';
-    const entry = element('button', 'challenge-entry', 'Think you can break Ana?');
+    const entry = element('button', 'challenge-entry', t('Think you can break Ana?'));
     entry.type = 'button';
     entry.setAttribute('aria-haspopup', 'dialog');
     entry.setAttribute('aria-controls', 'secretary-challenge');
@@ -288,17 +289,17 @@
     challenge.setAttribute('aria-describedby', 'challenge-copy');
     const close = element('button', 'secretary-close challenge-close', '×');
     close.type = 'button';
-    close.setAttribute('aria-label', 'Close challenge');
+    close.setAttribute('aria-label', t('Close challenge'));
     const title = element('h2');
     title.id = 'challenge-title';
-    title.append(document.createTextNode('Think you can make Ana slip up?'));
+    title.append(document.createTextNode(t('Think you can make Ana slip up?')));
     title.tabIndex = -1;
     const copy = element('div');
     copy.id = 'challenge-copy';
     const offer = element('p');
-    offer.append(document.createTextNode('Find a '), element('strong', '', 'real, reproducible vulnerability'), document.createTextNode(' and I’ll build you a website for free.'));
-    copy.append(element('p', '', 'She knows my work. She knows her boundaries. You think you can outsmart her?'), offer);
-    const reward = element('p', 'challenge-reward', 'BREAK ANA. GET A WEBSITE FOR FREE.');
+    offer.append(document.createTextNode(t('Find a ')), element('strong', '', t('real, reproducible vulnerability')), document.createTextNode(t(' and I’ll build you a website for free.')));
+    copy.append(element('p', '', t('She knows my work. She knows her boundaries. You think you can outsmart her?')), offer);
+    const reward = element('p', 'challenge-reward', t('BREAK ANA. GET A WEBSITE FOR FREE.'));
     const portrait = element('img', 'challenge-avatar');
     portrait.src = '/img/ana-headshot.jpg';
     portrait.alt = '';
@@ -306,15 +307,15 @@
     portrait.height = 88;
     const intro = element('div', 'challenge-intro');
     const introCopy = element('div');
-    introCopy.append(element('p', 'secretary-kicker', 'BEST FCKNG SECRETARY IN THE WHOLE WORLD'), element('p', 'challenge-taunt', '“Go on. Ask me the difficult question.”'));
+    introCopy.append(element('p', 'secretary-kicker', t('BEST FCKNG SECRETARY IN THE WHOLE WORLD')), element('p', 'challenge-taunt', t('“Go on. Ask me the difficult question.”')));
     intro.append(portrait, introCopy);
-    const accept = element('button', 'secretary-send challenge-accept', 'LET ME TRY ↗');
+    const accept = element('button', 'secretary-send challenge-accept', t('LET ME TRY ↗'));
     accept.type = 'button';
-    const dismiss = element('button', 'challenge-dismiss', 'I’ll let Ana win this round');
+    const dismiss = element('button', 'challenge-dismiss', t('I’ll let Ana win this round'));
     dismiss.type = 'button';
     const rules = element('details', 'challenge-rules');
-    rules.append(element('summary', '', 'What counts as breaking her?'), element('p', '', 'A genuine, reproducible vulnerability with security impact: an unintended disclosure or bypass. Silly answers, roleplay, hallucinations, claims of being hacked, or trivial prompt injection without actual security impact do not automatically qualify.'), element('p', '', 'No DDoS or intentional service disruption. Unrelated infrastructure and third-party services are out of scope. Qualification requires a reproducible technical issue.'));
-    const report = element('p', '', 'Report findings responsibly with reproduction steps to ');
+    rules.append(element('summary', '', t('What counts as breaking her?')), element('p', '', t('A genuine, reproducible vulnerability with security impact: an unintended disclosure or bypass. Silly answers, roleplay, hallucinations, claims of being hacked, or trivial prompt injection without actual security impact do not automatically qualify.')), element('p', '', t('No DDoS or intentional service disruption. Unrelated infrastructure and third-party services are out of scope. Qualification requires a reproducible technical issue.')));
+    const report = element('p', '', t('Report findings responsibly with reproduction steps to '));
     const email = element('a', '', 'contact@danilostoletovic.com');
     email.href = 'mailto:contact@danilostoletovic.com';
     report.append(email, document.createTextNode('.'));
