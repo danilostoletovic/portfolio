@@ -75,11 +75,15 @@ function evidenceMarkup(body, route) {
   return figure.replace(/<img\b[^>]*src="(\/img\/[^\"]+)"[^>]*>/g,(image,src)=>`<a class="evidence-link" data-gallery="${route}" href="${src}">${image}</a>`);
  });
 }
+const seo=require('./seo-services.cjs');
+Object.assign(pages.find(p=>p.route==='/services/business-websites/'),seo.website);
+pages.find(p=>p.route==='/services/business-websites/').sections[0][2]+=seo.remote;
+pages.push(...seo.pages);
 for (const p of pages) {
  const url = origin+p.route;
  const graph = [person,{'@type':'WebPage','@id':url+'#page',url,name:p.title,description:p.description,inLanguage:'en',author:{'@id':person['@id']}}, {'@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'Home',item:origin+'/'},{'@type':'ListItem',position:2,name:p.type==='case'?'Case studies':'Services',item:origin+(p.type==='case'?'/#case-studies':'/#offers')},{'@type':'ListItem',position:3,name:p.heading,item:url}]}];
  if (p.type==='case') graph.push({'@type':'Article',headline:p.heading,description:p.description,url,mainEntityOfPage:{'@id':url+'#page'},author:{'@id':person['@id']}});
- else graph.push({'@type':'Service',name:p.heading,serviceType:p.route.includes('mobile')?'Android and Flutter app development':'Business website development',url,description:p.description,provider:{'@id':person['@id']}});
+ else graph.push({'@type':'Service',name:p.heading,serviceType:p.serviceType||(p.route.includes('mobile')?'Android and Flutter app development':'Business website development'),url,description:p.description,provider:{'@id':person['@id']}});
  let content = `<!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -106,7 +110,11 @@ for (const p of pages) {
   content=content.replace('<nav class="related-reading"',`<aside class="project-next-step" aria-labelledby="project-next-heading"><div><p class="eyebrow">FROM THIS BUILD TO YOURS</p><h2 id="project-next-heading">Have a similar problem?</h2><p>${escape(context.fit)}. <a href="${context.href}">Explore the relevant service ↗</a></p></div><a class="button" href="mailto:contact@danilostoletovic.com?subject=${encodeURIComponent('Project inquiry: '+p.heading.split('. ')[0])}">Discuss your project ↗</a></aside><nav class="related-reading"`);
  }
  content=content.replace('</head>','<link rel="stylesheet" href="/css/refinement.css?v=1"><script src="/js/conversion.js?v=1" defer></script></head>');
+ if(p.type==='service')content=content.replace('<nav class="related-reading"',seo.directory+'<nav class="related-reading"');
  const dir=path.join(root,p.route);fs.mkdirSync(dir,{recursive:true});fs.writeFileSync(path.join(dir,'index.html'),content);
 }
 fs.writeFileSync(path.join(root,'sitemap.xml'),`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${['/',...pages.map(p=>p.route)].map(route=>`  <url><loc>${origin}${route}</loc></url>`).join('\n')}\n</urlset>\n`);
+let home=fs.readFileSync(path.join(root,'index.html'),'utf8').replace(/<nav class="service-directory"[^]*?<\/nav>/g,'');
+home=home.replace('<div id="how-i-work"',seo.directory+'<div id="how-i-work"');
+fs.writeFileSync(path.join(root,'index.html'),home);
 console.log(`Built ${pages.length} public pages and the sitemap.`);

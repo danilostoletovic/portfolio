@@ -60,7 +60,15 @@ const server=http.createServer(async(req,res)=>{
     await page.locator('#service-server').click();assert(await page.locator('#offer-server').isVisible());assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
     await page.screenshot({path:path.join(root,`.local-review/${language}-home-${width}.png`)});
    }
-   assert.deepEqual(errors,[]);await context.close();console.log(`PASS ${width}px bilingual navigation, project/service controls, Ana labels/errors, bounded chat contract and language header`);
+   for(const language of ['en','sr'])for(const route of routes.filter(r=>r.startsWith('/services/'))){
+    const response=await page.goto(origin+'/'+language+route);assert.equal(response.status(),200);
+    assert(await page.locator('h1').isVisible());assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`${language}${route} ${width}px overflow`);
+    if(route.includes('ai-integrations')&&[1440,390].includes(width))await page.screenshot({path:path.join(root,`.local-review/${language}-service-${width}.png`)});
+    await page.addStyleTag({content:'html { font-size:200% !important; }'});
+    assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`${language}${route} ${width}px text scaling overflow`);
+    await page.locator('[data-contact]').first().click();assert(await page.locator('#contact-popup').evaluate(e=>e.open));await page.keyboard.press('Escape');
+   }
+   assert.deepEqual(errors,[]);await context.close();console.log(`PASS ${width}px bilingual navigation, service pages/text scaling/contact, Ana labels/errors, bounded chat contract and language header`);
   }
   const nojs=await browser.newPage({javaScriptEnabled:false,viewport:{width:390,height:844}});await mock(nojs);
   for(const language of ['en','sr'])for(const route of routes.filter(r=>r!=='/404.html')){
@@ -69,6 +77,6 @@ const server=http.createServer(async(req,res)=>{
   await nojs.goto(origin);assert.equal(new URL(nojs.url()).pathname,'/en/');await nojs.locator('[data-language="sr"]').click();assert.equal(new URL(nojs.url()).pathname,'/sr/');await nojs.close();
   const page=await browser.newPage();await mock(page);for(const language of ['en','sr']){const response=await page.goto(origin+'/'+language+'/missing-page');assert.equal(response.status(),404);assert.equal(await page.locator('html').getAttribute('lang'),language==='sr'?'sr-Latn':'en');}
   await page.setExtraHTTPHeaders({'x-test-pages-routing':'true'});await page.goto(origin+'/case-studies/secretary/#boundaries');assert.equal(new URL(page.url()).pathname,'/en/case-studies/secretary/');assert.equal(new URL(page.url()).hash,'#boundaries');await page.close();
-  console.log('PASS all 16 independently crawlable no-JS pages, no-JS language choice, legacy redirects, localized 404 status');
+  console.log(`PASS all ${routes.filter(r=>r!=='/404.html').length*2} independently crawlable no-JS pages, no-JS language choice, legacy redirects, localized 404 status`);
  }finally{await browser.close();server.close();}
 })().catch(e=>{console.error(e);server.close();process.exitCode=1;});

@@ -83,4 +83,4 @@ fs.writeFileSync(path.join(root,'index.html'),entry);
 const publicRoutes=routes.filter(r=>r!=='/404.html');
 fs.writeFileSync(path.join(root,'sitemap.xml'),`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${publicRoutes.flatMap(route=>['en','sr'].map(language=>`<url><loc>${origin}/${language}${route}</loc>${['en','sr-Latn','x-default'].map(l=>`<xhtml:link rel="alternate" hreflang="${l}" href="${l==='x-default'&&route==='/'?origin+'/':origin+'/'+(l==='sr-Latn'?'sr':'en')+route}"/>`).join('')}</url>`)).join('\n')}\n</urlset>\n`);
 fs.writeFileSync(path.join(root,'_redirects'),publicRoutes.filter(r=>r!=='/').map(r=>`${r} /en${r} 301\n${r.slice(0,-1)} /en${r} 301`).join('\n')+'\n');
-console.log('Built 16 crawlable localized pages, two localized error pages, reciprocal SEO and legacy redirects.');
+console.log(`Built ${publicRoutes.length*2} crawlable localized pages, two localized error pages, reciprocal SEO and legacy redirects.`);

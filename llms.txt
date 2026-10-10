@@ -10,6 +10,14 @@ Technologies: Kotlin / Jetpack Compose, Flutter / Dart, WinUI / C#, HTML / CSS, 
 - [Homepage](https://danilostoletovic.com/): Projects (#work), biography and technologies (#about), and contact (#contact).
 - [Full portfolio in Markdown](https://danilostoletovic.com/index.md): Detailed public project descriptions, services, biography, and contact links; also served on the homepage when Accept prefers text/markdown.
 
+## Service landing pages
+- [Website development](https://danilostoletovic.com/en/services/business-websites/): Business websites, landing pages and redesigns.
+- [Mobile apps](https://danilostoletovic.com/en/services/mobile-app-development/): Android and multiplatform application development.
+- [Custom software](https://danilostoletovic.com/en/services/custom-software-development/): Scoped applications, internal tools and API integrations.
+- [AI integrations](https://danilostoletovic.com/en/services/ai-integrations/): Assistants and agreed workflow integrations; Ana supplies public conversational evidence.
+- [Website maintenance](https://danilostoletovic.com/en/services/website-maintenance/): Existing-site fixes, technical review and agreed support.
+- Serbian versions use the equivalent /sr/services/ paths, listed in the sitemap.
+
 ## Projects and source
 - [YOLO Smart Vehicle](https://smartvehicle.dev/): Raspberry Pi 5 vision, motor control, video and telemetry with an Android client.
 - [YOLO Android source](https://github.com/smartvehiclelab/android-client): Kotlin / Jetpack Compose client.

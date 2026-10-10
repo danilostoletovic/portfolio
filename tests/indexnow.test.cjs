@@ -10,13 +10,13 @@ test('public key is exact static text, bypasses root-only Functions and has expl
 });
 test('only bilingual canonical indexable pages selected; unsafe and technical URLs rejected',()=>{
  const urls=canonicalPages(fs.readFileSync('sitemap.xml','utf8'),file=>fs.readFileSync(file,'utf8'));
- assert.equal(urls.length,16);assert(urls.includes(origin+'/en/'));assert(urls.includes(origin+'/sr/'));assert(!urls.includes(origin+'/'));
+ assert.equal(urls.length,22);assert(urls.includes(origin+'/en/'));assert(urls.includes(origin+'/sr/'));assert(!urls.includes(origin+'/'));
  for(const url of [origin+'/',origin+'/api/',origin+'/en/404.html',origin+'/en/?a=1',origin+'/en/#about','https://evil.test/en/','http://danilostoletovic.com/en/',origin+'/case-studies/secretary/'])assert.throws(()=>safeURL(url));
  const url=origin+'/en/';const xml=`<loc>${url}</loc>`;
  assert.deepEqual(canonicalPages(xml,()=>html(url).replace('index,follow','noindex,follow')),[]);
  assert.deepEqual(canonicalPages(xml,()=>html(origin+'/sr/')),[]);
  assert.deepEqual(canonicalPages(xml,()=>html(url)+'<meta http-equiv="refresh" content="0">'),[]);
- const body=payload(urls);assert.equal(body.host,'danilostoletovic.com');assert.equal(body.keyLocation,`${origin}/${key}.txt`);assert.equal(body.urlList.length,16);
+ const body=payload(urls);assert.equal(body.host,'danilostoletovic.com');assert.equal(body.keyLocation,`${origin}/${key}.txt`);assert.equal(body.urlList.length,22);
 });
 test('change detection includes added, modified and deleted pages, skips unchanged pages',()=>{
  const en=origin+'/en/',sr=origin+'/sr/',added=origin+'/en/new/',deleted=origin+'/sr/old/';

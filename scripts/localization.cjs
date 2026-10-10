@@ -1,7 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const root = path.resolve(__dirname, '..');
-const routes = ['/', '/case-studies/smart-vehicle/', '/case-studies/secretary/', '/case-studies/class-timetable/', '/case-studies/promptui/', '/case-studies/portfolio/', '/services/mobile-app-development/', '/services/business-websites/', '/404.html'];
+const routes = ['/', '/case-studies/smart-vehicle/', '/case-studies/secretary/', '/case-studies/class-timetable/', '/case-studies/promptui/', '/case-studies/portfolio/', '/services/mobile-app-development/', '/services/business-websites/', '/services/custom-software-development/', '/services/ai-integrations/', '/services/website-maintenance/', '/404.html'];
 const decode = s => s.replace(/&(?:amp|lt|gt|quot|apos|#39|nbsp);/g, x => ({'&amp;':'&','&lt;':'<','&gt;':'>','&quot;':'"','&apos;':"'",'&#39;':"'",'&nbsp;':' '})[x]);
 const normalize = s => decode(s).replace(/\s+/g, ' ').trim();
 const escape = s => s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
