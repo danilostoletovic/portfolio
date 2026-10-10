@@ -20,7 +20,12 @@
   document.querySelectorAll('[data-language]').forEach(link => {
    const update = () => { link.href = localPath(location.href, link.dataset.language); };
    update(); window.addEventListener('hashchange', update);
-   link.addEventListener('click', () => { try { localStorage.setItem('portfolioLanguage', link.dataset.language); } catch { /* Optional storage. */ } });
+   link.addEventListener('click', () => {
+    const selected=link.dataset.language;
+    if(!['en','sr'].includes(selected))return;
+    try { localStorage.setItem('portfolioLanguage', selected); } catch { /* Optional storage. */ }
+    document.cookie=`portfolioLanguage=${selected}; Path=/; Max-Age=31536000; SameSite=Lax${location.protocol==='https:'?'; Secure':''}`;
+   });
   });
  });
 })();

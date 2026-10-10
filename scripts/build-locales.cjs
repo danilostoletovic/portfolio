@@ -72,7 +72,9 @@ for(const route of routes){
 if(missing.size)throw new Error('Missing Serbian translations:\n'+[...missing].join('\n'));
 // The root remains the English authoring template and Markdown negotiation surface.
 let entry=fs.readFileSync(path.join(root,'index.html'),'utf8');
-if(!entry.includes('/js/language-entry.js'))entry=entry.replace('<head>','<head>\n  <script src="/js/language-entry.js?v=1"></script>');
+// Production root routing is HTTP-level. Static previews retain a readable
+// English page and explicit language choices without requiring JavaScript.
+entry=entry.replace(/<script[^>]*src="\/js\/language-entry\.js[^>]*><\/script>\s*/g,'');
 entry=entry.replace(/<meta name="robots" content="[^"]*">/,'<meta name="robots" content="noindex, follow">').replace(/<link rel="canonical" href="[^"]*">/,`<link rel="canonical" href="${origin}/en/">`);
 entry=entry.replace(/<link[^>]*hreflang="[^"]*"[^>]*>\s*/g,'').replace('</head>',alternates('/')+'\n</head>');
 entry=entry.replace(/<noscript id="language-entry-choices">[^]*?<\/noscript>\s*/g,'');

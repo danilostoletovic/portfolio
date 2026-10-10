@@ -4,9 +4,15 @@ const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),
 const root=path.resolve(__dirname,'..'),{routes}=require('../scripts/localization.cjs');
 const redirects=fs.readFileSync(path.join(root,'_redirects'),'utf8').trim().split(/\r?\n/).map(line=>line.split(' '));
 const csp=fs.readFileSync(path.join(root,'_headers'),'utf8').match(/^  Content-Security-Policy: (.+)$/m)[1].trim();
-const server=http.createServer((req,res)=>{
+const edge=import('data:text/javascript;base64,'+Buffer.from(fs.readFileSync(path.join(root,'functions/_middleware.js'),'utf8')).toString('base64'));
+const server=http.createServer(async(req,res)=>{
  const url=new URL(req.url,'http://localhost'),redirect=req.headers['x-test-pages-routing']==='true' && redirects.find(r=>r[0]===url.pathname);
  if(redirect){res.writeHead(301,{Location:redirect[1]+url.search}).end();return;}
+ if(['/', '/index.html'].includes(url.pathname)){
+  const {onRequest}=await edge;
+  const response=await onRequest({request:new Request(new URL(req.url,`http://${req.headers.host}`),{headers:req.headers}),env:{ASSETS:{fetch:async()=>new Response(null,{headers:{'Content-Security-Policy':csp}})}},next:async()=>new Response('unused')});
+  res.writeHead(response.status,Object.fromEntries(response.headers)).end();return;
+ }
  let file=path.resolve(root,'.'+decodeURIComponent(url.pathname)),status=200;
  if(file!==root&&!file.startsWith(root+path.sep)){res.writeHead(403).end();return;}
  if(fs.existsSync(file)&&fs.statSync(file).isDirectory())file=path.join(file,'index.html');
@@ -60,7 +66,7 @@ const server=http.createServer((req,res)=>{
   for(const language of ['en','sr'])for(const route of routes.filter(r=>r!=='/404.html')){
    const response=await nojs.goto(origin+'/'+language+route);assert.equal(response.status(),200);assert(await nojs.locator('h1').isVisible());assert(await nojs.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`${language}${route} no-JS overflow`);
   }
-  await nojs.goto(origin);assert(await nojs.locator('#language-entry-choices').isVisible());await nojs.locator('#language-entry-choices a[href="/sr/"]').click();assert.equal(new URL(nojs.url()).pathname,'/sr/');await nojs.close();
+  await nojs.goto(origin);assert.equal(new URL(nojs.url()).pathname,'/en/');await nojs.locator('[data-language="sr"]').click();assert.equal(new URL(nojs.url()).pathname,'/sr/');await nojs.close();
   const page=await browser.newPage();await mock(page);for(const language of ['en','sr']){const response=await page.goto(origin+'/'+language+'/missing-page');assert.equal(response.status(),404);assert.equal(await page.locator('html').getAttribute('lang'),language==='sr'?'sr-Latn':'en');}
   await page.setExtraHTTPHeaders({'x-test-pages-routing':'true'});await page.goto(origin+'/case-studies/secretary/#boundaries');assert.equal(new URL(page.url()).pathname,'/en/case-studies/secretary/');assert.equal(new URL(page.url()).hash,'#boundaries');await page.close();
   console.log('PASS all 16 independently crawlable no-JS pages, no-JS language choice, legacy redirects, localized 404 status');
