@@ -5,3 +5,4 @@ require('./build-pages.cjs');
 require('./contact.cjs');
 require('./inline-styles.cjs');
 require('./build-locales.cjs');
+require('./build-indexnow.cjs');

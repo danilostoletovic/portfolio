@@ -5,3 +5,4 @@
 /node_modules/
 /.wrangler/
 /.local-review/
+/deployment-version.txt
